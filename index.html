@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>A Simple implementation of iPMF (SiPMF) &mdash; SiPMF 1.0 documentation</title>
+    <title>A simple implementation of the self-learning adaptative umbrella sampling method &mdash; SiPMF 1.0 documentation</title>
     
     <link rel="stylesheet" href="_static/sphinxdoc.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -23,8 +23,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="SiPMF 1.0 documentation" href="#" />
-    <link rel="next" title="System class" href="system.html" /> 
+    <link rel="top" title="SiPMF 1.0 documentation" href="#" /> 
   </head>
   <body role="document">
     <div class="related" role="navigation" aria-label="related navigation">
@@ -36,9 +35,6 @@
         <li class="right" >
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="right" >
-          <a href="system.html" title="System class"
-             accesskey="N">next</a> |</li>
         <li class="nav-item nav-item-0"><a href="#">SiPMF 1.0 documentation</a> &raquo;</li> 
       </ul>
     </div>
@@ -46,18 +42,29 @@
         <div class="sphinxsidebarwrapper">
   <h3><a href="#">Table Of Contents</a></h3>
   <ul>
-<li><a class="reference internal" href="#">A Simple implementation of iPMF (SiPMF)</a><ul>
+<li><a class="reference internal" href="#">A simple implementation of the self-learning adaptative umbrella sampling method</a><ul>
 <li><a class="reference internal" href="#introduction">Introduction</a></li>
-<li><a class="reference internal" href="#installation">Installation</a></li>
+<li><a class="reference internal" href="#method">Method</a><ul>
+<li><a class="reference internal" href="#self-learning-adaptative-umbrella-sampling">self-learning adaptative umbrella sampling</a></li>
+<li><a class="reference internal" href="#convergence-speedup-using-a-linear-exploration-scheme">Convergence speedup using a linear exploration scheme</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#implementation">Implementation</a><ul>
+<li><a class="reference internal" href="#dependencies">Dependencies</a></li>
+<li><a class="reference internal" href="#applicability">Applicability</a></li>
 <li><a class="reference internal" href="#usage">Usage</a></li>
+<li><a class="reference internal" href="#classes">Classes</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#installation">Installation</a><ul>
+<li><a class="reference internal" href="#bibliography">Bibliography</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#indices-and-tables">Indices and tables</a></li>
 </ul>
+</li>
+</ul>
 
-  <h4>Next topic</h4>
-  <p class="topless"><a href="system.html"
-                        title="next chapter">System class</a></p>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
@@ -86,33 +93,89 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="a-simple-implementation-of-ipmf-sipmf">
-<h1>A Simple implementation of iPMF (SiPMF)<a class="headerlink" href="#a-simple-implementation-of-ipmf-sipmf" title="Permalink to this headline">¶</a></h1>
-<p>Contents:</p>
-<div class="toctree-wrapper compound">
-</div>
+  <div class="section" id="a-simple-implementation-of-the-self-learning-adaptative-umbrella-sampling-method">
+<h1>A simple implementation of the self-learning adaptative umbrella sampling method<a class="headerlink" href="#a-simple-implementation-of-the-self-learning-adaptative-umbrella-sampling-method" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="introduction">
 <h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
-<p>This is a simple implementation of an adaptative umbrella sampling method for calculating
-free energy landscapes from molecular dynamics simulations.</p>
+<p>Molecular dynamics (MD) simulations offer the possibility to study biological mechanisms in much more details than any experimental technique. Nevertheless obtaining relevant information from MD simulations is challenging and often unfeasible with simple simulations of the system of interest. One reason for this is that most processes of interest happen on timescales similar or longer than the simulation time within reach with current HPC clusters, leading to insufficient data and therefore results that do not have any statistical significance.
+Many strategies to accelerate sampling or to calculate the free energy landscape governing the process of interest have therefore been developped. Enhanced sampling methods are typically used for exploratory work when there is very little knowledge of the conformational changes associated with the studied process, whereas free-energy calculations are much more efficient but presuppose a good prior understanding of the process. Indeed these approaches require the definition of collective-variables (CV, also called reaction coordinates) which describe the process under study and can be used to calculate the potential of mean force (PMF, or free energy landscape) governing the biological process.
+Most modern methods to calculate PMFs (such as metadynamics or Adaptative Biasing Force) are adaptative, in that they create a representation of the PMF on the fly and use it to bias the ongoing simulation to improve the sampling of the free-energy surface. Their advantage are typically that the simulations are easy to setup, requiring little input apart from the definition of the CVsm and that they concentrate the sampling on relevant regions (regions of low free-energy). Their disadvantage is that they typically require to cross the free energy surface several times to converge. An older method, called umbrella sampling, does not suffer the same problem as the PMF is calculated by combining the data obtained from many simulations restrained to small portions of the free-energy surface (called windows), which avoids the need to diffuse on the free-energy surface. This method is also embarassingly parallelizable as the simulations of different windows are independent. The downside is that the starting configurations for each window have to be generated, which can be tedious, and that the windows typically cover the full free-energy landscape instead of only the regions of interest. The self-learning adaptative umbrella sampling method combines the best of both worlds by automatizing the generation of new windows and restricting it to regions of low-free energy by using a partial PMF obtained from the already simulated windows to decide in which directions to expand the exploration of the free energy surface.  A complete description of the method can be found in ref. <a class="footnote-reference" href="#id5" id="id1">[1]</a>, but a quick summary, which should suffice to understand how the method works and its implementation, is provided below.</p>
+</div>
+<div class="section" id="method">
+<h2>Method<a class="headerlink" href="#method" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="self-learning-adaptative-umbrella-sampling">
+<h3>self-learning adaptative umbrella sampling<a class="headerlink" href="#self-learning-adaptative-umbrella-sampling" title="Permalink to this headline">¶</a></h3>
+<p>The self-learning adaptative umbrella sampling method is based on umbrella sampling, which uses a restraining potential applied to the collective variables to focus the sampling to a particular region of the free energy landscape, called a window. The data obtained from many such windows, which have to partially overlap, is combined to calculate the PMF, using the wheighted-histogram analysis method (WHAM). Using many narrow windows was shown to be the optimal approach for calculating PMFs. The downside of the classical umbrella sampling is that the generation of the windows can be time consuming and that simply setting up windows to explore the full free energy landscape leads to simulation time wasted in regions of very high free energy which are usually irrelevant for the understanding of the studied system.
+The adaptative umbrella sampling method alleviates both these issues by automatizing the generation of windows and limiting the exploration of the free energy landscape to regions of low free energies. This is achieved with a simple procedure which can be summarized as follows:
+1. Simulate the system in a given window
+2. Calculate the PMF from the simulated windows using WHAM (partial PMF).
+3. Construct new windows around the ones corresponding to regions of low free-energies.
+4. Repeat (simulate the system in the newly constructed windows, recalculate the PMF, generate new windows, etc.)</p>
+</div>
+<div class="section" id="convergence-speedup-using-a-linear-exploration-scheme">
+<h3>Convergence speedup using a linear exploration scheme<a class="headerlink" href="#convergence-speedup-using-a-linear-exploration-scheme" title="Permalink to this headline">¶</a></h3>
+<p>One important problem with free-energy calculations is the existence of slow degrees of freedom, orthogonal to the CVs studied. Typically for any free-energy calculation to yield meaningfull results, you have to move slowly enough in the CV space that all other degrees always remain at equilibrium. In umbrella sampling, this means that when a new window is generated (i.e. the center of the constraining potentials is moved), some time will be needed to allow the system to equilibrate before data is collected to calculate the PMF. This equilibration time will be longer is the system is further from equilibrium. Hence our implementation only proceeds to create new windows once the sampling of the window from which they are created (called the <em>parent window</em>) is finished. This should ensure that the <em>parent window</em> is well equilibrated so that the child window should not be too much out of equilibrium. Moreover the child window is created by slowly moving the constraining potential form its position in the parent window to its new position. This is called the <em>initialization phase</em>, whereas the following simulations performed for an initialized window, which have fixed constraining potentials are called <em>run phases</em>.
+Clearly it is also advised to use small windows, i.e. high constraining potentials and small steps in the CV space when creating a new window.</p>
+</div>
+</div>
+<div class="section" id="implementation">
+<h2>Implementation<a class="headerlink" href="#implementation" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="dependencies">
+<h3>Dependencies<a class="headerlink" href="#dependencies" title="Permalink to this headline">¶</a></h3>
+<p>The method is implemented entirely in <strong>python 2.7</strong> but relies on several standard scientific python packages, notably numpy, scipy, matplotlib and pickle. It also relies on an external software for the WHAM calculations, using the <strong>implementation of WHAM by Alan Grossfield</strong> <a class="footnote-reference" href="#id6" id="id2">[2]</a>.</p>
+</div>
+<div class="section" id="applicability">
+<h3>Applicability<a class="headerlink" href="#applicability" title="Permalink to this headline">¶</a></h3>
+<p>The implementation of WHAM used <a class="footnote-reference" href="#id6" id="id3">[2]</a>, effectively limits the use of the current tool to <strong>1 and 2-dimensional systems</strong>.
+The implementation should be general enough to allow support for different MD packages such as <strong>NAMD</strong> (tested), <strong>CHARMM</strong> (untested) and <strong>Gromacs</strong> (untested).
+The implementation is meant for use on HPC clusters, with simulations being submitted to a queuing system, and should be adaptable to different systems. For now it has been tested in <strong>SGE</strong> and will shortly be tested on <strong>SLURM</strong>.</p>
+</div>
+<div class="section" id="usage">
+<h3>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="classes">
+<h3>Classes<a class="headerlink" href="#classes" title="Permalink to this headline">¶</a></h3>
+<p>Each class and their methods are described in the code using docstrings, which can be accessed in python with the <em>help()</em> command or found in the documentation pages for each object below:</p>
+<ul class="simple">
+<li>The <a class="reference internal" href="si_pmf.html"><em>SiPMF</em></a> class is the object used to control the calculation. It defines the process that will run in the background to periodically check the simulations, decide whether to create new windows or submit new jobs.</li>
+<li>The <a class="reference internal" href="environment.html"><em>Environment</em></a> class represents the environment of the cluster and defines communication with the queuing system and WHAM.</li>
+<li>The <a class="reference internal" href="system.html"><em>System</em></a> class contains all the information about the simulated system</li>
+<li>The <a class="reference internal" href="window.html"><em>Window</em></a> class represents a simulation window</li>
+<li>The <a class="reference internal" href="phase.html"><em>Phase</em></a> class represents a simulation phase in a <strong>Window</strong></li>
+<li>The <a class="reference internal" href="job.html"><em>Job</em></a> class represents a job on the HPC cluster.</li>
+<li>The <a class="reference internal" href="pmf.html"><em>PMF</em></a> class represents the PMF</li>
+<li>The <a class="reference internal" href="collective_variable.html"><em>CollectiveVariable</em></a> class represents a collective variable.</li>
+</ul>
+</div>
 </div>
 <div class="section" id="installation">
 <h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
 <p>Be aware that these modules depend on several standard scientific python packages, notably numpy,
-scipy, matplotlib and pickle.</p>
-</div>
-<div class="section" id="usage">
-<h2>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h2>
-<p><a class="reference internal" href="system.html"><em>system</em></a></p>
+scipy, matplotlib and pickle. It also relies on an external software for the WHAM calculations, using the implementation of WHAM by Alan Grossfield <a class="footnote-reference" href="#id6" id="id4">[2]</a>.</p>
+<div class="section" id="bibliography">
+<h3>Bibliography<a class="headerlink" href="#bibliography" title="Permalink to this headline">¶</a></h3>
+<table class="docutils footnote" frame="void" id="id5" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td>Wojtas-Niziurski, Wojciech, Yilin Meng, Benoı̂t Roux, and Simon Bernèche. “Self-Learning Adaptive Umbrella Sampling Method for the Determination of Free Energy Landscapes in Multiple Dimensions.” Journal of Chemical Theory and Computation 9, no. 4 (2013): 1885–95.</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id6" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[2]</td><td><em>(<a class="fn-backref" href="#id2">1</a>, <a class="fn-backref" href="#id3">2</a>, <a class="fn-backref" href="#id4">3</a>)</em> Grossfield, Alan, &#8220;WHAM: the weighted histogram analysis method&#8221;, Version 2.0.9</td></tr>
+</tbody>
+</table>
 </div>
 </div>
 <div class="section" id="indices-and-tables">
-<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h1>
+<h2>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><a class="reference internal" href="genindex.html"><span>Index</span></a></li>
 <li><a class="reference internal" href="py-modindex.html"><span>Module Index</span></a></li>
 <li><a class="reference internal" href="search.html"><span>Search Page</span></a></li>
 </ul>
+</div>
 </div>
 
 
@@ -130,9 +193,6 @@ scipy, matplotlib and pickle.</p>
         <li class="right" >
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="right" >
-          <a href="system.html" title="System class"
-             >next</a> |</li>
         <li class="nav-item nav-item-0"><a href="#">SiPMF 1.0 documentation</a> &raquo;</li> 
       </ul>
     </div>

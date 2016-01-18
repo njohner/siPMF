@@ -1,0 +1,164 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Job class &mdash; SiPMF 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="SiPMF 1.0 documentation" href="index.html" /> 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">SiPMF 1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/job.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-job">
+<span id="job-class"></span><h1>Job class<a class="headerlink" href="#module-job" title="Permalink to this headline">¶</a></h1>
+<p><em>Code author: Niklaus Johner &lt;<a class="reference external" href="mailto:niklaus&#46;johner&#37;&#52;&#48;a3&#46;epfl&#46;ch">niklaus<span>&#46;</span>johner<span>&#64;</span>a3<span>&#46;</span>epfl<span>&#46;</span>ch</a>&gt;</em></p>
+<p>This file contains the <a class="reference internal" href="#job.Job" title="job.Job"><code class="xref py py-class docutils literal"><span class="pre">Job</span></code></a> object which represents a job on a cluster.</p>
+<dl class="class">
+<dt id="job.Job">
+<em class="property">class </em><code class="descname">Job</code><span class="sig-paren">(</span><em>phase</em><span class="sig-paren">)</span><a class="headerlink" href="#job.Job" title="Permalink to this definition">¶</a></dt>
+<dd><p>This class is the bottom of the hierarchical structure used in SiPMF. There is one <a class="reference internal" href="#job.Job" title="job.Job"><code class="xref py py-class docutils literal"><span class="pre">Job</span></code></a>
+object for every <code class="xref py py-class docutils literal"><span class="pre">Phase</span></code> of every <code class="xref py py-class docutils literal"><span class="pre">Window</span></code>. This object is used to submit a job
+to the cluster and check its status</p>
+<dl class="method">
+<dt id="job.Job.GenerateInputFile">
+<code class="descname">GenerateInputFile</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#job.Job.GenerateInputFile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate the MD input file. This function reads the template input file (either the <em>initialization input file</em>
+or the <em>run input file</em>) and replaces several fields by their corresponding values, notably:
+{BASEDIR},{RESTARTDIR},{OUTPUTDIR} as well as the values and spring constants of the CVs. Specifically
+for each CV a field containing its name ({cvname}) is replaced by its value and {cvname_K} is replaced 
+by the spring constant. For the initialization we also replace fields for the collective variables
+from the parent phase {PARENT_cvname} by the value.
+Finally in the initialization input, {INIT_NSTEP} will be replaced by its value (system.init_nstep)
+and for a run phase {RUN_NSTEP} is replaced by system.run_nstep.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="job.Job.GetInitInputReplacementDict">
+<code class="descname">GetInitInputReplacementDict</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#job.Job.GetInitInputReplacementDict" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="job.Job.GetInputReplacementDict">
+<code class="descname">GetInputReplacementDict</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#job.Job.GetInputReplacementDict" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="job.Job.GetRunInputReplacementDict">
+<code class="descname">GetRunInputReplacementDict</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#job.Job.GetRunInputReplacementDict" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="job.Job.Submit">
+<code class="descname">Submit</code><span class="sig-paren">(</span><em>environment</em><span class="sig-paren">)</span><a class="headerlink" href="#job.Job.Submit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Submit the job to the cluster</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>environment</strong> (<code class="xref py py-class docutils literal"><span class="pre">Environment</span></code>) &#8211; The environment used to submit the job</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="job.Job.UpdateStatus">
+<code class="descname">UpdateStatus</code><span class="sig-paren">(</span><em>environment</em><span class="sig-paren">)</span><a class="headerlink" href="#job.Job.UpdateStatus" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check whether the job is still in the queue</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>environment</strong> (<code class="xref py py-class docutils literal"><span class="pre">Environment</span></code>) &#8211; The environment used to check the job status</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">SiPMF 1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2016, Niklaus Johner.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
+    </div>
+  </body>
+</html>
