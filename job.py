@@ -38,7 +38,7 @@ class Job():
     Finally in the initialization input, {INIT_NSTEP} will be replaced by its value (system.init_nstep)
     and for a run phase {RUN_NSTEP} is replaced by system.run_nstep.
     """
-    to_replace=GetInputReplacementDict()
+    to_replace=self.GetInputReplacementDict()
     if self.phase.type=="initialization":
       f=open(self.phase.window.system.GetPathToInitInputFile(),"r")
       to_replace.update(self.GetInitInputReplacementDict())
