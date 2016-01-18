@@ -8,6 +8,9 @@ from job import Job
 from other import PMF,CollectiveVariable
 
 class SiPMF():
+  def __repr__(self):
+    return "SiPMF({0},{1})".format(self.system,self.environment)
+
   def __init__(self,system,environment):
     self.system=system
     self.environment=environment
