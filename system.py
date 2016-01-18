@@ -72,6 +72,8 @@ class System():
     self.basedir=basedir
     self.pmf_dir=os.path.join(basedir,"PMF")
     subprocess.call(["mkdir",self.pmf_dir])
+    self.simu_dir=os.path.join(basedir,"windows")
+    subprocess.call(["mkdir",self.simu_dir])
     self.temperature=temperature
     self.max_E=max_E
     self.cv_list=cv_list

@@ -19,7 +19,7 @@ class Window():
     self.phases=[]
     self.system=system
     self.name="_".join(["".join([cvn,str(cvv)]) for cvn,cvv in zip(self.cv_names,self.cv_values)])
-    self.subdir=os.path.join(system.basedir,self.name)
+    self.subdir=os.path.join(system.simu_dir,self.name)
     self.parent=parent
     r=subprocess.call(["mkdir",self.subdir])
     if r!=0:raise IOError("Problem creating an output directory.")
