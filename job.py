@@ -30,54 +30,49 @@ class Job():
   def GenerateInputFile(self):
     """
     Generate the MD input file. This function reads the template input file (either the *initialization input file*
-    or the *run input file*) and replaces several fields by their corresponding values, such as the values
-    of the collective variables and spring constants.
+    or the *run input file*) and replaces several fields by their corresponding values, notably:
+    {BASEDIR},{RESTARTDIR},{OUTPUTDIR} as well as the values and spring constants of the CVs. Specifically
+    for each CV a field containing its name ({cvname}) is replaced by its value and {cvname_K} is replaced 
+    by the spring constant. For the initialization we also replace fields for the collective variables
+    from the parent phase {PARENT_cvname} by the value.
+    Finally in the initialization input, {INIT_NSTEP} will be replaced by its value (system.init_nstep)
+    and for a run phase {RUN_NSTEP} is replaced by system.run_nstep.
     """
+    to_replace=GetInputReplacementDict()
     if self.phase.type=="initialization":
       f=open(self.phase.window.system.GetPathToInitInputFile(),"r")
-      replace=self.ReplaceInInitInput
+      to_replace.update(self.GetInitInputReplacementDict())
       self.path_to_job_file=os.path.join(self.phase.outdir,self.phase.window.system.init_input_fname)
     elif self.phase.type=="run":
       f=open(self.phase.window.system.GetPathToRunInputFile(),"r")
-      replace=self.ReplaceInRunInput
+      to_replace.update(self.GetRunInputReplacementDict())
       self.path_to_job_file=os.path.join(self.phase.outdir,self.phase.window.system.run_input_fname)
     f_data=f.readlines()
     f.close()
-    f_data=replace(f_data)
+    f_data_new=[]
+    for line in f_data:
+      for key in to_replace:line=line.replace(key,str(to_replace[key]))
+      f_data_new.append(line)
     outf=open(self.path_to_job_file,"w")
-    outf.write("".join(f_data))
+    outf.write("".join(f_data_new))
     outf.close()
 
-  def ReplaceInInput(self,f_data):
+  def GetInputReplacementDict(self):
     to_replace={"{BASEDIR}":self.phase.window.system.basedir,"{RESTARTDIR}":self.phase.restartdir}#,"_RESTARTNAME":self.phase.restartname}
     to_replace.update({"{OUTPUTDIR}":self.phase.outdir})#,"_OUTPUTNAME":self.outname})
     for cvn,cvv in zip(self.phase.window.cv_names,self.phase.window.cv_values):to_replace["{"+cvn+"}"]=cvv
     for cvn,cvk in zip(self.phase.window.cv_names,self.phase.window.spring_constants):to_replace["{"+cvn+"_K}"]=cvk
-    f_data_new=[]
-    for line in f_data:
-      for key in to_replace:line=line.replace(key,str(to_replace[key]))
-      f_data_new.append(line)
-    return f_data_new
+    return to_replace
 
-  def ReplaceInInitInput(self,f_data):
+  def GetInitInputReplacementDict(self):
     to_replace={"{INIT_NSTEP}":self.phase.window.system.init_nstep}
-    f_data=self.ReplaceInInput(f_data)
     for cvn,cvv in zip(self.phase.window.parent.cv_names,self.phase.window.parent.cv_values):to_replace["{PARENT_"+cvn+"}"]=cvv
     for cvn,cvk in zip(self.phase.window.parent.cv_names,self.phase.window.parent.spring_constants):to_replace["{PARENT_"+cvn+"_K}"]=cvk
-    f_data_new=[]
-    for line in f_data:
-      for key in to_replace:line=line.replace(key,str(to_replace[key]))
-      f_data_new.append(line)
-    return f_data_new
+    return to_replace
 
-  def ReplaceInRunInput(self,f_data):
+  def GetRunInputReplacementDict(self):
     to_replace={"{RUN_NSTEP}":self.phase.window.system.run_nstep}
-    f_data=self.ReplaceInInput(f_data)
-    f_data_new=[]
-    for line in f_data:
-      for key in to_replace:line=line.replace(key,str(to_replace[key]))
-      f_data_new.append(line)
-    return f_data_new
+    return to_replace
 
   def Submit(self,environment):
     """
