@@ -37,7 +37,7 @@ class System():
   def __repr__(self):
     return "System({0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11})".format(self.basedir,self.cv_list,self.init_input_fname,self.run_input_fname,self.init_job_fname,self.run_job_fname,self.data_filename,self.init_nstep,self.run_nstep,self.n_data,self.max_E,self.temperature)
 
-  def __init__(self,basedir,cv_list,init_input_fname,run_input_fname,init_job_fname,run_job_fname,data_filename,init_nstep,run_nstep,n_data,max_E,temperature):
+  def __init__(self,basedir,cv_list,init_input_fname,run_input_fname,init_job_fname,run_job_fname,data_filename,init_nstep,run_nstep,n_data,max_E,temperature,check_fnames):
     """
     Creates a new :class:`System` instance.
 
@@ -75,6 +75,7 @@ class System():
     self.simu_dir=os.path.join(basedir,"windows")
     subprocess.call(["mkdir",self.simu_dir])
     self.temperature=temperature
+    self.check_fnames=check_fnames
     self.max_E=max_E
     self.cv_list=cv_list
     self.init_input_fname=init_input_fname
@@ -132,11 +133,17 @@ class System():
     to_remove=[]
     for job in self.unfinished_jobs:
       job.UpdateStatus(environment)
-      if job.status=="finished":
+      if job.queue_status=="finished":
         to_remove.append(job)
     for job in to_remove:
       self.unfinished_jobs.remove(job)
       self.updated_windows.append(job.phase.window)
+      if not job.success:
+        job.phase.n_crashed+=1
+        subprocess.call(["mv",job.phase.outdir,job.phase.outdir+"_back"+str(job.phase.n_crashed)])
+        job.phase.window.phases.remove(job.phase)
+      if job.phase.n_crashed>=2:
+        raise RuntimeError("{0} crashed twice, please verify why and correct error before restarting".format(job.phase))
     return len(self.updated_windows)
 
   def SubmitNewJobs(self,environment):

@@ -22,7 +22,8 @@ class Job():
     :type phase:  :class:`Phase`
     """
     self.phase=phase
-    self.status="To submit"
+    self.queue_status="To submit"
+    self.success=None
     self.GenerateInputFile()
     if self.phase.type=="initialization":self.path_to_job_file=os.path.join(self.phase.window.system.basedir,self.phase.window.system.init_job_fname)
     elif self.phase.type=="run":self.path_to_job_file=os.path.join(self.phase.window.system.basedir,self.phase.window.system.run_job_fname)
@@ -92,9 +93,16 @@ class Job():
     :param environment: The environment used to check the job status
     :type environment: :class:`Environment`
     """
-    if self.status!="finished":
-      self.status=environment.qstat(self.jid)
-      if self.status=="finished" and self.phase.type=="run":
-        self.phase.window.n_run_phases+=1
+    if self.queue_status!="finished":
+      self.queue_status=environment.qstat(self.jid)
+      if self.queue_status=="finished":
+        self.success=True
+        for fname in self.phase.window.system.check_fnames:
+          if not os.path.isfile(os.path.join(self.phase.outdir,fname)):
+            self.success=False
+            break
+        if self.success and self.phase.type=="run":
+          self.phase.window.n_run_phases+=1
+
 
 

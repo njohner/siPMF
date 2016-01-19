@@ -18,6 +18,7 @@ class Phase():
     self.type=phase_type
     self.n_data=0
     self.parent_phase=parent_phase
+    self.n_crashed=0
     if self.parent_phase:
       self.restartdir=parent_phase.outdir
       #self.restartname=parent_phase.outname
