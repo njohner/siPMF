@@ -27,6 +27,7 @@ class SiPMF():
     c=0
     while continue_flag:
       c+=1
+      save_flag=False
       continue_flag=False
       if njobs>=max_jobs or time.time()-t0>=max_time:submit_flag=False
       n_updated_windows=self.system.UpdateUnfinishedJobList(self.environment)
@@ -38,11 +39,13 @@ class SiPMF():
         nj=self.system.SubmitNewJobs(self.environment)
         njobs+=nj
         n_running_jobs=len(self.system.unfinished_jobs)
-        self.system.Save("siPMF_state")
+        #self.system.Save("siPMF_state")
+        if nj>0:save_flag=True
       #If there are no running jobs, this means all current windows are finished
       #So we generate new windows
       if n_running_jobs==0:
         n_new_windows=self.system.GenerateNewWindows(self.environment)
+        if n_new_windows!=0:save_flag=True
         if n_new_windows!=0 and submit_flag:
           nj=self.system.SubmitNewJobs(self.environment)
           njobs+=nj
@@ -54,6 +57,7 @@ class SiPMF():
       if n_running_jobs>0:continue_flag=True
       if njobs<max_jobs and time.time()-t0<max_time:submit_flag=True
       if continue_flag:time.sleep(sleep_length)
+      if save_flag:self.system.Save("siPMF_state")
     #Make sure the PMF is up to date before saving and stopping
     self.system.UpdatePMF(self.environment)
     self.system.Save("siPMF_state")
