@@ -119,7 +119,7 @@ class System():
     :type init_restartdir: :class:`str`
     """
     self.windows.append(Window(self,cv_values,spring_constants))
-    self.init_restartdir=os.path.join(self.basedir,init_restartdir)
+    self.init_restartdir=init_restartdir
     self.updated_windows.append(self.windows[-1])
 
   def UpdateUnfinishedJobList(self,environment):
