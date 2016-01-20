@@ -24,7 +24,8 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="top" title="SiPMF 1.0 documentation" href="index.html" />
-    <link rel="prev" title="A Simple implementation of iPMF (SiPMF)" href="index.html" /> 
+    <link rel="next" title="Window class" href="window.html" />
+    <link rel="prev" title="PMF class" href="pmf.html" /> 
   </head>
   <body role="document">
     <div class="related" role="navigation" aria-label="related navigation">
@@ -37,7 +38,10 @@
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="index.html" title="A Simple implementation of iPMF (SiPMF)"
+          <a href="window.html" title="Window class"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="pmf.html" title="PMF class"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">SiPMF 1.0 documentation</a> &raquo;</li> 
       </ul>
@@ -45,8 +49,11 @@
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
   <h4>Previous topic</h4>
-  <p class="topless"><a href="index.html"
-                        title="previous chapter">A Simple implementation of iPMF (SiPMF)</a></p>
+  <p class="topless"><a href="pmf.html"
+                        title="previous chapter">PMF class</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="window.html"
+                        title="next chapter">Window class</a></p>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
@@ -75,9 +82,11 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="module-system">
-<span id="system-class"></span><h1>System class<a class="headerlink" href="#module-system" title="Permalink to this headline">¶</a></h1>
-<p><em>Code author: Niklaus Johner &lt;<a class="reference external" href="mailto:niklaus&#46;johner&#37;&#52;&#48;a3&#46;epfl&#46;ch">niklaus<span>&#46;</span>johner<span>&#64;</span>a3<span>&#46;</span>epfl<span>&#46;</span>ch</a>&gt;</em></p>
+  <div class="section" id="system-class">
+<h1>System class<a class="headerlink" href="#system-class" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
+</div>
+<span class="target" id="module-system"></span><p><em>Code author: Niklaus Johner &lt;<a class="reference external" href="mailto:niklaus&#46;johner&#37;&#52;&#48;a3&#46;epfl&#46;ch">niklaus<span>&#46;</span>johner<span>&#64;</span>a3<span>&#46;</span>epfl<span>&#46;</span>ch</a>&gt;</em></p>
 <p>This module contains the <a class="reference internal" href="#system.System" title="system.System"><code class="xref py py-class docutils literal"><span class="pre">System</span></code></a> object as well as a function to Load a <a class="reference internal" href="#system.System" title="system.System"><code class="xref py py-class docutils literal"><span class="pre">System</span></code></a>
 from a file.</p>
 <dl class="function">
@@ -96,7 +105,7 @@ from a file.</p>
 
 <dl class="class">
 <dt id="system.System">
-<em class="property">class </em><code class="descname">System</code><span class="sig-paren">(</span><em>basedir</em>, <em>cv_list</em>, <em>init_input_fname</em>, <em>run_input_fname</em>, <em>init_job_fname</em>, <em>run_job_fname</em>, <em>data_filename</em>, <em>init_nstep</em>, <em>run_nstep</em>, <em>n_data</em>, <em>max_E</em>, <em>temperature</em><span class="sig-paren">)</span><a class="headerlink" href="#system.System" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descname">System</code><span class="sig-paren">(</span><em>basedir</em>, <em>cv_list</em>, <em>init_input_fname</em>, <em>run_input_fname</em>, <em>init_job_fname</em>, <em>run_job_fname</em>, <em>data_filename</em>, <em>init_nstep</em>, <em>run_nstep</em>, <em>n_data</em>, <em>max_E</em>, <em>temperature</em>, <em>check_fnames</em><span class="sig-paren">)</span><a class="headerlink" href="#system.System" title="Permalink to this definition">¶</a></dt>
 <dd><p>The <a class="reference internal" href="#system.System" title="system.System"><code class="xref py py-class docutils literal"><span class="pre">System</span></code></a> is the top class in the hierarchical description of a PMF calculation
 by umbrella sampling (<a class="reference internal" href="#system.System" title="system.System"><code class="xref py py-class docutils literal"><span class="pre">System</span></code></a> contains <code class="xref py py-class docutils literal"><span class="pre">Window</span></code> comprising several <code class="xref py py-class docutils literal"><span class="pre">Phase</span></code>, which each
 have one <code class="xref py py-class docutils literal"><span class="pre">Job</span></code>). The corresponding simulations will be carried out in a corresponding hierarchy of directories.
@@ -277,7 +286,10 @@ the list of unfinished jobs and updated windows.</p>
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="index.html" title="A Simple implementation of iPMF (SiPMF)"
+          <a href="window.html" title="Window class"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="pmf.html" title="PMF class"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">SiPMF 1.0 documentation</a> &raquo;</li> 
       </ul>

@@ -23,7 +23,8 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="SiPMF 1.0 documentation" href="#" /> 
+    <link rel="top" title="SiPMF 1.0 documentation" href="#" />
+    <link rel="next" title="SiPMF class" href="si_pmf.html" /> 
   </head>
   <body role="document">
     <div class="related" role="navigation" aria-label="related navigation">
@@ -35,6 +36,9 @@
         <li class="right" >
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
+        <li class="right" >
+          <a href="si_pmf.html" title="SiPMF class"
+             accesskey="N">next</a> |</li>
         <li class="nav-item nav-item-0"><a href="#">SiPMF 1.0 documentation</a> &raquo;</li> 
       </ul>
     </div>
@@ -52,8 +56,14 @@
 <li><a class="reference internal" href="#implementation">Implementation</a><ul>
 <li><a class="reference internal" href="#dependencies">Dependencies</a></li>
 <li><a class="reference internal" href="#applicability">Applicability</a></li>
-<li><a class="reference internal" href="#usage">Usage</a></li>
-<li><a class="reference internal" href="#classes">Classes</a></li>
+<li><a class="reference internal" href="#code-architecture-and-classes">Code architecture and classes</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#usage">Usage</a><ul>
+<li><a class="reference internal" href="#description">Description</a></li>
+<li><a class="reference internal" href="#datafile">Datafile</a></li>
+<li><a class="reference internal" href="#input-files">Input files</a></li>
+<li><a class="reference internal" href="#starting-the-software">Starting the software</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#installation">Installation</a><ul>
@@ -65,6 +75,9 @@
 </li>
 </ul>
 
+  <h4>Next topic</h4>
+  <p class="topless"><a href="si_pmf.html"
+                        title="next chapter">SiPMF class</a></p>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
@@ -95,6 +108,8 @@
             
   <div class="section" id="a-simple-implementation-of-the-self-learning-adaptative-umbrella-sampling-method">
 <h1>A simple implementation of the self-learning adaptative umbrella sampling method<a class="headerlink" href="#a-simple-implementation-of-the-self-learning-adaptative-umbrella-sampling-method" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
+</div>
 <div class="section" id="introduction">
 <h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
 <p>Molecular dynamics (MD) simulations offer the possibility to study biological mechanisms in much more details than any experimental technique. Nevertheless obtaining relevant information from MD simulations is challenging and often unfeasible with simple simulations of the system of interest. One reason for this is that most processes of interest happen on timescales similar or longer than the simulation time within reach with current HPC clusters, leading to insufficient data and therefore results that do not have any statistical significance.
@@ -122,7 +137,7 @@ Clearly it is also advised to use small windows, i.e. high constraining potentia
 <h2>Implementation<a class="headerlink" href="#implementation" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="dependencies">
 <h3>Dependencies<a class="headerlink" href="#dependencies" title="Permalink to this headline">¶</a></h3>
-<p>The method is implemented entirely in <strong>python 2.7</strong> but relies on several standard scientific python packages, notably numpy, scipy, matplotlib and pickle. It also relies on an external software for the WHAM calculations, using the <strong>implementation of WHAM by Alan Grossfield</strong> <a class="footnote-reference" href="#id6" id="id2">[2]</a>.</p>
+<p>The method is implemented entirely in <strong>python 2.7</strong> but relies on several standard scientific python packages, notably numpy, scipy, matplotlib and pickle. It also relies on an external software for the WHAM calculations, using the implementation of <strong>WHAM by Alan Grossfield</strong> <a class="footnote-reference" href="#id6" id="id2">[2]</a>.</p>
 </div>
 <div class="section" id="applicability">
 <h3>Applicability<a class="headerlink" href="#applicability" title="Permalink to this headline">¶</a></h3>
@@ -130,28 +145,94 @@ Clearly it is also advised to use small windows, i.e. high constraining potentia
 The implementation should be general enough to allow support for different MD packages such as <strong>NAMD</strong> (tested), <strong>CHARMM</strong> (untested) and <strong>Gromacs</strong> (untested).
 The implementation is meant for use on HPC clusters, with simulations being submitted to a queuing system, and should be adaptable to different systems. For now it has been tested in <strong>SGE</strong> and will shortly be tested on <strong>SLURM</strong>.</p>
 </div>
-<div class="section" id="usage">
-<h3>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h3>
-</div>
-<div class="section" id="classes">
-<h3>Classes<a class="headerlink" href="#classes" title="Permalink to this headline">¶</a></h3>
-<p>Each class and their methods are described in the code using docstrings, which can be accessed in python with the <em>help()</em> command or found in the documentation pages for each object below:</p>
+<div class="section" id="code-architecture-and-classes">
+<h3>Code architecture and classes<a class="headerlink" href="#code-architecture-and-classes" title="Permalink to this headline">¶</a></h3>
+<p>As described in the <strong>Method</strong> section, umbrella sampling uses many simulation <em>Windows</em>, each corresponding to a simulation restrained to a small region of the CV space. The data from these windows can then be combined to determine the PMF. The generation and sampling of each <em>Window</em> is accomplished with successive simulations, called <em>Phases</em>. Of course, each <em>Phase</em> uses as initial conditions the final state of another simulation (typically the positions, velocities and periodic boundaries), we call this the <em>Parent Phase</em>.</p>
+<p>New <em>Windows</em> are generated from neighboring <em>Windows</em>, so that the change in restraining potential is small and the system remains as close to equilibrium as possible. The <em>Window</em> from which a new <em>Window</em> is generated is called its <em>Parent Window</em> and the simulation used to generate the new <em>Window</em> (or <em>Child Window</em>) is called the <em>Initialization Phase</em>. During this <em>Initialization Phase</em> the position of the constraining potential is moved from its position in the <em>Parent Window</em> to its position in the <em>Child Window</em>. So when generating a new <em>Window</em>, the <em>parent phase</em> for the <em>initialization phase</em> will be the last <em>phase</em> of the <em>parent window</em>.</p>
+<p>This Hierarchical structure is translated both in the python objects and in the data structure (directory tree) generated by the software. In the following we describe these classes and give the names of some of their attributes and methods in brackets. The object at the top of the hierarchy is the <a class="reference internal" href="system.html"><em>System</em></a> class, which contains all the information about the ongoing calculation, notably the path to the directory where the calculations are done (<em>basedir</em>), the list of collective variables (<em>cv_list</em>), filenames of the different template files (MD input files, job submision files) and importantly it contains a list of all the <em>Windows</em> in the <em>System</em>. The <a class="reference internal" href="window.html"><em>Window</em></a> class is the next object in the hierarchy and represents a simulation window. It notably contains the path to corresponding subdirectory (<em>subdir</em>) which is <em>basedir/Window.name</em>. Among its other attributes there are the values of the CVs (center of the restraining potentials) and the spring constants used for that <em>Window</em> as well as a reference to its <em>parent window</em> and to the object above it in the hierarchy, the <em>System</em>. Of course a <a class="reference internal" href="window.html"><em>Window</em></a> also contains a list of the <em>phases</em> that were run for that <em>Window</em>. So the <a class="reference internal" href="phase.html"><em>Phase</em></a> class is the next object of the hierarchy and represents a simulation phase in a <strong>Window</strong>. Again it contains the path to the output directory (<em>outdir</em>) which is <em>subdir/Phase.name</em>, whereto the corresponding simulation output should be written (notably the <em>datafile</em> and the files needed to restart the next simulation). A <em>Phase</em> also has a reference to its <em>Window</em> (<em>window</em>) and to its <em>parent phase</em> (<em>parent_phase</em>). Finally, each <em>Phase</em> corresponds to a <a class="reference internal" href="job.html"><em>Job</em></a>, which represents a job on the HPC cluster. The <em>Job</em> class has methods to submit itself on the cluster (<em>Submit</em>) and check whether the job is still on the cluster or not (<em>UpdateStatus</em>). It also has methods to generate the MD input files needed to run the simulation (<em>GenerateInputFile</em>).</p>
+<p>Apart from this hierarchy, there are 4 more classes in <em>SiPMF</em>. First the <a class="reference internal" href="collective_variable.html"><em>CollectiveVariable</em></a> class, representing a CV. It has a name (<em>name</em>), which is used as a field that will be replaced in the MD inputs by the value of the CV for a particular window. The it has a range (<em>min_value</em> and <em>max_value</em>) and a period (<em>periodicity</em>), number of bins used in the PMF calculation (<em>num_bins</em>) and the size of the steps used for that CV when generating a new window (<em>step_size</em>). The second object is the <a class="reference internal" href="pmf.html"><em>PMF</em></a> class, which represents the free energy landscape. The <em>PMF</em> is a list of points in the CV space (<em>points</em>) and the corresponding free energy (<em>values</em>). It also has an <em>interpolator</em> which is used to return the free energy of any point in the CV space (<em>GetValue</em>). The last class is the <a class="reference internal" href="environment.html"><em>Environment</em></a> class represents the environment of the cluster and defines communication with the queuing system and WHAM. Its main methods are <em>qsub</em> and <em>qstat</em> in reference to the corresponding SGE commands for submitting a job and checking the status of a job. As an attribute it has the path to the WHAM executable (<em>wham_executable</em>).</p>
+<p>Finally the last class is <a class="reference internal" href="si_pmf.html"><em>SiPMF</em></a>, which defines the process that will run in the background and oversee the whole calculation. Its attributes are the <a class="reference internal" href="environment.html"><em>Environment</em></a> and the <a class="reference internal" href="system.html"><em>System</em></a> and it has a <em>Run</em> method which is used to run the calculation.</p>
+<p>Each class and their methods are described in the code using docstrings, which can be accessed in python with the <em>help()</em> command or found in the corresponding documentation pages below:</p>
 <ul class="simple">
 <li>The <a class="reference internal" href="si_pmf.html"><em>SiPMF</em></a> class is the object used to control the calculation. It defines the process that will run in the background to periodically check the simulations, decide whether to create new windows or submit new jobs.</li>
 <li>The <a class="reference internal" href="environment.html"><em>Environment</em></a> class represents the environment of the cluster and defines communication with the queuing system and WHAM.</li>
 <li>The <a class="reference internal" href="system.html"><em>System</em></a> class contains all the information about the simulated system</li>
 <li>The <a class="reference internal" href="window.html"><em>Window</em></a> class represents a simulation window</li>
-<li>The <a class="reference internal" href="phase.html"><em>Phase</em></a> class represents a simulation phase in a <strong>Window</strong></li>
+<li>The <a class="reference internal" href="phase.html"><em>Phase</em></a> class represents a simulation phase in a <em>Window</em></li>
 <li>The <a class="reference internal" href="job.html"><em>Job</em></a> class represents a job on the HPC cluster.</li>
 <li>The <a class="reference internal" href="pmf.html"><em>PMF</em></a> class represents the PMF</li>
 <li>The <a class="reference internal" href="collective_variable.html"><em>CollectiveVariable</em></a> class represents a collective variable.</li>
+<li>The <a class="reference internal" href="si_pmf.html"><em>SiPMF</em></a> class defines the process controling the whole calculation.</li>
 </ul>
+</div>
+</div>
+<div class="section" id="usage">
+<h2>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h2>
+<p>To accompany the description of the usage found below, complete examples containing all the needed files to run <em>SiPMF</em> can be found in the <em>examples</em> directory.</p>
+<div class="section" id="description">
+<h3>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a></h3>
+<p>This implementation of self-learning adaptative umbrella sampling is meant for calculating a PMF on an HPC cluster. It will automatically generate simulation <em>Windows</em> and <em>Phases</em> (see the <strong>Implementation</strong> section for details) and submit the corresponding jobs to the queuing system of the cluster. It qill periodically check the status of the submitted jobs, calculate the current PMF and decide whether to generate new windows and/or submit new jobs.</p>
+<p>For each window and for each phase, a specific MD input file has to be generated, making sure that the potentials constraining the CVs are centered at the right values and that the simulation starts with the correct positions and velocities. This is achieved by replacing fields in a template input file provided by the user with the appropriate values (see the <strong>Input files</strong> section below for more details).</p>
+<p>As the software runs, it will create a directory tree matching the hierarchy of the python objects representing the <em>System</em> (see <strong>Code architecture and classes</strong> for more details). Specifically it will create a <em>PMF</em> directory containing the current PMF and plots of the evolution of the PMF with increasing number of <em>Windows</em>. It will also create a <em>windows</em> directory containing one subdirectory for each <em>Window</em> in the <em>System</em>. Each of these subdirectories contains itself a directory for each <em>Phase</em> in the <em>Window</em>. The output of the corresponding simulations should be written to these directories.</p>
+</div>
+<div class="section" id="datafile">
+<h3>Datafile<a class="headerlink" href="#datafile" title="Permalink to this headline">¶</a></h3>
+<p>The datafiles are the files storing the trajectories of the CVs. There should be one datafile for each simulation phase and it should be saved in the corresponding directory. The first column in the datafile should correspond to the time (although this is not used in any way). The following columns should correspond to the values of the CVs (in the same order as in the <em>System.cv_list</em>). Lines starting with an # will be considered comments and will not be parsed. These files are used to determin how much data has been accumulated for a given window and also for computing the PMF. For <em>NAMD</em>, the colvar module allows to write out the trajectory of the CVs in the format needed here (file with extension .colvars.traj). For <em>CHARMM</em>, the datafile has to be generated after the simulation is done by post-processing the trajectory. This should be done directly by each <em>Job</em> and should therefore be included in the job submission files (see the <em>Examples</em> directory for an example of how the code can be used with different MD engines).</p>
+</div>
+<div class="section" id="input-files">
+<h3>Input files<a class="headerlink" href="#input-files" title="Permalink to this headline">¶</a></h3>
+<p>The user must provide two template MD input files (one for <em>initialization phases</em> and one for <em>run phases</em>) that the software will modify to generate the inputs specific for each simulation phase.  For this we use fields in the input files that the software will replace by appropriate values derived from the <em>System</em>, <em>Window</em> or <em>Phase</em>. These fields are delimited with curly braces in the template input files, for example <em>{RESTARTDIR}</em> will be replaced by the path pointing to the directory of the parent phase. The modified input file will be written out (with the same filename as the template input file) in the directory of the corresponding <em>Phase</em>. The complete list of fields is given below:</p>
+<ul class="simple">
+<li>{BASEDIR} -&gt; <em>System.basedir</em> : the path of the directory of the calculation</li>
+<li>{RESTARTDIR} -&gt; <em>Phase.restartdir</em> : the path to the parent phase from which this phase is restarted</li>
+<li>{OUTPUTDIR} -&gt; <em>Phase.outdir</em> : the path to the directory of this phase, where the simulation output should be written, notably the datafile</li>
+<li>{INIT_NSTEP} -&gt; <em>System.init_nstep</em> : The number of MD steps run in an <em>initialization phase</em>. This only gets replaced in initialization phases.</li>
+<li>{RUN_NSTEP} -&gt; <em>System.run_nstep</em> : The number of steps run in a <em>run phase</em>. This only gets replaced in run phases.</li>
+</ul>
+<p>Moreover special fields are created for each CV, on for the center of the constraint and one for the spring constant. These fields have the same name as the CV. So for the i&lt;sup&gt;th&lt;/sup&gt; <em>cv</em> with name <em>cv.name=CVNAME</em> we will have the two fields:</p>
+<ul class="simple">
+<li>{<em>CVNAME</em>} -&gt; <em>cv_values[i]</em> : The center of the constraint for the cv.</li>
+<li>{<em>CVNAME*_K} -&gt; *window.spring_constants[i]</em> : The spring constant of the cv.</li>
+</ul>
+<p>Similar fields are also available for the centers of the constraints in the parent phase (only for initialization phases):</p>
+<ul class="simple">
+<li>{PARENT_*CVNAME*} -&gt; <em>Phase.parent.cv_values[i]</em> : The center of the constraint for the cv in the parent phase.</li>
+</ul>
+<p>Apart from the MD imput files, the user must provide two job submission files (again one for <em>initialization phases</em> and one for <em>run phases</em>) which can be submitted to the cluster and will run the simulation. Specifically the software will submit the job file from within the directory of the corresponding <em>Phase</em>, which means that the current workind directory will contain the modified MD input file which can therefore be directly accessed with a relative path ,e.g. <em>./input_filename</em>.</p>
+</div>
+<div class="section" id="starting-the-software">
+<h3>Starting the software<a class="headerlink" href="#starting-the-software" title="Permalink to this headline">¶</a></h3>
+<p>Apart from the MD input files and job submission scripts, you will need a python script to setup and launch the calculations.
+This script will have to:</p>
+<ul class="simple">
+<li>import siPMF</li>
+<li>Define the <a class="reference internal" href="environment.html"><em>Environment</em></a></li>
+<li>Define the <a class="reference internal" href="collective_variable.html"><em>Collective Variables</em></a></li>
+<li>Define the <a class="reference internal" href="system.html"><em>System</em></a></li>
+<li>Initialize the <a class="reference internal" href="system.html"><em>System</em></a>, i.e. generate the first window from which the calculation will be started</li>
+<li>Create the <a class="reference internal" href="si_pmf.html"><em>SiPMF</em></a> object</li>
+<li>Start the calculations with <em>SiPMF.Run</em></li>
+</ul>
+<p>The list of arguments that have to be passed to define the various objects, can be found in the corresponding documentation (<a class="reference internal" href="environment.html"><em>Environment</em></a>, <a class="reference internal" href="collective_variable.html"><em>Collective Variables</em></a>, <a class="reference internal" href="system.html"><em>System</em></a>,:doc:<cite>SiPMF &lt;si_pmf&gt;</cite>) pages or in the examples.</p>
 </div>
 </div>
 <div class="section" id="installation">
 <h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
+<p>These modules are installed and used as any python module. Simply download the modules (<em>git clone https://github.com/njohner/siPMF.git .destination/path</em>) and either add the <em>destination/path</em> to your <em>PYTHONPATH</em>, for example in your <em>.bashrc</em>:</p>
+<div class="highlight-python"><div class="highlight"><pre>export PYTHONPATH=destination/path:$PYTHONPATH
+</pre></div>
+</div>
+<p>Alternatively you can add the path directly in the python script used to start the calculation:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">sys</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s">&quot;path/to/the/python/files&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>In the python script you well then have to import the module:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">siPMF</span> <span class="kn">import</span> <span class="o">*</span>
+</pre></div>
+</div>
 <p>Be aware that these modules depend on several standard scientific python packages, notably numpy,
-scipy, matplotlib and pickle. It also relies on an external software for the WHAM calculations, using the implementation of WHAM by Alan Grossfield <a class="footnote-reference" href="#id6" id="id4">[2]</a>.</p>
+scipy, matplotlib and pickle, which will have to be installed in your <em>python</em>. It also relies on an external software for the WHAM calculations, using the implementation of WHAM by Alan Grossfield <a class="footnote-reference" href="#id6" id="id4">[2]</a>. This can be downloaded from his website (<a class="reference external" href="http://membrane.urmc.rochester.edu/content/wham">http://membrane.urmc.rochester.edu/content/wham</a>). Please cite his work if you use this tool.</p>
 <div class="section" id="bibliography">
 <h3>Bibliography<a class="headerlink" href="#bibliography" title="Permalink to this headline">¶</a></h3>
 <table class="docutils footnote" frame="void" id="id5" rules="none">
@@ -193,6 +274,9 @@ scipy, matplotlib and pickle. It also relies on an external software for the WHA
         <li class="right" >
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
+        <li class="right" >
+          <a href="si_pmf.html" title="SiPMF class"
+             >next</a> |</li>
         <li class="nav-item nav-item-0"><a href="#">SiPMF 1.0 documentation</a> &raquo;</li> 
       </ul>
     </div>
