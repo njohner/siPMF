@@ -4,7 +4,7 @@
 This module contains the :class:`System` object as well as a function to Load a :class:`System`
 from a file.
 """
-import os,subprocess
+import os,subprocess,logging
 import numpy as npy
 import matplotlib.pyplot as plt
 import itertools
@@ -148,6 +148,7 @@ class System():
       else:
         job.phase.window.last_phase_n_crashed=0
       if job.phase.window.last_phase_n_crashed>=2:
+        logging.error("{0} crashed twice, please verify why and correct error before restarting".format(job.phase))
         raise RuntimeError("{0} crashed twice, please verify why and correct error before restarting".format(job.phase))
     return len(self.updated_windows),n_crashed
 
@@ -220,7 +221,9 @@ class System():
         if not cv.periodicity:p=x+str(0)
         else:p=x+str(cv.periodicity)
         pmf_cmd.extend([p,cv.min_value,cv.max_value,cv.num_bins])
-    else:raise ValueError("Can only work with one or two collective variables")
+    else:
+      logging.error("Can only work with one or two collective variables")
+      raise ValueError("Can only work with one or two collective variables")
     pmf_cmd.append(0.01)#tolerance
     pmf_cmd.append(self.temperature)
     pmf_cmd.append(0)#Number of pads for periodic variables

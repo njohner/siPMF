@@ -1,4 +1,4 @@
-import os,subprocess
+import os,subprocess,logging
 import numpy as npy
 import scipy.interpolate
 import matplotlib.pyplot as plt
@@ -8,6 +8,11 @@ from phase import Phase
 class Window():
   def __repr__(self):
     return "Window({0},{1},{2},{3})".format(self.system,self.cv_values,self.spring_constants,self.parent)
+
+  def __str__(self):
+    if self.parent:
+      return "{0} initialized form {1}".format(self.name,self.parent.name)
+    else:return "{0}".format(self.name)
 
   def __init__(self,system,cv_values,spring_constants,parent=None):
     self.cv_names=[cv.name for cv in system.cv_list]
@@ -21,8 +26,14 @@ class Window():
     self.name="_".join(["".join([cvn,str(cvv)]) for cvn,cvv in zip(self.cv_names,self.cv_values)])
     self.subdir=os.path.join(system.simu_dir,self.name)
     self.parent=parent
+    logging.info("New window: {0}".format(self))
+    if os.path.isdir(self.subdir):
+      logging.error("Directory already exists, program stops to avoid overwriting {0}.".format(self.subdir))
+      raise IOError("Directory already exists, program stops to avoid overwriting {0}.".format(self.subdir))
     r=subprocess.call(["mkdir",self.subdir])
-    if r!=0:raise IOError("Problem creating an output directory.")
+    if r!=0:
+      logging.error("Problem creating output directory {0}.".format(self.subdir))
+      raise IOError("Problem creating output directory {0}.".format(self.subdir))
     self.last_phase_n_crashed=0
 
   def SubmitNextPhase(self,environment):

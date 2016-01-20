@@ -1,5 +1,4 @@
 import time,logging,os
-
 from environment import Environment
 from system import System
 from window import Window
@@ -11,10 +10,9 @@ class SiPMF():
   def __repr__(self):
     return "SiPMF({0},{1})".format(self.system,self.environment)
 
-  def __init__(self,system,environment,log_filename="siPMF.log"):
+  def __init__(self,system,environment):
     self.system=system
     self.environment=environment
-    logging.basicConfig(filename=os.path.join(self.system.basedir,"siPMF.log"),level=logging.INFO,format='%(asctime)s: %(levelname)s: %(message)s', datefmt='%m/%d/%Y %I:%M %p')
 
   def Run(self,max_time,max_jobs,sleep_length):
     njobs=0
