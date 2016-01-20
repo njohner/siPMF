@@ -272,7 +272,7 @@ class System():
       El=[float(self.pmf.interpolator.__call__(tuple(npy.array(window.cv_values)-npy.array(delta_cv)))) for delta_cv in delta_cv_list]
       window.free_energy=min(El)
 
-  def PlotPMF(self):
+  def PlotPMF(self,add_arrow=False):
     """
     Plot the PMF.
     """
@@ -291,6 +291,23 @@ class System():
       plt.colorbar()
       plt.xlabel(self.cv_list[0].name)
       plt.ylabel(self.cv_list[1].name)
+      if add_arrow:
+        p1=self.cv_list[0].periodicity
+        p2=self.cv_list[1].periodicity
+        if not p1:p1=0
+        if not p2:p2=0
+        for w in self.windows:
+          if w.parent:
+            p=w.parent
+            x=p.cv_values[0]
+            y=p.cv_values[1]
+            dx=w.cv_values[0]-x
+            dy=w.cv_values[1]-y
+            if p1 and dx>p1/2.:dx=dx-p1
+            if p1 and dx<-p1/2.:dx=dx+p1
+            if p2 and dy>p2/2.:dy=dy-p2
+            if p2 and dy<-p2/2.:dy=dy+p2
+            plt.arrow(x,y,dx,dy,length_includes_head=True,head_length=3,head_width=3)
       plt.savefig(os.path.join(self.pmf_dir,"pmf_{0}.png").format(len(self.windows)))
       plt.close()
     elif self.dimensionality==1:
