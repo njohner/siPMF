@@ -34,9 +34,9 @@ class SiPMF():
       save_flag=False
       continue_flag=False
       if njobs>=max_jobs or time.time()-t0>=max_time:submit_flag=False
-      n_updated_windows=self.system.UpdateUnfinishedJobList(self.environment)
+      n_updated_windows,n_crashed_jobs=self.system.UpdateUnfinishedJobList(self.environment)
       n_finished_jobs=n_running_jobs-len(self.system.unfinished_jobs)
-      if n_finished_jobs>0:logging.info("{0} jobs finished".format(n_finished_jobs))
+      if n_finished_jobs>0:logging.info("{0} jobs finished among which {1} crashed".format(n_finished_jobs,n_crashed_jobs))
       n_running_jobs=len(self.system.unfinished_jobs)
       #If some windows finised during last sleep (or if there are new windows)
       #We submit new jobs

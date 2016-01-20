@@ -23,6 +23,7 @@ class Window():
     self.parent=parent
     r=subprocess.call(["mkdir",self.subdir])
     if r!=0:raise IOError("Problem creating an output directory.")
+    self.last_phase_n_crashed=0
 
   def SubmitNextPhase(self,environment):
     if self.is_new:

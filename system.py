@@ -130,6 +130,7 @@ class System():
     :param environment:  The environment used to check the job status
     :type environemnt: :class:`Environment`
     """
+    n_crashed=0
     to_remove=[]
     for job in self.unfinished_jobs:
       job.UpdateStatus(environment)
@@ -139,12 +140,16 @@ class System():
       self.unfinished_jobs.remove(job)
       self.updated_windows.append(job.phase.window)
       if not job.success:
-        job.phase.n_crashed+=1
-        subprocess.call(["mv",job.phase.outdir,job.phase.outdir+"_back"+str(job.phase.n_crashed)])
+        n_crashed+=1
+        job.phase.window.last_phase_n_crashed+=1
+        subprocess.call(["mv",job.phase.outdir,job.phase.outdir+"_back"+str(job.phase.window.last_phase_n_crashed)])
         job.phase.window.phases.remove(job.phase)
-      if job.phase.n_crashed>=2:
+        if len(job.phase.window.phases)==0:job.phase.window.is_new=True
+      else:
+        job.phase.window.last_phase_n_crashed=0
+      if job.phase.window.last_phase_n_crashed>=2:
         raise RuntimeError("{0} crashed twice, please verify why and correct error before restarting".format(job.phase))
-    return len(self.updated_windows)
+    return len(self.updated_windows),n_crashed
 
   def SubmitNewJobs(self,environment):
     """
