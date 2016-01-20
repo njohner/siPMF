@@ -1,0 +1,15 @@
+#!/bin/bash
+#$ -N pmf_init
+#$ -S /bin/sh
+#$ -cwd
+#Merge the standard out and standard error to one file
+#$ -j y
+#$ -l h_rt=1:00:00
+#$ -pe smp 1
+#$ -l membycore=1G
+
+
+module load NAMD/2.9_Linux-x86_64-multicore
+
+namd2 +p$NSLOTS initialize.in > test.out
+#namd2 +p$NSLOTS namd_run.in > test.out

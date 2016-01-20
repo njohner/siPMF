@@ -1,0 +1,41 @@
+colvarsTrajFrequency     10
+colvarsRestartFrequency  100
+
+colvar {
+        name angle1
+        dihedral {
+                group1 { atomNumbers 7 }
+		group2 { atomNumbers 17 }
+		group3 { atomNumbers 15 }
+		group4 { atomNumbers 5 }
+		}
+        }
+
+
+colvar {
+        name angle2
+        dihedral {
+                group1 { atomNumbers 15 }
+                group2 { atomNumbers 17 }
+                group3 { atomNumbers 7 }
+                group4 { atomNumbers 9 }
+                }
+        }
+
+
+harmonic {
+        name phi
+        colvars angle1
+        centers $phi
+        forceConstant $phik
+}
+
+harmonic {
+        name psi
+        colvars angle2
+        centers $psi
+        forceConstant $psik
+}
+
+
+

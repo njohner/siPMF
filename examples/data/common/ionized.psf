@@ -1,0 +1,1447 @@
+PSF
+
+       8 !NTITLE
+ REMARKS original generated structure x-plor psf file
+ REMARKS 2 patches were applied to the molecule.
+ REMARKS topology top_all27_prot_ligands.rtf 
+ REMARKS topology top_all36_lipid.rtf 
+ REMARKS segment ALAD { first CT3; last ACE; auto angles dihedrals }
+ REMARKS segment SOLV { first NONE; last NONE; auto angles dihedrals }
+ REMARKS patch CT3 ALAD:1  
+ REMARKS patch ACE ALAD:1  
+
+     982 !NATOM
+       1 ALAD 1    ALA  CAY  CT3   -0.270000       12.0110           0
+       2 ALAD 1    ALA  HY1  HA     0.090000        1.0080           0
+       3 ALAD 1    ALA  HY2  HA     0.090000        1.0080           0
+       4 ALAD 1    ALA  HY3  HA     0.090000        1.0080           0
+       5 ALAD 1    ALA  CY   C      0.510000       12.0110           0
+       6 ALAD 1    ALA  OY   O     -0.510000       15.9990           0
+       7 ALAD 1    ALA  C    C      0.510000       12.0110           0
+       8 ALAD 1    ALA  O    O     -0.510000       15.9990           0
+       9 ALAD 1    ALA  NT   NH1   -0.470000       14.0070           0
+      10 ALAD 1    ALA  HNT  H      0.310000        1.0080           0
+      11 ALAD 1    ALA  CAT  CT3   -0.110000       12.0110           0
+      12 ALAD 1    ALA  HT1  HA     0.090000        1.0080           0
+      13 ALAD 1    ALA  HT2  HA     0.090000        1.0080           0
+      14 ALAD 1    ALA  HT3  HA     0.090000        1.0080           0
+      15 ALAD 1    ALA  N    NH1   -0.470000       14.0070           0
+      16 ALAD 1    ALA  HN   H      0.310000        1.0080           0
+      17 ALAD 1    ALA  CA   CT1    0.070000       12.0110           0
+      18 ALAD 1    ALA  HA   HB     0.090000        1.0080           0
+      19 ALAD 1    ALA  CB   CT3   -0.270000       12.0110           0
+      20 ALAD 1    ALA  HB1  HA     0.090000        1.0080           0
+      21 ALAD 1    ALA  HB2  HA     0.090000        1.0080           0
+      22 ALAD 1    ALA  HB3  HA     0.090000        1.0080           0
+      23 SOLV 1    TIP3 OH2  OT    -0.834000       15.9994           0
+      24 SOLV 1    TIP3 H1   HT     0.417000        1.0080           0
+      25 SOLV 1    TIP3 H2   HT     0.417000        1.0080           0
+      26 SOLV 2    TIP3 OH2  OT    -0.834000       15.9994           0
+      27 SOLV 2    TIP3 H1   HT     0.417000        1.0080           0
+      28 SOLV 2    TIP3 H2   HT     0.417000        1.0080           0
+      29 SOLV 3    TIP3 OH2  OT    -0.834000       15.9994           0
+      30 SOLV 3    TIP3 H1   HT     0.417000        1.0080           0
+      31 SOLV 3    TIP3 H2   HT     0.417000        1.0080           0
+      32 SOLV 4    TIP3 OH2  OT    -0.834000       15.9994           0
+      33 SOLV 4    TIP3 H1   HT     0.417000        1.0080           0
+      34 SOLV 4    TIP3 H2   HT     0.417000        1.0080           0
+      35 SOLV 5    TIP3 OH2  OT    -0.834000       15.9994           0
+      36 SOLV 5    TIP3 H1   HT     0.417000        1.0080           0
+      37 SOLV 5    TIP3 H2   HT     0.417000        1.0080           0
+      38 SOLV 6    TIP3 OH2  OT    -0.834000       15.9994           0
+      39 SOLV 6    TIP3 H1   HT     0.417000        1.0080           0
+      40 SOLV 6    TIP3 H2   HT     0.417000        1.0080           0
+      41 SOLV 7    TIP3 OH2  OT    -0.834000       15.9994           0
+      42 SOLV 7    TIP3 H1   HT     0.417000        1.0080           0
+      43 SOLV 7    TIP3 H2   HT     0.417000        1.0080           0
+      44 SOLV 8    TIP3 OH2  OT    -0.834000       15.9994           0
+      45 SOLV 8    TIP3 H1   HT     0.417000        1.0080           0
+      46 SOLV 8    TIP3 H2   HT     0.417000        1.0080           0
+      47 SOLV 9    TIP3 OH2  OT    -0.834000       15.9994           0
+      48 SOLV 9    TIP3 H1   HT     0.417000        1.0080           0
+      49 SOLV 9    TIP3 H2   HT     0.417000        1.0080           0
+      50 SOLV 10   TIP3 OH2  OT    -0.834000       15.9994           0
+      51 SOLV 10   TIP3 H1   HT     0.417000        1.0080           0
+      52 SOLV 10   TIP3 H2   HT     0.417000        1.0080           0
+      53 SOLV 11   TIP3 OH2  OT    -0.834000       15.9994           0
+      54 SOLV 11   TIP3 H1   HT     0.417000        1.0080           0
+      55 SOLV 11   TIP3 H2   HT     0.417000        1.0080           0
+      56 SOLV 12   TIP3 OH2  OT    -0.834000       15.9994           0
+      57 SOLV 12   TIP3 H1   HT     0.417000        1.0080           0
+      58 SOLV 12   TIP3 H2   HT     0.417000        1.0080           0
+      59 SOLV 13   TIP3 OH2  OT    -0.834000       15.9994           0
+      60 SOLV 13   TIP3 H1   HT     0.417000        1.0080           0
+      61 SOLV 13   TIP3 H2   HT     0.417000        1.0080           0
+      62 SOLV 14   TIP3 OH2  OT    -0.834000       15.9994           0
+      63 SOLV 14   TIP3 H1   HT     0.417000        1.0080           0
+      64 SOLV 14   TIP3 H2   HT     0.417000        1.0080           0
+      65 SOLV 15   TIP3 OH2  OT    -0.834000       15.9994           0
+      66 SOLV 15   TIP3 H1   HT     0.417000        1.0080           0
+      67 SOLV 15   TIP3 H2   HT     0.417000        1.0080           0
+      68 SOLV 16   TIP3 OH2  OT    -0.834000       15.9994           0
+      69 SOLV 16   TIP3 H1   HT     0.417000        1.0080           0
+      70 SOLV 16   TIP3 H2   HT     0.417000        1.0080           0
+      71 SOLV 17   TIP3 OH2  OT    -0.834000       15.9994           0
+      72 SOLV 17   TIP3 H1   HT     0.417000        1.0080           0
+      73 SOLV 17   TIP3 H2   HT     0.417000        1.0080           0
+      74 SOLV 18   TIP3 OH2  OT    -0.834000       15.9994           0
+      75 SOLV 18   TIP3 H1   HT     0.417000        1.0080           0
+      76 SOLV 18   TIP3 H2   HT     0.417000        1.0080           0
+      77 SOLV 19   TIP3 OH2  OT    -0.834000       15.9994           0
+      78 SOLV 19   TIP3 H1   HT     0.417000        1.0080           0
+      79 SOLV 19   TIP3 H2   HT     0.417000        1.0080           0
+      80 SOLV 20   TIP3 OH2  OT    -0.834000       15.9994           0
+      81 SOLV 20   TIP3 H1   HT     0.417000        1.0080           0
+      82 SOLV 20   TIP3 H2   HT     0.417000        1.0080           0
+      83 SOLV 21   TIP3 OH2  OT    -0.834000       15.9994           0
+      84 SOLV 21   TIP3 H1   HT     0.417000        1.0080           0
+      85 SOLV 21   TIP3 H2   HT     0.417000        1.0080           0
+      86 SOLV 22   TIP3 OH2  OT    -0.834000       15.9994           0
+      87 SOLV 22   TIP3 H1   HT     0.417000        1.0080           0
+      88 SOLV 22   TIP3 H2   HT     0.417000        1.0080           0
+      89 SOLV 23   TIP3 OH2  OT    -0.834000       15.9994           0
+      90 SOLV 23   TIP3 H1   HT     0.417000        1.0080           0
+      91 SOLV 23   TIP3 H2   HT     0.417000        1.0080           0
+      92 SOLV 24   TIP3 OH2  OT    -0.834000       15.9994           0
+      93 SOLV 24   TIP3 H1   HT     0.417000        1.0080           0
+      94 SOLV 24   TIP3 H2   HT     0.417000        1.0080           0
+      95 SOLV 25   TIP3 OH2  OT    -0.834000       15.9994           0
+      96 SOLV 25   TIP3 H1   HT     0.417000        1.0080           0
+      97 SOLV 25   TIP3 H2   HT     0.417000        1.0080           0
+      98 SOLV 26   TIP3 OH2  OT    -0.834000       15.9994           0
+      99 SOLV 26   TIP3 H1   HT     0.417000        1.0080           0
+     100 SOLV 26   TIP3 H2   HT     0.417000        1.0080           0
+     101 SOLV 27   TIP3 OH2  OT    -0.834000       15.9994           0
+     102 SOLV 27   TIP3 H1   HT     0.417000        1.0080           0
+     103 SOLV 27   TIP3 H2   HT     0.417000        1.0080           0
+     104 SOLV 28   TIP3 OH2  OT    -0.834000       15.9994           0
+     105 SOLV 28   TIP3 H1   HT     0.417000        1.0080           0
+     106 SOLV 28   TIP3 H2   HT     0.417000        1.0080           0
+     107 SOLV 29   TIP3 OH2  OT    -0.834000       15.9994           0
+     108 SOLV 29   TIP3 H1   HT     0.417000        1.0080           0
+     109 SOLV 29   TIP3 H2   HT     0.417000        1.0080           0
+     110 SOLV 30   TIP3 OH2  OT    -0.834000       15.9994           0
+     111 SOLV 30   TIP3 H1   HT     0.417000        1.0080           0
+     112 SOLV 30   TIP3 H2   HT     0.417000        1.0080           0
+     113 SOLV 31   TIP3 OH2  OT    -0.834000       15.9994           0
+     114 SOLV 31   TIP3 H1   HT     0.417000        1.0080           0
+     115 SOLV 31   TIP3 H2   HT     0.417000        1.0080           0
+     116 SOLV 32   TIP3 OH2  OT    -0.834000       15.9994           0
+     117 SOLV 32   TIP3 H1   HT     0.417000        1.0080           0
+     118 SOLV 32   TIP3 H2   HT     0.417000        1.0080           0
+     119 SOLV 33   TIP3 OH2  OT    -0.834000       15.9994           0
+     120 SOLV 33   TIP3 H1   HT     0.417000        1.0080           0
+     121 SOLV 33   TIP3 H2   HT     0.417000        1.0080           0
+     122 SOLV 34   TIP3 OH2  OT    -0.834000       15.9994           0
+     123 SOLV 34   TIP3 H1   HT     0.417000        1.0080           0
+     124 SOLV 34   TIP3 H2   HT     0.417000        1.0080           0
+     125 SOLV 35   TIP3 OH2  OT    -0.834000       15.9994           0
+     126 SOLV 35   TIP3 H1   HT     0.417000        1.0080           0
+     127 SOLV 35   TIP3 H2   HT     0.417000        1.0080           0
+     128 SOLV 36   TIP3 OH2  OT    -0.834000       15.9994           0
+     129 SOLV 36   TIP3 H1   HT     0.417000        1.0080           0
+     130 SOLV 36   TIP3 H2   HT     0.417000        1.0080           0
+     131 SOLV 37   TIP3 OH2  OT    -0.834000       15.9994           0
+     132 SOLV 37   TIP3 H1   HT     0.417000        1.0080           0
+     133 SOLV 37   TIP3 H2   HT     0.417000        1.0080           0
+     134 SOLV 38   TIP3 OH2  OT    -0.834000       15.9994           0
+     135 SOLV 38   TIP3 H1   HT     0.417000        1.0080           0
+     136 SOLV 38   TIP3 H2   HT     0.417000        1.0080           0
+     137 SOLV 39   TIP3 OH2  OT    -0.834000       15.9994           0
+     138 SOLV 39   TIP3 H1   HT     0.417000        1.0080           0
+     139 SOLV 39   TIP3 H2   HT     0.417000        1.0080           0
+     140 SOLV 40   TIP3 OH2  OT    -0.834000       15.9994           0
+     141 SOLV 40   TIP3 H1   HT     0.417000        1.0080           0
+     142 SOLV 40   TIP3 H2   HT     0.417000        1.0080           0
+     143 SOLV 41   TIP3 OH2  OT    -0.834000       15.9994           0
+     144 SOLV 41   TIP3 H1   HT     0.417000        1.0080           0
+     145 SOLV 41   TIP3 H2   HT     0.417000        1.0080           0
+     146 SOLV 42   TIP3 OH2  OT    -0.834000       15.9994           0
+     147 SOLV 42   TIP3 H1   HT     0.417000        1.0080           0
+     148 SOLV 42   TIP3 H2   HT     0.417000        1.0080           0
+     149 SOLV 43   TIP3 OH2  OT    -0.834000       15.9994           0
+     150 SOLV 43   TIP3 H1   HT     0.417000        1.0080           0
+     151 SOLV 43   TIP3 H2   HT     0.417000        1.0080           0
+     152 SOLV 44   TIP3 OH2  OT    -0.834000       15.9994           0
+     153 SOLV 44   TIP3 H1   HT     0.417000        1.0080           0
+     154 SOLV 44   TIP3 H2   HT     0.417000        1.0080           0
+     155 SOLV 45   TIP3 OH2  OT    -0.834000       15.9994           0
+     156 SOLV 45   TIP3 H1   HT     0.417000        1.0080           0
+     157 SOLV 45   TIP3 H2   HT     0.417000        1.0080           0
+     158 SOLV 46   TIP3 OH2  OT    -0.834000       15.9994           0
+     159 SOLV 46   TIP3 H1   HT     0.417000        1.0080           0
+     160 SOLV 46   TIP3 H2   HT     0.417000        1.0080           0
+     161 SOLV 47   TIP3 OH2  OT    -0.834000       15.9994           0
+     162 SOLV 47   TIP3 H1   HT     0.417000        1.0080           0
+     163 SOLV 47   TIP3 H2   HT     0.417000        1.0080           0
+     164 SOLV 48   TIP3 OH2  OT    -0.834000       15.9994           0
+     165 SOLV 48   TIP3 H1   HT     0.417000        1.0080           0
+     166 SOLV 48   TIP3 H2   HT     0.417000        1.0080           0
+     167 SOLV 49   TIP3 OH2  OT    -0.834000       15.9994           0
+     168 SOLV 49   TIP3 H1   HT     0.417000        1.0080           0
+     169 SOLV 49   TIP3 H2   HT     0.417000        1.0080           0
+     170 SOLV 50   TIP3 OH2  OT    -0.834000       15.9994           0
+     171 SOLV 50   TIP3 H1   HT     0.417000        1.0080           0
+     172 SOLV 50   TIP3 H2   HT     0.417000        1.0080           0
+     173 SOLV 51   TIP3 OH2  OT    -0.834000       15.9994           0
+     174 SOLV 51   TIP3 H1   HT     0.417000        1.0080           0
+     175 SOLV 51   TIP3 H2   HT     0.417000        1.0080           0
+     176 SOLV 52   TIP3 OH2  OT    -0.834000       15.9994           0
+     177 SOLV 52   TIP3 H1   HT     0.417000        1.0080           0
+     178 SOLV 52   TIP3 H2   HT     0.417000        1.0080           0
+     179 SOLV 53   TIP3 OH2  OT    -0.834000       15.9994           0
+     180 SOLV 53   TIP3 H1   HT     0.417000        1.0080           0
+     181 SOLV 53   TIP3 H2   HT     0.417000        1.0080           0
+     182 SOLV 54   TIP3 OH2  OT    -0.834000       15.9994           0
+     183 SOLV 54   TIP3 H1   HT     0.417000        1.0080           0
+     184 SOLV 54   TIP3 H2   HT     0.417000        1.0080           0
+     185 SOLV 55   TIP3 OH2  OT    -0.834000       15.9994           0
+     186 SOLV 55   TIP3 H1   HT     0.417000        1.0080           0
+     187 SOLV 55   TIP3 H2   HT     0.417000        1.0080           0
+     188 SOLV 56   TIP3 OH2  OT    -0.834000       15.9994           0
+     189 SOLV 56   TIP3 H1   HT     0.417000        1.0080           0
+     190 SOLV 56   TIP3 H2   HT     0.417000        1.0080           0
+     191 SOLV 57   TIP3 OH2  OT    -0.834000       15.9994           0
+     192 SOLV 57   TIP3 H1   HT     0.417000        1.0080           0
+     193 SOLV 57   TIP3 H2   HT     0.417000        1.0080           0
+     194 SOLV 58   TIP3 OH2  OT    -0.834000       15.9994           0
+     195 SOLV 58   TIP3 H1   HT     0.417000        1.0080           0
+     196 SOLV 58   TIP3 H2   HT     0.417000        1.0080           0
+     197 SOLV 59   TIP3 OH2  OT    -0.834000       15.9994           0
+     198 SOLV 59   TIP3 H1   HT     0.417000        1.0080           0
+     199 SOLV 59   TIP3 H2   HT     0.417000        1.0080           0
+     200 SOLV 60   TIP3 OH2  OT    -0.834000       15.9994           0
+     201 SOLV 60   TIP3 H1   HT     0.417000        1.0080           0
+     202 SOLV 60   TIP3 H2   HT     0.417000        1.0080           0
+     203 SOLV 61   TIP3 OH2  OT    -0.834000       15.9994           0
+     204 SOLV 61   TIP3 H1   HT     0.417000        1.0080           0
+     205 SOLV 61   TIP3 H2   HT     0.417000        1.0080           0
+     206 SOLV 62   TIP3 OH2  OT    -0.834000       15.9994           0
+     207 SOLV 62   TIP3 H1   HT     0.417000        1.0080           0
+     208 SOLV 62   TIP3 H2   HT     0.417000        1.0080           0
+     209 SOLV 63   TIP3 OH2  OT    -0.834000       15.9994           0
+     210 SOLV 63   TIP3 H1   HT     0.417000        1.0080           0
+     211 SOLV 63   TIP3 H2   HT     0.417000        1.0080           0
+     212 SOLV 64   TIP3 OH2  OT    -0.834000       15.9994           0
+     213 SOLV 64   TIP3 H1   HT     0.417000        1.0080           0
+     214 SOLV 64   TIP3 H2   HT     0.417000        1.0080           0
+     215 SOLV 65   TIP3 OH2  OT    -0.834000       15.9994           0
+     216 SOLV 65   TIP3 H1   HT     0.417000        1.0080           0
+     217 SOLV 65   TIP3 H2   HT     0.417000        1.0080           0
+     218 SOLV 66   TIP3 OH2  OT    -0.834000       15.9994           0
+     219 SOLV 66   TIP3 H1   HT     0.417000        1.0080           0
+     220 SOLV 66   TIP3 H2   HT     0.417000        1.0080           0
+     221 SOLV 67   TIP3 OH2  OT    -0.834000       15.9994           0
+     222 SOLV 67   TIP3 H1   HT     0.417000        1.0080           0
+     223 SOLV 67   TIP3 H2   HT     0.417000        1.0080           0
+     224 SOLV 68   TIP3 OH2  OT    -0.834000       15.9994           0
+     225 SOLV 68   TIP3 H1   HT     0.417000        1.0080           0
+     226 SOLV 68   TIP3 H2   HT     0.417000        1.0080           0
+     227 SOLV 69   TIP3 OH2  OT    -0.834000       15.9994           0
+     228 SOLV 69   TIP3 H1   HT     0.417000        1.0080           0
+     229 SOLV 69   TIP3 H2   HT     0.417000        1.0080           0
+     230 SOLV 70   TIP3 OH2  OT    -0.834000       15.9994           0
+     231 SOLV 70   TIP3 H1   HT     0.417000        1.0080           0
+     232 SOLV 70   TIP3 H2   HT     0.417000        1.0080           0
+     233 SOLV 71   TIP3 OH2  OT    -0.834000       15.9994           0
+     234 SOLV 71   TIP3 H1   HT     0.417000        1.0080           0
+     235 SOLV 71   TIP3 H2   HT     0.417000        1.0080           0
+     236 SOLV 72   TIP3 OH2  OT    -0.834000       15.9994           0
+     237 SOLV 72   TIP3 H1   HT     0.417000        1.0080           0
+     238 SOLV 72   TIP3 H2   HT     0.417000        1.0080           0
+     239 SOLV 73   TIP3 OH2  OT    -0.834000       15.9994           0
+     240 SOLV 73   TIP3 H1   HT     0.417000        1.0080           0
+     241 SOLV 73   TIP3 H2   HT     0.417000        1.0080           0
+     242 SOLV 74   TIP3 OH2  OT    -0.834000       15.9994           0
+     243 SOLV 74   TIP3 H1   HT     0.417000        1.0080           0
+     244 SOLV 74   TIP3 H2   HT     0.417000        1.0080           0
+     245 SOLV 75   TIP3 OH2  OT    -0.834000       15.9994           0
+     246 SOLV 75   TIP3 H1   HT     0.417000        1.0080           0
+     247 SOLV 75   TIP3 H2   HT     0.417000        1.0080           0
+     248 SOLV 76   TIP3 OH2  OT    -0.834000       15.9994           0
+     249 SOLV 76   TIP3 H1   HT     0.417000        1.0080           0
+     250 SOLV 76   TIP3 H2   HT     0.417000        1.0080           0
+     251 SOLV 77   TIP3 OH2  OT    -0.834000       15.9994           0
+     252 SOLV 77   TIP3 H1   HT     0.417000        1.0080           0
+     253 SOLV 77   TIP3 H2   HT     0.417000        1.0080           0
+     254 SOLV 78   TIP3 OH2  OT    -0.834000       15.9994           0
+     255 SOLV 78   TIP3 H1   HT     0.417000        1.0080           0
+     256 SOLV 78   TIP3 H2   HT     0.417000        1.0080           0
+     257 SOLV 79   TIP3 OH2  OT    -0.834000       15.9994           0
+     258 SOLV 79   TIP3 H1   HT     0.417000        1.0080           0
+     259 SOLV 79   TIP3 H2   HT     0.417000        1.0080           0
+     260 SOLV 80   TIP3 OH2  OT    -0.834000       15.9994           0
+     261 SOLV 80   TIP3 H1   HT     0.417000        1.0080           0
+     262 SOLV 80   TIP3 H2   HT     0.417000        1.0080           0
+     263 SOLV 81   TIP3 OH2  OT    -0.834000       15.9994           0
+     264 SOLV 81   TIP3 H1   HT     0.417000        1.0080           0
+     265 SOLV 81   TIP3 H2   HT     0.417000        1.0080           0
+     266 SOLV 82   TIP3 OH2  OT    -0.834000       15.9994           0
+     267 SOLV 82   TIP3 H1   HT     0.417000        1.0080           0
+     268 SOLV 82   TIP3 H2   HT     0.417000        1.0080           0
+     269 SOLV 83   TIP3 OH2  OT    -0.834000       15.9994           0
+     270 SOLV 83   TIP3 H1   HT     0.417000        1.0080           0
+     271 SOLV 83   TIP3 H2   HT     0.417000        1.0080           0
+     272 SOLV 84   TIP3 OH2  OT    -0.834000       15.9994           0
+     273 SOLV 84   TIP3 H1   HT     0.417000        1.0080           0
+     274 SOLV 84   TIP3 H2   HT     0.417000        1.0080           0
+     275 SOLV 85   TIP3 OH2  OT    -0.834000       15.9994           0
+     276 SOLV 85   TIP3 H1   HT     0.417000        1.0080           0
+     277 SOLV 85   TIP3 H2   HT     0.417000        1.0080           0
+     278 SOLV 86   TIP3 OH2  OT    -0.834000       15.9994           0
+     279 SOLV 86   TIP3 H1   HT     0.417000        1.0080           0
+     280 SOLV 86   TIP3 H2   HT     0.417000        1.0080           0
+     281 SOLV 87   TIP3 OH2  OT    -0.834000       15.9994           0
+     282 SOLV 87   TIP3 H1   HT     0.417000        1.0080           0
+     283 SOLV 87   TIP3 H2   HT     0.417000        1.0080           0
+     284 SOLV 88   TIP3 OH2  OT    -0.834000       15.9994           0
+     285 SOLV 88   TIP3 H1   HT     0.417000        1.0080           0
+     286 SOLV 88   TIP3 H2   HT     0.417000        1.0080           0
+     287 SOLV 89   TIP3 OH2  OT    -0.834000       15.9994           0
+     288 SOLV 89   TIP3 H1   HT     0.417000        1.0080           0
+     289 SOLV 89   TIP3 H2   HT     0.417000        1.0080           0
+     290 SOLV 90   TIP3 OH2  OT    -0.834000       15.9994           0
+     291 SOLV 90   TIP3 H1   HT     0.417000        1.0080           0
+     292 SOLV 90   TIP3 H2   HT     0.417000        1.0080           0
+     293 SOLV 91   TIP3 OH2  OT    -0.834000       15.9994           0
+     294 SOLV 91   TIP3 H1   HT     0.417000        1.0080           0
+     295 SOLV 91   TIP3 H2   HT     0.417000        1.0080           0
+     296 SOLV 92   TIP3 OH2  OT    -0.834000       15.9994           0
+     297 SOLV 92   TIP3 H1   HT     0.417000        1.0080           0
+     298 SOLV 92   TIP3 H2   HT     0.417000        1.0080           0
+     299 SOLV 93   TIP3 OH2  OT    -0.834000       15.9994           0
+     300 SOLV 93   TIP3 H1   HT     0.417000        1.0080           0
+     301 SOLV 93   TIP3 H2   HT     0.417000        1.0080           0
+     302 SOLV 94   TIP3 OH2  OT    -0.834000       15.9994           0
+     303 SOLV 94   TIP3 H1   HT     0.417000        1.0080           0
+     304 SOLV 94   TIP3 H2   HT     0.417000        1.0080           0
+     305 SOLV 95   TIP3 OH2  OT    -0.834000       15.9994           0
+     306 SOLV 95   TIP3 H1   HT     0.417000        1.0080           0
+     307 SOLV 95   TIP3 H2   HT     0.417000        1.0080           0
+     308 SOLV 96   TIP3 OH2  OT    -0.834000       15.9994           0
+     309 SOLV 96   TIP3 H1   HT     0.417000        1.0080           0
+     310 SOLV 96   TIP3 H2   HT     0.417000        1.0080           0
+     311 SOLV 97   TIP3 OH2  OT    -0.834000       15.9994           0
+     312 SOLV 97   TIP3 H1   HT     0.417000        1.0080           0
+     313 SOLV 97   TIP3 H2   HT     0.417000        1.0080           0
+     314 SOLV 98   TIP3 OH2  OT    -0.834000       15.9994           0
+     315 SOLV 98   TIP3 H1   HT     0.417000        1.0080           0
+     316 SOLV 98   TIP3 H2   HT     0.417000        1.0080           0
+     317 SOLV 99   TIP3 OH2  OT    -0.834000       15.9994           0
+     318 SOLV 99   TIP3 H1   HT     0.417000        1.0080           0
+     319 SOLV 99   TIP3 H2   HT     0.417000        1.0080           0
+     320 SOLV 100  TIP3 OH2  OT    -0.834000       15.9994           0
+     321 SOLV 100  TIP3 H1   HT     0.417000        1.0080           0
+     322 SOLV 100  TIP3 H2   HT     0.417000        1.0080           0
+     323 SOLV 101  TIP3 OH2  OT    -0.834000       15.9994           0
+     324 SOLV 101  TIP3 H1   HT     0.417000        1.0080           0
+     325 SOLV 101  TIP3 H2   HT     0.417000        1.0080           0
+     326 SOLV 102  TIP3 OH2  OT    -0.834000       15.9994           0
+     327 SOLV 102  TIP3 H1   HT     0.417000        1.0080           0
+     328 SOLV 102  TIP3 H2   HT     0.417000        1.0080           0
+     329 SOLV 103  TIP3 OH2  OT    -0.834000       15.9994           0
+     330 SOLV 103  TIP3 H1   HT     0.417000        1.0080           0
+     331 SOLV 103  TIP3 H2   HT     0.417000        1.0080           0
+     332 SOLV 104  TIP3 OH2  OT    -0.834000       15.9994           0
+     333 SOLV 104  TIP3 H1   HT     0.417000        1.0080           0
+     334 SOLV 104  TIP3 H2   HT     0.417000        1.0080           0
+     335 SOLV 105  TIP3 OH2  OT    -0.834000       15.9994           0
+     336 SOLV 105  TIP3 H1   HT     0.417000        1.0080           0
+     337 SOLV 105  TIP3 H2   HT     0.417000        1.0080           0
+     338 SOLV 106  TIP3 OH2  OT    -0.834000       15.9994           0
+     339 SOLV 106  TIP3 H1   HT     0.417000        1.0080           0
+     340 SOLV 106  TIP3 H2   HT     0.417000        1.0080           0
+     341 SOLV 107  TIP3 OH2  OT    -0.834000       15.9994           0
+     342 SOLV 107  TIP3 H1   HT     0.417000        1.0080           0
+     343 SOLV 107  TIP3 H2   HT     0.417000        1.0080           0
+     344 SOLV 108  TIP3 OH2  OT    -0.834000       15.9994           0
+     345 SOLV 108  TIP3 H1   HT     0.417000        1.0080           0
+     346 SOLV 108  TIP3 H2   HT     0.417000        1.0080           0
+     347 SOLV 109  TIP3 OH2  OT    -0.834000       15.9994           0
+     348 SOLV 109  TIP3 H1   HT     0.417000        1.0080           0
+     349 SOLV 109  TIP3 H2   HT     0.417000        1.0080           0
+     350 SOLV 110  TIP3 OH2  OT    -0.834000       15.9994           0
+     351 SOLV 110  TIP3 H1   HT     0.417000        1.0080           0
+     352 SOLV 110  TIP3 H2   HT     0.417000        1.0080           0
+     353 SOLV 111  TIP3 OH2  OT    -0.834000       15.9994           0
+     354 SOLV 111  TIP3 H1   HT     0.417000        1.0080           0
+     355 SOLV 111  TIP3 H2   HT     0.417000        1.0080           0
+     356 SOLV 112  TIP3 OH2  OT    -0.834000       15.9994           0
+     357 SOLV 112  TIP3 H1   HT     0.417000        1.0080           0
+     358 SOLV 112  TIP3 H2   HT     0.417000        1.0080           0
+     359 SOLV 113  TIP3 OH2  OT    -0.834000       15.9994           0
+     360 SOLV 113  TIP3 H1   HT     0.417000        1.0080           0
+     361 SOLV 113  TIP3 H2   HT     0.417000        1.0080           0
+     362 SOLV 114  TIP3 OH2  OT    -0.834000       15.9994           0
+     363 SOLV 114  TIP3 H1   HT     0.417000        1.0080           0
+     364 SOLV 114  TIP3 H2   HT     0.417000        1.0080           0
+     365 SOLV 115  TIP3 OH2  OT    -0.834000       15.9994           0
+     366 SOLV 115  TIP3 H1   HT     0.417000        1.0080           0
+     367 SOLV 115  TIP3 H2   HT     0.417000        1.0080           0
+     368 SOLV 116  TIP3 OH2  OT    -0.834000       15.9994           0
+     369 SOLV 116  TIP3 H1   HT     0.417000        1.0080           0
+     370 SOLV 116  TIP3 H2   HT     0.417000        1.0080           0
+     371 SOLV 117  TIP3 OH2  OT    -0.834000       15.9994           0
+     372 SOLV 117  TIP3 H1   HT     0.417000        1.0080           0
+     373 SOLV 117  TIP3 H2   HT     0.417000        1.0080           0
+     374 SOLV 118  TIP3 OH2  OT    -0.834000       15.9994           0
+     375 SOLV 118  TIP3 H1   HT     0.417000        1.0080           0
+     376 SOLV 118  TIP3 H2   HT     0.417000        1.0080           0
+     377 SOLV 119  TIP3 OH2  OT    -0.834000       15.9994           0
+     378 SOLV 119  TIP3 H1   HT     0.417000        1.0080           0
+     379 SOLV 119  TIP3 H2   HT     0.417000        1.0080           0
+     380 SOLV 120  TIP3 OH2  OT    -0.834000       15.9994           0
+     381 SOLV 120  TIP3 H1   HT     0.417000        1.0080           0
+     382 SOLV 120  TIP3 H2   HT     0.417000        1.0080           0
+     383 SOLV 121  TIP3 OH2  OT    -0.834000       15.9994           0
+     384 SOLV 121  TIP3 H1   HT     0.417000        1.0080           0
+     385 SOLV 121  TIP3 H2   HT     0.417000        1.0080           0
+     386 SOLV 122  TIP3 OH2  OT    -0.834000       15.9994           0
+     387 SOLV 122  TIP3 H1   HT     0.417000        1.0080           0
+     388 SOLV 122  TIP3 H2   HT     0.417000        1.0080           0
+     389 SOLV 123  TIP3 OH2  OT    -0.834000       15.9994           0
+     390 SOLV 123  TIP3 H1   HT     0.417000        1.0080           0
+     391 SOLV 123  TIP3 H2   HT     0.417000        1.0080           0
+     392 SOLV 124  TIP3 OH2  OT    -0.834000       15.9994           0
+     393 SOLV 124  TIP3 H1   HT     0.417000        1.0080           0
+     394 SOLV 124  TIP3 H2   HT     0.417000        1.0080           0
+     395 SOLV 125  TIP3 OH2  OT    -0.834000       15.9994           0
+     396 SOLV 125  TIP3 H1   HT     0.417000        1.0080           0
+     397 SOLV 125  TIP3 H2   HT     0.417000        1.0080           0
+     398 SOLV 126  TIP3 OH2  OT    -0.834000       15.9994           0
+     399 SOLV 126  TIP3 H1   HT     0.417000        1.0080           0
+     400 SOLV 126  TIP3 H2   HT     0.417000        1.0080           0
+     401 SOLV 127  TIP3 OH2  OT    -0.834000       15.9994           0
+     402 SOLV 127  TIP3 H1   HT     0.417000        1.0080           0
+     403 SOLV 127  TIP3 H2   HT     0.417000        1.0080           0
+     404 SOLV 128  TIP3 OH2  OT    -0.834000       15.9994           0
+     405 SOLV 128  TIP3 H1   HT     0.417000        1.0080           0
+     406 SOLV 128  TIP3 H2   HT     0.417000        1.0080           0
+     407 SOLV 129  TIP3 OH2  OT    -0.834000       15.9994           0
+     408 SOLV 129  TIP3 H1   HT     0.417000        1.0080           0
+     409 SOLV 129  TIP3 H2   HT     0.417000        1.0080           0
+     410 SOLV 130  TIP3 OH2  OT    -0.834000       15.9994           0
+     411 SOLV 130  TIP3 H1   HT     0.417000        1.0080           0
+     412 SOLV 130  TIP3 H2   HT     0.417000        1.0080           0
+     413 SOLV 131  TIP3 OH2  OT    -0.834000       15.9994           0
+     414 SOLV 131  TIP3 H1   HT     0.417000        1.0080           0
+     415 SOLV 131  TIP3 H2   HT     0.417000        1.0080           0
+     416 SOLV 132  TIP3 OH2  OT    -0.834000       15.9994           0
+     417 SOLV 132  TIP3 H1   HT     0.417000        1.0080           0
+     418 SOLV 132  TIP3 H2   HT     0.417000        1.0080           0
+     419 SOLV 133  TIP3 OH2  OT    -0.834000       15.9994           0
+     420 SOLV 133  TIP3 H1   HT     0.417000        1.0080           0
+     421 SOLV 133  TIP3 H2   HT     0.417000        1.0080           0
+     422 SOLV 134  TIP3 OH2  OT    -0.834000       15.9994           0
+     423 SOLV 134  TIP3 H1   HT     0.417000        1.0080           0
+     424 SOLV 134  TIP3 H2   HT     0.417000        1.0080           0
+     425 SOLV 135  TIP3 OH2  OT    -0.834000       15.9994           0
+     426 SOLV 135  TIP3 H1   HT     0.417000        1.0080           0
+     427 SOLV 135  TIP3 H2   HT     0.417000        1.0080           0
+     428 SOLV 136  TIP3 OH2  OT    -0.834000       15.9994           0
+     429 SOLV 136  TIP3 H1   HT     0.417000        1.0080           0
+     430 SOLV 136  TIP3 H2   HT     0.417000        1.0080           0
+     431 SOLV 137  TIP3 OH2  OT    -0.834000       15.9994           0
+     432 SOLV 137  TIP3 H1   HT     0.417000        1.0080           0
+     433 SOLV 137  TIP3 H2   HT     0.417000        1.0080           0
+     434 SOLV 138  TIP3 OH2  OT    -0.834000       15.9994           0
+     435 SOLV 138  TIP3 H1   HT     0.417000        1.0080           0
+     436 SOLV 138  TIP3 H2   HT     0.417000        1.0080           0
+     437 SOLV 139  TIP3 OH2  OT    -0.834000       15.9994           0
+     438 SOLV 139  TIP3 H1   HT     0.417000        1.0080           0
+     439 SOLV 139  TIP3 H2   HT     0.417000        1.0080           0
+     440 SOLV 140  TIP3 OH2  OT    -0.834000       15.9994           0
+     441 SOLV 140  TIP3 H1   HT     0.417000        1.0080           0
+     442 SOLV 140  TIP3 H2   HT     0.417000        1.0080           0
+     443 SOLV 141  TIP3 OH2  OT    -0.834000       15.9994           0
+     444 SOLV 141  TIP3 H1   HT     0.417000        1.0080           0
+     445 SOLV 141  TIP3 H2   HT     0.417000        1.0080           0
+     446 SOLV 142  TIP3 OH2  OT    -0.834000       15.9994           0
+     447 SOLV 142  TIP3 H1   HT     0.417000        1.0080           0
+     448 SOLV 142  TIP3 H2   HT     0.417000        1.0080           0
+     449 SOLV 143  TIP3 OH2  OT    -0.834000       15.9994           0
+     450 SOLV 143  TIP3 H1   HT     0.417000        1.0080           0
+     451 SOLV 143  TIP3 H2   HT     0.417000        1.0080           0
+     452 SOLV 144  TIP3 OH2  OT    -0.834000       15.9994           0
+     453 SOLV 144  TIP3 H1   HT     0.417000        1.0080           0
+     454 SOLV 144  TIP3 H2   HT     0.417000        1.0080           0
+     455 SOLV 145  TIP3 OH2  OT    -0.834000       15.9994           0
+     456 SOLV 145  TIP3 H1   HT     0.417000        1.0080           0
+     457 SOLV 145  TIP3 H2   HT     0.417000        1.0080           0
+     458 SOLV 146  TIP3 OH2  OT    -0.834000       15.9994           0
+     459 SOLV 146  TIP3 H1   HT     0.417000        1.0080           0
+     460 SOLV 146  TIP3 H2   HT     0.417000        1.0080           0
+     461 SOLV 147  TIP3 OH2  OT    -0.834000       15.9994           0
+     462 SOLV 147  TIP3 H1   HT     0.417000        1.0080           0
+     463 SOLV 147  TIP3 H2   HT     0.417000        1.0080           0
+     464 SOLV 148  TIP3 OH2  OT    -0.834000       15.9994           0
+     465 SOLV 148  TIP3 H1   HT     0.417000        1.0080           0
+     466 SOLV 148  TIP3 H2   HT     0.417000        1.0080           0
+     467 SOLV 149  TIP3 OH2  OT    -0.834000       15.9994           0
+     468 SOLV 149  TIP3 H1   HT     0.417000        1.0080           0
+     469 SOLV 149  TIP3 H2   HT     0.417000        1.0080           0
+     470 SOLV 150  TIP3 OH2  OT    -0.834000       15.9994           0
+     471 SOLV 150  TIP3 H1   HT     0.417000        1.0080           0
+     472 SOLV 150  TIP3 H2   HT     0.417000        1.0080           0
+     473 SOLV 151  TIP3 OH2  OT    -0.834000       15.9994           0
+     474 SOLV 151  TIP3 H1   HT     0.417000        1.0080           0
+     475 SOLV 151  TIP3 H2   HT     0.417000        1.0080           0
+     476 SOLV 152  TIP3 OH2  OT    -0.834000       15.9994           0
+     477 SOLV 152  TIP3 H1   HT     0.417000        1.0080           0
+     478 SOLV 152  TIP3 H2   HT     0.417000        1.0080           0
+     479 SOLV 153  TIP3 OH2  OT    -0.834000       15.9994           0
+     480 SOLV 153  TIP3 H1   HT     0.417000        1.0080           0
+     481 SOLV 153  TIP3 H2   HT     0.417000        1.0080           0
+     482 SOLV 154  TIP3 OH2  OT    -0.834000       15.9994           0
+     483 SOLV 154  TIP3 H1   HT     0.417000        1.0080           0
+     484 SOLV 154  TIP3 H2   HT     0.417000        1.0080           0
+     485 SOLV 155  TIP3 OH2  OT    -0.834000       15.9994           0
+     486 SOLV 155  TIP3 H1   HT     0.417000        1.0080           0
+     487 SOLV 155  TIP3 H2   HT     0.417000        1.0080           0
+     488 SOLV 156  TIP3 OH2  OT    -0.834000       15.9994           0
+     489 SOLV 156  TIP3 H1   HT     0.417000        1.0080           0
+     490 SOLV 156  TIP3 H2   HT     0.417000        1.0080           0
+     491 SOLV 157  TIP3 OH2  OT    -0.834000       15.9994           0
+     492 SOLV 157  TIP3 H1   HT     0.417000        1.0080           0
+     493 SOLV 157  TIP3 H2   HT     0.417000        1.0080           0
+     494 SOLV 158  TIP3 OH2  OT    -0.834000       15.9994           0
+     495 SOLV 158  TIP3 H1   HT     0.417000        1.0080           0
+     496 SOLV 158  TIP3 H2   HT     0.417000        1.0080           0
+     497 SOLV 159  TIP3 OH2  OT    -0.834000       15.9994           0
+     498 SOLV 159  TIP3 H1   HT     0.417000        1.0080           0
+     499 SOLV 159  TIP3 H2   HT     0.417000        1.0080           0
+     500 SOLV 160  TIP3 OH2  OT    -0.834000       15.9994           0
+     501 SOLV 160  TIP3 H1   HT     0.417000        1.0080           0
+     502 SOLV 160  TIP3 H2   HT     0.417000        1.0080           0
+     503 SOLV 161  TIP3 OH2  OT    -0.834000       15.9994           0
+     504 SOLV 161  TIP3 H1   HT     0.417000        1.0080           0
+     505 SOLV 161  TIP3 H2   HT     0.417000        1.0080           0
+     506 SOLV 162  TIP3 OH2  OT    -0.834000       15.9994           0
+     507 SOLV 162  TIP3 H1   HT     0.417000        1.0080           0
+     508 SOLV 162  TIP3 H2   HT     0.417000        1.0080           0
+     509 SOLV 163  TIP3 OH2  OT    -0.834000       15.9994           0
+     510 SOLV 163  TIP3 H1   HT     0.417000        1.0080           0
+     511 SOLV 163  TIP3 H2   HT     0.417000        1.0080           0
+     512 SOLV 164  TIP3 OH2  OT    -0.834000       15.9994           0
+     513 SOLV 164  TIP3 H1   HT     0.417000        1.0080           0
+     514 SOLV 164  TIP3 H2   HT     0.417000        1.0080           0
+     515 SOLV 165  TIP3 OH2  OT    -0.834000       15.9994           0
+     516 SOLV 165  TIP3 H1   HT     0.417000        1.0080           0
+     517 SOLV 165  TIP3 H2   HT     0.417000        1.0080           0
+     518 SOLV 166  TIP3 OH2  OT    -0.834000       15.9994           0
+     519 SOLV 166  TIP3 H1   HT     0.417000        1.0080           0
+     520 SOLV 166  TIP3 H2   HT     0.417000        1.0080           0
+     521 SOLV 167  TIP3 OH2  OT    -0.834000       15.9994           0
+     522 SOLV 167  TIP3 H1   HT     0.417000        1.0080           0
+     523 SOLV 167  TIP3 H2   HT     0.417000        1.0080           0
+     524 SOLV 168  TIP3 OH2  OT    -0.834000       15.9994           0
+     525 SOLV 168  TIP3 H1   HT     0.417000        1.0080           0
+     526 SOLV 168  TIP3 H2   HT     0.417000        1.0080           0
+     527 SOLV 169  TIP3 OH2  OT    -0.834000       15.9994           0
+     528 SOLV 169  TIP3 H1   HT     0.417000        1.0080           0
+     529 SOLV 169  TIP3 H2   HT     0.417000        1.0080           0
+     530 SOLV 170  TIP3 OH2  OT    -0.834000       15.9994           0
+     531 SOLV 170  TIP3 H1   HT     0.417000        1.0080           0
+     532 SOLV 170  TIP3 H2   HT     0.417000        1.0080           0
+     533 SOLV 171  TIP3 OH2  OT    -0.834000       15.9994           0
+     534 SOLV 171  TIP3 H1   HT     0.417000        1.0080           0
+     535 SOLV 171  TIP3 H2   HT     0.417000        1.0080           0
+     536 SOLV 172  TIP3 OH2  OT    -0.834000       15.9994           0
+     537 SOLV 172  TIP3 H1   HT     0.417000        1.0080           0
+     538 SOLV 172  TIP3 H2   HT     0.417000        1.0080           0
+     539 SOLV 173  TIP3 OH2  OT    -0.834000       15.9994           0
+     540 SOLV 173  TIP3 H1   HT     0.417000        1.0080           0
+     541 SOLV 173  TIP3 H2   HT     0.417000        1.0080           0
+     542 SOLV 174  TIP3 OH2  OT    -0.834000       15.9994           0
+     543 SOLV 174  TIP3 H1   HT     0.417000        1.0080           0
+     544 SOLV 174  TIP3 H2   HT     0.417000        1.0080           0
+     545 SOLV 175  TIP3 OH2  OT    -0.834000       15.9994           0
+     546 SOLV 175  TIP3 H1   HT     0.417000        1.0080           0
+     547 SOLV 175  TIP3 H2   HT     0.417000        1.0080           0
+     548 SOLV 176  TIP3 OH2  OT    -0.834000       15.9994           0
+     549 SOLV 176  TIP3 H1   HT     0.417000        1.0080           0
+     550 SOLV 176  TIP3 H2   HT     0.417000        1.0080           0
+     551 SOLV 177  TIP3 OH2  OT    -0.834000       15.9994           0
+     552 SOLV 177  TIP3 H1   HT     0.417000        1.0080           0
+     553 SOLV 177  TIP3 H2   HT     0.417000        1.0080           0
+     554 SOLV 178  TIP3 OH2  OT    -0.834000       15.9994           0
+     555 SOLV 178  TIP3 H1   HT     0.417000        1.0080           0
+     556 SOLV 178  TIP3 H2   HT     0.417000        1.0080           0
+     557 SOLV 179  TIP3 OH2  OT    -0.834000       15.9994           0
+     558 SOLV 179  TIP3 H1   HT     0.417000        1.0080           0
+     559 SOLV 179  TIP3 H2   HT     0.417000        1.0080           0
+     560 SOLV 180  TIP3 OH2  OT    -0.834000       15.9994           0
+     561 SOLV 180  TIP3 H1   HT     0.417000        1.0080           0
+     562 SOLV 180  TIP3 H2   HT     0.417000        1.0080           0
+     563 SOLV 181  TIP3 OH2  OT    -0.834000       15.9994           0
+     564 SOLV 181  TIP3 H1   HT     0.417000        1.0080           0
+     565 SOLV 181  TIP3 H2   HT     0.417000        1.0080           0
+     566 SOLV 182  TIP3 OH2  OT    -0.834000       15.9994           0
+     567 SOLV 182  TIP3 H1   HT     0.417000        1.0080           0
+     568 SOLV 182  TIP3 H2   HT     0.417000        1.0080           0
+     569 SOLV 183  TIP3 OH2  OT    -0.834000       15.9994           0
+     570 SOLV 183  TIP3 H1   HT     0.417000        1.0080           0
+     571 SOLV 183  TIP3 H2   HT     0.417000        1.0080           0
+     572 SOLV 184  TIP3 OH2  OT    -0.834000       15.9994           0
+     573 SOLV 184  TIP3 H1   HT     0.417000        1.0080           0
+     574 SOLV 184  TIP3 H2   HT     0.417000        1.0080           0
+     575 SOLV 185  TIP3 OH2  OT    -0.834000       15.9994           0
+     576 SOLV 185  TIP3 H1   HT     0.417000        1.0080           0
+     577 SOLV 185  TIP3 H2   HT     0.417000        1.0080           0
+     578 SOLV 186  TIP3 OH2  OT    -0.834000       15.9994           0
+     579 SOLV 186  TIP3 H1   HT     0.417000        1.0080           0
+     580 SOLV 186  TIP3 H2   HT     0.417000        1.0080           0
+     581 SOLV 187  TIP3 OH2  OT    -0.834000       15.9994           0
+     582 SOLV 187  TIP3 H1   HT     0.417000        1.0080           0
+     583 SOLV 187  TIP3 H2   HT     0.417000        1.0080           0
+     584 SOLV 188  TIP3 OH2  OT    -0.834000       15.9994           0
+     585 SOLV 188  TIP3 H1   HT     0.417000        1.0080           0
+     586 SOLV 188  TIP3 H2   HT     0.417000        1.0080           0
+     587 SOLV 189  TIP3 OH2  OT    -0.834000       15.9994           0
+     588 SOLV 189  TIP3 H1   HT     0.417000        1.0080           0
+     589 SOLV 189  TIP3 H2   HT     0.417000        1.0080           0
+     590 SOLV 190  TIP3 OH2  OT    -0.834000       15.9994           0
+     591 SOLV 190  TIP3 H1   HT     0.417000        1.0080           0
+     592 SOLV 190  TIP3 H2   HT     0.417000        1.0080           0
+     593 SOLV 191  TIP3 OH2  OT    -0.834000       15.9994           0
+     594 SOLV 191  TIP3 H1   HT     0.417000        1.0080           0
+     595 SOLV 191  TIP3 H2   HT     0.417000        1.0080           0
+     596 SOLV 192  TIP3 OH2  OT    -0.834000       15.9994           0
+     597 SOLV 192  TIP3 H1   HT     0.417000        1.0080           0
+     598 SOLV 192  TIP3 H2   HT     0.417000        1.0080           0
+     599 SOLV 193  TIP3 OH2  OT    -0.834000       15.9994           0
+     600 SOLV 193  TIP3 H1   HT     0.417000        1.0080           0
+     601 SOLV 193  TIP3 H2   HT     0.417000        1.0080           0
+     602 SOLV 194  TIP3 OH2  OT    -0.834000       15.9994           0
+     603 SOLV 194  TIP3 H1   HT     0.417000        1.0080           0
+     604 SOLV 194  TIP3 H2   HT     0.417000        1.0080           0
+     605 SOLV 195  TIP3 OH2  OT    -0.834000       15.9994           0
+     606 SOLV 195  TIP3 H1   HT     0.417000        1.0080           0
+     607 SOLV 195  TIP3 H2   HT     0.417000        1.0080           0
+     608 SOLV 196  TIP3 OH2  OT    -0.834000       15.9994           0
+     609 SOLV 196  TIP3 H1   HT     0.417000        1.0080           0
+     610 SOLV 196  TIP3 H2   HT     0.417000        1.0080           0
+     611 SOLV 197  TIP3 OH2  OT    -0.834000       15.9994           0
+     612 SOLV 197  TIP3 H1   HT     0.417000        1.0080           0
+     613 SOLV 197  TIP3 H2   HT     0.417000        1.0080           0
+     614 SOLV 198  TIP3 OH2  OT    -0.834000       15.9994           0
+     615 SOLV 198  TIP3 H1   HT     0.417000        1.0080           0
+     616 SOLV 198  TIP3 H2   HT     0.417000        1.0080           0
+     617 SOLV 199  TIP3 OH2  OT    -0.834000       15.9994           0
+     618 SOLV 199  TIP3 H1   HT     0.417000        1.0080           0
+     619 SOLV 199  TIP3 H2   HT     0.417000        1.0080           0
+     620 SOLV 200  TIP3 OH2  OT    -0.834000       15.9994           0
+     621 SOLV 200  TIP3 H1   HT     0.417000        1.0080           0
+     622 SOLV 200  TIP3 H2   HT     0.417000        1.0080           0
+     623 SOLV 201  TIP3 OH2  OT    -0.834000       15.9994           0
+     624 SOLV 201  TIP3 H1   HT     0.417000        1.0080           0
+     625 SOLV 201  TIP3 H2   HT     0.417000        1.0080           0
+     626 SOLV 202  TIP3 OH2  OT    -0.834000       15.9994           0
+     627 SOLV 202  TIP3 H1   HT     0.417000        1.0080           0
+     628 SOLV 202  TIP3 H2   HT     0.417000        1.0080           0
+     629 SOLV 203  TIP3 OH2  OT    -0.834000       15.9994           0
+     630 SOLV 203  TIP3 H1   HT     0.417000        1.0080           0
+     631 SOLV 203  TIP3 H2   HT     0.417000        1.0080           0
+     632 SOLV 204  TIP3 OH2  OT    -0.834000       15.9994           0
+     633 SOLV 204  TIP3 H1   HT     0.417000        1.0080           0
+     634 SOLV 204  TIP3 H2   HT     0.417000        1.0080           0
+     635 SOLV 205  TIP3 OH2  OT    -0.834000       15.9994           0
+     636 SOLV 205  TIP3 H1   HT     0.417000        1.0080           0
+     637 SOLV 205  TIP3 H2   HT     0.417000        1.0080           0
+     638 SOLV 206  TIP3 OH2  OT    -0.834000       15.9994           0
+     639 SOLV 206  TIP3 H1   HT     0.417000        1.0080           0
+     640 SOLV 206  TIP3 H2   HT     0.417000        1.0080           0
+     641 SOLV 207  TIP3 OH2  OT    -0.834000       15.9994           0
+     642 SOLV 207  TIP3 H1   HT     0.417000        1.0080           0
+     643 SOLV 207  TIP3 H2   HT     0.417000        1.0080           0
+     644 SOLV 208  TIP3 OH2  OT    -0.834000       15.9994           0
+     645 SOLV 208  TIP3 H1   HT     0.417000        1.0080           0
+     646 SOLV 208  TIP3 H2   HT     0.417000        1.0080           0
+     647 SOLV 209  TIP3 OH2  OT    -0.834000       15.9994           0
+     648 SOLV 209  TIP3 H1   HT     0.417000        1.0080           0
+     649 SOLV 209  TIP3 H2   HT     0.417000        1.0080           0
+     650 SOLV 210  TIP3 OH2  OT    -0.834000       15.9994           0
+     651 SOLV 210  TIP3 H1   HT     0.417000        1.0080           0
+     652 SOLV 210  TIP3 H2   HT     0.417000        1.0080           0
+     653 SOLV 211  TIP3 OH2  OT    -0.834000       15.9994           0
+     654 SOLV 211  TIP3 H1   HT     0.417000        1.0080           0
+     655 SOLV 211  TIP3 H2   HT     0.417000        1.0080           0
+     656 SOLV 212  TIP3 OH2  OT    -0.834000       15.9994           0
+     657 SOLV 212  TIP3 H1   HT     0.417000        1.0080           0
+     658 SOLV 212  TIP3 H2   HT     0.417000        1.0080           0
+     659 SOLV 213  TIP3 OH2  OT    -0.834000       15.9994           0
+     660 SOLV 213  TIP3 H1   HT     0.417000        1.0080           0
+     661 SOLV 213  TIP3 H2   HT     0.417000        1.0080           0
+     662 SOLV 214  TIP3 OH2  OT    -0.834000       15.9994           0
+     663 SOLV 214  TIP3 H1   HT     0.417000        1.0080           0
+     664 SOLV 214  TIP3 H2   HT     0.417000        1.0080           0
+     665 SOLV 215  TIP3 OH2  OT    -0.834000       15.9994           0
+     666 SOLV 215  TIP3 H1   HT     0.417000        1.0080           0
+     667 SOLV 215  TIP3 H2   HT     0.417000        1.0080           0
+     668 SOLV 216  TIP3 OH2  OT    -0.834000       15.9994           0
+     669 SOLV 216  TIP3 H1   HT     0.417000        1.0080           0
+     670 SOLV 216  TIP3 H2   HT     0.417000        1.0080           0
+     671 SOLV 217  TIP3 OH2  OT    -0.834000       15.9994           0
+     672 SOLV 217  TIP3 H1   HT     0.417000        1.0080           0
+     673 SOLV 217  TIP3 H2   HT     0.417000        1.0080           0
+     674 SOLV 218  TIP3 OH2  OT    -0.834000       15.9994           0
+     675 SOLV 218  TIP3 H1   HT     0.417000        1.0080           0
+     676 SOLV 218  TIP3 H2   HT     0.417000        1.0080           0
+     677 SOLV 219  TIP3 OH2  OT    -0.834000       15.9994           0
+     678 SOLV 219  TIP3 H1   HT     0.417000        1.0080           0
+     679 SOLV 219  TIP3 H2   HT     0.417000        1.0080           0
+     680 SOLV 220  TIP3 OH2  OT    -0.834000       15.9994           0
+     681 SOLV 220  TIP3 H1   HT     0.417000        1.0080           0
+     682 SOLV 220  TIP3 H2   HT     0.417000        1.0080           0
+     683 SOLV 221  TIP3 OH2  OT    -0.834000       15.9994           0
+     684 SOLV 221  TIP3 H1   HT     0.417000        1.0080           0
+     685 SOLV 221  TIP3 H2   HT     0.417000        1.0080           0
+     686 SOLV 222  TIP3 OH2  OT    -0.834000       15.9994           0
+     687 SOLV 222  TIP3 H1   HT     0.417000        1.0080           0
+     688 SOLV 222  TIP3 H2   HT     0.417000        1.0080           0
+     689 SOLV 223  TIP3 OH2  OT    -0.834000       15.9994           0
+     690 SOLV 223  TIP3 H1   HT     0.417000        1.0080           0
+     691 SOLV 223  TIP3 H2   HT     0.417000        1.0080           0
+     692 SOLV 224  TIP3 OH2  OT    -0.834000       15.9994           0
+     693 SOLV 224  TIP3 H1   HT     0.417000        1.0080           0
+     694 SOLV 224  TIP3 H2   HT     0.417000        1.0080           0
+     695 SOLV 225  TIP3 OH2  OT    -0.834000       15.9994           0
+     696 SOLV 225  TIP3 H1   HT     0.417000        1.0080           0
+     697 SOLV 225  TIP3 H2   HT     0.417000        1.0080           0
+     698 SOLV 226  TIP3 OH2  OT    -0.834000       15.9994           0
+     699 SOLV 226  TIP3 H1   HT     0.417000        1.0080           0
+     700 SOLV 226  TIP3 H2   HT     0.417000        1.0080           0
+     701 SOLV 227  TIP3 OH2  OT    -0.834000       15.9994           0
+     702 SOLV 227  TIP3 H1   HT     0.417000        1.0080           0
+     703 SOLV 227  TIP3 H2   HT     0.417000        1.0080           0
+     704 SOLV 228  TIP3 OH2  OT    -0.834000       15.9994           0
+     705 SOLV 228  TIP3 H1   HT     0.417000        1.0080           0
+     706 SOLV 228  TIP3 H2   HT     0.417000        1.0080           0
+     707 SOLV 229  TIP3 OH2  OT    -0.834000       15.9994           0
+     708 SOLV 229  TIP3 H1   HT     0.417000        1.0080           0
+     709 SOLV 229  TIP3 H2   HT     0.417000        1.0080           0
+     710 SOLV 230  TIP3 OH2  OT    -0.834000       15.9994           0
+     711 SOLV 230  TIP3 H1   HT     0.417000        1.0080           0
+     712 SOLV 230  TIP3 H2   HT     0.417000        1.0080           0
+     713 SOLV 231  TIP3 OH2  OT    -0.834000       15.9994           0
+     714 SOLV 231  TIP3 H1   HT     0.417000        1.0080           0
+     715 SOLV 231  TIP3 H2   HT     0.417000        1.0080           0
+     716 SOLV 232  TIP3 OH2  OT    -0.834000       15.9994           0
+     717 SOLV 232  TIP3 H1   HT     0.417000        1.0080           0
+     718 SOLV 232  TIP3 H2   HT     0.417000        1.0080           0
+     719 SOLV 233  TIP3 OH2  OT    -0.834000       15.9994           0
+     720 SOLV 233  TIP3 H1   HT     0.417000        1.0080           0
+     721 SOLV 233  TIP3 H2   HT     0.417000        1.0080           0
+     722 SOLV 234  TIP3 OH2  OT    -0.834000       15.9994           0
+     723 SOLV 234  TIP3 H1   HT     0.417000        1.0080           0
+     724 SOLV 234  TIP3 H2   HT     0.417000        1.0080           0
+     725 SOLV 235  TIP3 OH2  OT    -0.834000       15.9994           0
+     726 SOLV 235  TIP3 H1   HT     0.417000        1.0080           0
+     727 SOLV 235  TIP3 H2   HT     0.417000        1.0080           0
+     728 SOLV 236  TIP3 OH2  OT    -0.834000       15.9994           0
+     729 SOLV 236  TIP3 H1   HT     0.417000        1.0080           0
+     730 SOLV 236  TIP3 H2   HT     0.417000        1.0080           0
+     731 SOLV 237  TIP3 OH2  OT    -0.834000       15.9994           0
+     732 SOLV 237  TIP3 H1   HT     0.417000        1.0080           0
+     733 SOLV 237  TIP3 H2   HT     0.417000        1.0080           0
+     734 SOLV 238  TIP3 OH2  OT    -0.834000       15.9994           0
+     735 SOLV 238  TIP3 H1   HT     0.417000        1.0080           0
+     736 SOLV 238  TIP3 H2   HT     0.417000        1.0080           0
+     737 SOLV 239  TIP3 OH2  OT    -0.834000       15.9994           0
+     738 SOLV 239  TIP3 H1   HT     0.417000        1.0080           0
+     739 SOLV 239  TIP3 H2   HT     0.417000        1.0080           0
+     740 SOLV 240  TIP3 OH2  OT    -0.834000       15.9994           0
+     741 SOLV 240  TIP3 H1   HT     0.417000        1.0080           0
+     742 SOLV 240  TIP3 H2   HT     0.417000        1.0080           0
+     743 SOLV 241  TIP3 OH2  OT    -0.834000       15.9994           0
+     744 SOLV 241  TIP3 H1   HT     0.417000        1.0080           0
+     745 SOLV 241  TIP3 H2   HT     0.417000        1.0080           0
+     746 SOLV 242  TIP3 OH2  OT    -0.834000       15.9994           0
+     747 SOLV 242  TIP3 H1   HT     0.417000        1.0080           0
+     748 SOLV 242  TIP3 H2   HT     0.417000        1.0080           0
+     749 SOLV 243  TIP3 OH2  OT    -0.834000       15.9994           0
+     750 SOLV 243  TIP3 H1   HT     0.417000        1.0080           0
+     751 SOLV 243  TIP3 H2   HT     0.417000        1.0080           0
+     752 SOLV 244  TIP3 OH2  OT    -0.834000       15.9994           0
+     753 SOLV 244  TIP3 H1   HT     0.417000        1.0080           0
+     754 SOLV 244  TIP3 H2   HT     0.417000        1.0080           0
+     755 SOLV 245  TIP3 OH2  OT    -0.834000       15.9994           0
+     756 SOLV 245  TIP3 H1   HT     0.417000        1.0080           0
+     757 SOLV 245  TIP3 H2   HT     0.417000        1.0080           0
+     758 SOLV 246  TIP3 OH2  OT    -0.834000       15.9994           0
+     759 SOLV 246  TIP3 H1   HT     0.417000        1.0080           0
+     760 SOLV 246  TIP3 H2   HT     0.417000        1.0080           0
+     761 SOLV 247  TIP3 OH2  OT    -0.834000       15.9994           0
+     762 SOLV 247  TIP3 H1   HT     0.417000        1.0080           0
+     763 SOLV 247  TIP3 H2   HT     0.417000        1.0080           0
+     764 SOLV 248  TIP3 OH2  OT    -0.834000       15.9994           0
+     765 SOLV 248  TIP3 H1   HT     0.417000        1.0080           0
+     766 SOLV 248  TIP3 H2   HT     0.417000        1.0080           0
+     767 SOLV 249  TIP3 OH2  OT    -0.834000       15.9994           0
+     768 SOLV 249  TIP3 H1   HT     0.417000        1.0080           0
+     769 SOLV 249  TIP3 H2   HT     0.417000        1.0080           0
+     770 SOLV 250  TIP3 OH2  OT    -0.834000       15.9994           0
+     771 SOLV 250  TIP3 H1   HT     0.417000        1.0080           0
+     772 SOLV 250  TIP3 H2   HT     0.417000        1.0080           0
+     773 SOLV 251  TIP3 OH2  OT    -0.834000       15.9994           0
+     774 SOLV 251  TIP3 H1   HT     0.417000        1.0080           0
+     775 SOLV 251  TIP3 H2   HT     0.417000        1.0080           0
+     776 SOLV 252  TIP3 OH2  OT    -0.834000       15.9994           0
+     777 SOLV 252  TIP3 H1   HT     0.417000        1.0080           0
+     778 SOLV 252  TIP3 H2   HT     0.417000        1.0080           0
+     779 SOLV 253  TIP3 OH2  OT    -0.834000       15.9994           0
+     780 SOLV 253  TIP3 H1   HT     0.417000        1.0080           0
+     781 SOLV 253  TIP3 H2   HT     0.417000        1.0080           0
+     782 SOLV 254  TIP3 OH2  OT    -0.834000       15.9994           0
+     783 SOLV 254  TIP3 H1   HT     0.417000        1.0080           0
+     784 SOLV 254  TIP3 H2   HT     0.417000        1.0080           0
+     785 SOLV 255  TIP3 OH2  OT    -0.834000       15.9994           0
+     786 SOLV 255  TIP3 H1   HT     0.417000        1.0080           0
+     787 SOLV 255  TIP3 H2   HT     0.417000        1.0080           0
+     788 SOLV 256  TIP3 OH2  OT    -0.834000       15.9994           0
+     789 SOLV 256  TIP3 H1   HT     0.417000        1.0080           0
+     790 SOLV 256  TIP3 H2   HT     0.417000        1.0080           0
+     791 SOLV 257  TIP3 OH2  OT    -0.834000       15.9994           0
+     792 SOLV 257  TIP3 H1   HT     0.417000        1.0080           0
+     793 SOLV 257  TIP3 H2   HT     0.417000        1.0080           0
+     794 SOLV 258  TIP3 OH2  OT    -0.834000       15.9994           0
+     795 SOLV 258  TIP3 H1   HT     0.417000        1.0080           0
+     796 SOLV 258  TIP3 H2   HT     0.417000        1.0080           0
+     797 SOLV 259  TIP3 OH2  OT    -0.834000       15.9994           0
+     798 SOLV 259  TIP3 H1   HT     0.417000        1.0080           0
+     799 SOLV 259  TIP3 H2   HT     0.417000        1.0080           0
+     800 SOLV 260  TIP3 OH2  OT    -0.834000       15.9994           0
+     801 SOLV 260  TIP3 H1   HT     0.417000        1.0080           0
+     802 SOLV 260  TIP3 H2   HT     0.417000        1.0080           0
+     803 SOLV 261  TIP3 OH2  OT    -0.834000       15.9994           0
+     804 SOLV 261  TIP3 H1   HT     0.417000        1.0080           0
+     805 SOLV 261  TIP3 H2   HT     0.417000        1.0080           0
+     806 SOLV 262  TIP3 OH2  OT    -0.834000       15.9994           0
+     807 SOLV 262  TIP3 H1   HT     0.417000        1.0080           0
+     808 SOLV 262  TIP3 H2   HT     0.417000        1.0080           0
+     809 SOLV 263  TIP3 OH2  OT    -0.834000       15.9994           0
+     810 SOLV 263  TIP3 H1   HT     0.417000        1.0080           0
+     811 SOLV 263  TIP3 H2   HT     0.417000        1.0080           0
+     812 SOLV 264  TIP3 OH2  OT    -0.834000       15.9994           0
+     813 SOLV 264  TIP3 H1   HT     0.417000        1.0080           0
+     814 SOLV 264  TIP3 H2   HT     0.417000        1.0080           0
+     815 SOLV 265  TIP3 OH2  OT    -0.834000       15.9994           0
+     816 SOLV 265  TIP3 H1   HT     0.417000        1.0080           0
+     817 SOLV 265  TIP3 H2   HT     0.417000        1.0080           0
+     818 SOLV 266  TIP3 OH2  OT    -0.834000       15.9994           0
+     819 SOLV 266  TIP3 H1   HT     0.417000        1.0080           0
+     820 SOLV 266  TIP3 H2   HT     0.417000        1.0080           0
+     821 SOLV 267  TIP3 OH2  OT    -0.834000       15.9994           0
+     822 SOLV 267  TIP3 H1   HT     0.417000        1.0080           0
+     823 SOLV 267  TIP3 H2   HT     0.417000        1.0080           0
+     824 SOLV 268  TIP3 OH2  OT    -0.834000       15.9994           0
+     825 SOLV 268  TIP3 H1   HT     0.417000        1.0080           0
+     826 SOLV 268  TIP3 H2   HT     0.417000        1.0080           0
+     827 SOLV 269  TIP3 OH2  OT    -0.834000       15.9994           0
+     828 SOLV 269  TIP3 H1   HT     0.417000        1.0080           0
+     829 SOLV 269  TIP3 H2   HT     0.417000        1.0080           0
+     830 SOLV 270  TIP3 OH2  OT    -0.834000       15.9994           0
+     831 SOLV 270  TIP3 H1   HT     0.417000        1.0080           0
+     832 SOLV 270  TIP3 H2   HT     0.417000        1.0080           0
+     833 SOLV 271  TIP3 OH2  OT    -0.834000       15.9994           0
+     834 SOLV 271  TIP3 H1   HT     0.417000        1.0080           0
+     835 SOLV 271  TIP3 H2   HT     0.417000        1.0080           0
+     836 SOLV 272  TIP3 OH2  OT    -0.834000       15.9994           0
+     837 SOLV 272  TIP3 H1   HT     0.417000        1.0080           0
+     838 SOLV 272  TIP3 H2   HT     0.417000        1.0080           0
+     839 SOLV 273  TIP3 OH2  OT    -0.834000       15.9994           0
+     840 SOLV 273  TIP3 H1   HT     0.417000        1.0080           0
+     841 SOLV 273  TIP3 H2   HT     0.417000        1.0080           0
+     842 SOLV 274  TIP3 OH2  OT    -0.834000       15.9994           0
+     843 SOLV 274  TIP3 H1   HT     0.417000        1.0080           0
+     844 SOLV 274  TIP3 H2   HT     0.417000        1.0080           0
+     845 SOLV 275  TIP3 OH2  OT    -0.834000       15.9994           0
+     846 SOLV 275  TIP3 H1   HT     0.417000        1.0080           0
+     847 SOLV 275  TIP3 H2   HT     0.417000        1.0080           0
+     848 SOLV 276  TIP3 OH2  OT    -0.834000       15.9994           0
+     849 SOLV 276  TIP3 H1   HT     0.417000        1.0080           0
+     850 SOLV 276  TIP3 H2   HT     0.417000        1.0080           0
+     851 SOLV 277  TIP3 OH2  OT    -0.834000       15.9994           0
+     852 SOLV 277  TIP3 H1   HT     0.417000        1.0080           0
+     853 SOLV 277  TIP3 H2   HT     0.417000        1.0080           0
+     854 SOLV 278  TIP3 OH2  OT    -0.834000       15.9994           0
+     855 SOLV 278  TIP3 H1   HT     0.417000        1.0080           0
+     856 SOLV 278  TIP3 H2   HT     0.417000        1.0080           0
+     857 SOLV 279  TIP3 OH2  OT    -0.834000       15.9994           0
+     858 SOLV 279  TIP3 H1   HT     0.417000        1.0080           0
+     859 SOLV 279  TIP3 H2   HT     0.417000        1.0080           0
+     860 SOLV 280  TIP3 OH2  OT    -0.834000       15.9994           0
+     861 SOLV 280  TIP3 H1   HT     0.417000        1.0080           0
+     862 SOLV 280  TIP3 H2   HT     0.417000        1.0080           0
+     863 SOLV 281  TIP3 OH2  OT    -0.834000       15.9994           0
+     864 SOLV 281  TIP3 H1   HT     0.417000        1.0080           0
+     865 SOLV 281  TIP3 H2   HT     0.417000        1.0080           0
+     866 SOLV 282  TIP3 OH2  OT    -0.834000       15.9994           0
+     867 SOLV 282  TIP3 H1   HT     0.417000        1.0080           0
+     868 SOLV 282  TIP3 H2   HT     0.417000        1.0080           0
+     869 SOLV 283  TIP3 OH2  OT    -0.834000       15.9994           0
+     870 SOLV 283  TIP3 H1   HT     0.417000        1.0080           0
+     871 SOLV 283  TIP3 H2   HT     0.417000        1.0080           0
+     872 SOLV 284  TIP3 OH2  OT    -0.834000       15.9994           0
+     873 SOLV 284  TIP3 H1   HT     0.417000        1.0080           0
+     874 SOLV 284  TIP3 H2   HT     0.417000        1.0080           0
+     875 SOLV 285  TIP3 OH2  OT    -0.834000       15.9994           0
+     876 SOLV 285  TIP3 H1   HT     0.417000        1.0080           0
+     877 SOLV 285  TIP3 H2   HT     0.417000        1.0080           0
+     878 SOLV 286  TIP3 OH2  OT    -0.834000       15.9994           0
+     879 SOLV 286  TIP3 H1   HT     0.417000        1.0080           0
+     880 SOLV 286  TIP3 H2   HT     0.417000        1.0080           0
+     881 SOLV 287  TIP3 OH2  OT    -0.834000       15.9994           0
+     882 SOLV 287  TIP3 H1   HT     0.417000        1.0080           0
+     883 SOLV 287  TIP3 H2   HT     0.417000        1.0080           0
+     884 SOLV 288  TIP3 OH2  OT    -0.834000       15.9994           0
+     885 SOLV 288  TIP3 H1   HT     0.417000        1.0080           0
+     886 SOLV 288  TIP3 H2   HT     0.417000        1.0080           0
+     887 SOLV 289  TIP3 OH2  OT    -0.834000       15.9994           0
+     888 SOLV 289  TIP3 H1   HT     0.417000        1.0080           0
+     889 SOLV 289  TIP3 H2   HT     0.417000        1.0080           0
+     890 SOLV 290  TIP3 OH2  OT    -0.834000       15.9994           0
+     891 SOLV 290  TIP3 H1   HT     0.417000        1.0080           0
+     892 SOLV 290  TIP3 H2   HT     0.417000        1.0080           0
+     893 SOLV 291  TIP3 OH2  OT    -0.834000       15.9994           0
+     894 SOLV 291  TIP3 H1   HT     0.417000        1.0080           0
+     895 SOLV 291  TIP3 H2   HT     0.417000        1.0080           0
+     896 SOLV 292  TIP3 OH2  OT    -0.834000       15.9994           0
+     897 SOLV 292  TIP3 H1   HT     0.417000        1.0080           0
+     898 SOLV 292  TIP3 H2   HT     0.417000        1.0080           0
+     899 SOLV 293  TIP3 OH2  OT    -0.834000       15.9994           0
+     900 SOLV 293  TIP3 H1   HT     0.417000        1.0080           0
+     901 SOLV 293  TIP3 H2   HT     0.417000        1.0080           0
+     902 SOLV 294  TIP3 OH2  OT    -0.834000       15.9994           0
+     903 SOLV 294  TIP3 H1   HT     0.417000        1.0080           0
+     904 SOLV 294  TIP3 H2   HT     0.417000        1.0080           0
+     905 SOLV 295  TIP3 OH2  OT    -0.834000       15.9994           0
+     906 SOLV 295  TIP3 H1   HT     0.417000        1.0080           0
+     907 SOLV 295  TIP3 H2   HT     0.417000        1.0080           0
+     908 SOLV 296  TIP3 OH2  OT    -0.834000       15.9994           0
+     909 SOLV 296  TIP3 H1   HT     0.417000        1.0080           0
+     910 SOLV 296  TIP3 H2   HT     0.417000        1.0080           0
+     911 SOLV 297  TIP3 OH2  OT    -0.834000       15.9994           0
+     912 SOLV 297  TIP3 H1   HT     0.417000        1.0080           0
+     913 SOLV 297  TIP3 H2   HT     0.417000        1.0080           0
+     914 SOLV 298  TIP3 OH2  OT    -0.834000       15.9994           0
+     915 SOLV 298  TIP3 H1   HT     0.417000        1.0080           0
+     916 SOLV 298  TIP3 H2   HT     0.417000        1.0080           0
+     917 SOLV 299  TIP3 OH2  OT    -0.834000       15.9994           0
+     918 SOLV 299  TIP3 H1   HT     0.417000        1.0080           0
+     919 SOLV 299  TIP3 H2   HT     0.417000        1.0080           0
+     920 SOLV 300  TIP3 OH2  OT    -0.834000       15.9994           0
+     921 SOLV 300  TIP3 H1   HT     0.417000        1.0080           0
+     922 SOLV 300  TIP3 H2   HT     0.417000        1.0080           0
+     923 SOLV 301  TIP3 OH2  OT    -0.834000       15.9994           0
+     924 SOLV 301  TIP3 H1   HT     0.417000        1.0080           0
+     925 SOLV 301  TIP3 H2   HT     0.417000        1.0080           0
+     926 SOLV 302  TIP3 OH2  OT    -0.834000       15.9994           0
+     927 SOLV 302  TIP3 H1   HT     0.417000        1.0080           0
+     928 SOLV 302  TIP3 H2   HT     0.417000        1.0080           0
+     929 SOLV 303  TIP3 OH2  OT    -0.834000       15.9994           0
+     930 SOLV 303  TIP3 H1   HT     0.417000        1.0080           0
+     931 SOLV 303  TIP3 H2   HT     0.417000        1.0080           0
+     932 SOLV 304  TIP3 OH2  OT    -0.834000       15.9994           0
+     933 SOLV 304  TIP3 H1   HT     0.417000        1.0080           0
+     934 SOLV 304  TIP3 H2   HT     0.417000        1.0080           0
+     935 SOLV 305  TIP3 OH2  OT    -0.834000       15.9994           0
+     936 SOLV 305  TIP3 H1   HT     0.417000        1.0080           0
+     937 SOLV 305  TIP3 H2   HT     0.417000        1.0080           0
+     938 SOLV 306  TIP3 OH2  OT    -0.834000       15.9994           0
+     939 SOLV 306  TIP3 H1   HT     0.417000        1.0080           0
+     940 SOLV 306  TIP3 H2   HT     0.417000        1.0080           0
+     941 SOLV 307  TIP3 OH2  OT    -0.834000       15.9994           0
+     942 SOLV 307  TIP3 H1   HT     0.417000        1.0080           0
+     943 SOLV 307  TIP3 H2   HT     0.417000        1.0080           0
+     944 SOLV 308  TIP3 OH2  OT    -0.834000       15.9994           0
+     945 SOLV 308  TIP3 H1   HT     0.417000        1.0080           0
+     946 SOLV 308  TIP3 H2   HT     0.417000        1.0080           0
+     947 SOLV 309  TIP3 OH2  OT    -0.834000       15.9994           0
+     948 SOLV 309  TIP3 H1   HT     0.417000        1.0080           0
+     949 SOLV 309  TIP3 H2   HT     0.417000        1.0080           0
+     950 SOLV 310  TIP3 OH2  OT    -0.834000       15.9994           0
+     951 SOLV 310  TIP3 H1   HT     0.417000        1.0080           0
+     952 SOLV 310  TIP3 H2   HT     0.417000        1.0080           0
+     953 SOLV 311  TIP3 OH2  OT    -0.834000       15.9994           0
+     954 SOLV 311  TIP3 H1   HT     0.417000        1.0080           0
+     955 SOLV 311  TIP3 H2   HT     0.417000        1.0080           0
+     956 SOLV 312  TIP3 OH2  OT    -0.834000       15.9994           0
+     957 SOLV 312  TIP3 H1   HT     0.417000        1.0080           0
+     958 SOLV 312  TIP3 H2   HT     0.417000        1.0080           0
+     959 SOLV 313  TIP3 OH2  OT    -0.834000       15.9994           0
+     960 SOLV 313  TIP3 H1   HT     0.417000        1.0080           0
+     961 SOLV 313  TIP3 H2   HT     0.417000        1.0080           0
+     962 SOLV 314  TIP3 OH2  OT    -0.834000       15.9994           0
+     963 SOLV 314  TIP3 H1   HT     0.417000        1.0080           0
+     964 SOLV 314  TIP3 H2   HT     0.417000        1.0080           0
+     965 SOLV 315  TIP3 OH2  OT    -0.834000       15.9994           0
+     966 SOLV 315  TIP3 H1   HT     0.417000        1.0080           0
+     967 SOLV 315  TIP3 H2   HT     0.417000        1.0080           0
+     968 SOLV 316  TIP3 OH2  OT    -0.834000       15.9994           0
+     969 SOLV 316  TIP3 H1   HT     0.417000        1.0080           0
+     970 SOLV 316  TIP3 H2   HT     0.417000        1.0080           0
+     971 SOLV 317  TIP3 OH2  OT    -0.834000       15.9994           0
+     972 SOLV 317  TIP3 H1   HT     0.417000        1.0080           0
+     973 SOLV 317  TIP3 H2   HT     0.417000        1.0080           0
+     974 SOLV 318  TIP3 OH2  OT    -0.834000       15.9994           0
+     975 SOLV 318  TIP3 H1   HT     0.417000        1.0080           0
+     976 SOLV 318  TIP3 H2   HT     0.417000        1.0080           0
+     977 SOLV 319  TIP3 OH2  OT    -0.834000       15.9994           0
+     978 SOLV 319  TIP3 H1   HT     0.417000        1.0080           0
+     979 SOLV 319  TIP3 H2   HT     0.417000        1.0080           0
+     980 SOLV 320  TIP3 OH2  OT    -0.834000       15.9994           0
+     981 SOLV 320  TIP3 H1   HT     0.417000        1.0080           0
+     982 SOLV 320  TIP3 H2   HT     0.417000        1.0080           0
+
+     661 !NBOND: bonds
+       1       2       1       3       1       4       5       1
+       5      15       6       5       7       9       7      17
+       8       7       9      10       9      11      11      12
+      11      13      11      14      15      16      15      17
+      17      18      19      17      19      20      19      21
+      19      22      23      24      23      25      26      27
+      26      28      29      30      29      31      32      33
+      32      34      35      36      35      37      38      39
+      38      40      41      42      41      43      44      45
+      44      46      47      48      47      49      50      51
+      50      52      53      54      53      55      56      57
+      56      58      59      60      59      61      62      63
+      62      64      65      66      65      67      68      69
+      68      70      71      72      71      73      74      75
+      74      76      77      78      77      79      80      81
+      80      82      83      84      83      85      86      87
+      86      88      89      90      89      91      92      93
+      92      94      95      96      95      97      98      99
+      98     100     101     102     101     103     104     105
+     104     106     107     108     107     109     110     111
+     110     112     113     114     113     115     116     117
+     116     118     119     120     119     121     122     123
+     122     124     125     126     125     127     128     129
+     128     130     131     132     131     133     134     135
+     134     136     137     138     137     139     140     141
+     140     142     143     144     143     145     146     147
+     146     148     149     150     149     151     152     153
+     152     154     155     156     155     157     158     159
+     158     160     161     162     161     163     164     165
+     164     166     167     168     167     169     170     171
+     170     172     173     174     173     175     176     177
+     176     178     179     180     179     181     182     183
+     182     184     185     186     185     187     188     189
+     188     190     191     192     191     193     194     195
+     194     196     197     198     197     199     200     201
+     200     202     203     204     203     205     206     207
+     206     208     209     210     209     211     212     213
+     212     214     215     216     215     217     218     219
+     218     220     221     222     221     223     224     225
+     224     226     227     228     227     229     230     231
+     230     232     233     234     233     235     236     237
+     236     238     239     240     239     241     242     243
+     242     244     245     246     245     247     248     249
+     248     250     251     252     251     253     254     255
+     254     256     257     258     257     259     260     261
+     260     262     263     264     263     265     266     267
+     266     268     269     270     269     271     272     273
+     272     274     275     276     275     277     278     279
+     278     280     281     282     281     283     284     285
+     284     286     287     288     287     289     290     291
+     290     292     293     294     293     295     296     297
+     296     298     299     300     299     301     302     303
+     302     304     305     306     305     307     308     309
+     308     310     311     312     311     313     314     315
+     314     316     317     318     317     319     320     321
+     320     322     323     324     323     325     326     327
+     326     328     329     330     329     331     332     333
+     332     334     335     336     335     337     338     339
+     338     340     341     342     341     343     344     345
+     344     346     347     348     347     349     350     351
+     350     352     353     354     353     355     356     357
+     356     358     359     360     359     361     362     363
+     362     364     365     366     365     367     368     369
+     368     370     371     372     371     373     374     375
+     374     376     377     378     377     379     380     381
+     380     382     383     384     383     385     386     387
+     386     388     389     390     389     391     392     393
+     392     394     395     396     395     397     398     399
+     398     400     401     402     401     403     404     405
+     404     406     407     408     407     409     410     411
+     410     412     413     414     413     415     416     417
+     416     418     419     420     419     421     422     423
+     422     424     425     426     425     427     428     429
+     428     430     431     432     431     433     434     435
+     434     436     437     438     437     439     440     441
+     440     442     443     444     443     445     446     447
+     446     448     449     450     449     451     452     453
+     452     454     455     456     455     457     458     459
+     458     460     461     462     461     463     464     465
+     464     466     467     468     467     469     470     471
+     470     472     473     474     473     475     476     477
+     476     478     479     480     479     481     482     483
+     482     484     485     486     485     487     488     489
+     488     490     491     492     491     493     494     495
+     494     496     497     498     497     499     500     501
+     500     502     503     504     503     505     506     507
+     506     508     509     510     509     511     512     513
+     512     514     515     516     515     517     518     519
+     518     520     521     522     521     523     524     525
+     524     526     527     528     527     529     530     531
+     530     532     533     534     533     535     536     537
+     536     538     539     540     539     541     542     543
+     542     544     545     546     545     547     548     549
+     548     550     551     552     551     553     554     555
+     554     556     557     558     557     559     560     561
+     560     562     563     564     563     565     566     567
+     566     568     569     570     569     571     572     573
+     572     574     575     576     575     577     578     579
+     578     580     581     582     581     583     584     585
+     584     586     587     588     587     589     590     591
+     590     592     593     594     593     595     596     597
+     596     598     599     600     599     601     602     603
+     602     604     605     606     605     607     608     609
+     608     610     611     612     611     613     614     615
+     614     616     617     618     617     619     620     621
+     620     622     623     624     623     625     626     627
+     626     628     629     630     629     631     632     633
+     632     634     635     636     635     637     638     639
+     638     640     641     642     641     643     644     645
+     644     646     647     648     647     649     650     651
+     650     652     653     654     653     655     656     657
+     656     658     659     660     659     661     662     663
+     662     664     665     666     665     667     668     669
+     668     670     671     672     671     673     674     675
+     674     676     677     678     677     679     680     681
+     680     682     683     684     683     685     686     687
+     686     688     689     690     689     691     692     693
+     692     694     695     696     695     697     698     699
+     698     700     701     702     701     703     704     705
+     704     706     707     708     707     709     710     711
+     710     712     713     714     713     715     716     717
+     716     718     719     720     719     721     722     723
+     722     724     725     726     725     727     728     729
+     728     730     731     732     731     733     734     735
+     734     736     737     738     737     739     740     741
+     740     742     743     744     743     745     746     747
+     746     748     749     750     749     751     752     753
+     752     754     755     756     755     757     758     759
+     758     760     761     762     761     763     764     765
+     764     766     767     768     767     769     770     771
+     770     772     773     774     773     775     776     777
+     776     778     779     780     779     781     782     783
+     782     784     785     786     785     787     788     789
+     788     790     791     792     791     793     794     795
+     794     796     797     798     797     799     800     801
+     800     802     803     804     803     805     806     807
+     806     808     809     810     809     811     812     813
+     812     814     815     816     815     817     818     819
+     818     820     821     822     821     823     824     825
+     824     826     827     828     827     829     830     831
+     830     832     833     834     833     835     836     837
+     836     838     839     840     839     841     842     843
+     842     844     845     846     845     847     848     849
+     848     850     851     852     851     853     854     855
+     854     856     857     858     857     859     860     861
+     860     862     863     864     863     865     866     867
+     866     868     869     870     869     871     872     873
+     872     874     875     876     875     877     878     879
+     878     880     881     882     881     883     884     885
+     884     886     887     888     887     889     890     891
+     890     892     893     894     893     895     896     897
+     896     898     899     900     899     901     902     903
+     902     904     905     906     905     907     908     909
+     908     910     911     912     911     913     914     915
+     914     916     917     918     917     919     920     921
+     920     922     923     924     923     925     926     927
+     926     928     929     930     929     931     932     933
+     932     934     935     936     935     937     938     939
+     938     940     941     942     941     943     944     945
+     944     946     947     948     947     949     950     951
+     950     952     953     954     953     955     956     957
+     956     958     959     960     959     961     962     963
+     962     964     965     966     965     967     968     969
+     968     970     971     972     971     973     974     975
+     974     976     977     978     977     979     980     981
+     980     982
+
+     356 !NTHETA: angles
+       1       5       6       1       5      15       2       1       4
+       2       1       3       3       1       4       5      15      17
+       5      15      16       5       1       4       5       1       3
+       5       1       2       7      17      18       7       9      11
+       7       9      10       9      11      14       9      11      13
+       9      11      12       9       7       8       9       7      17
+      10       9      11      12      11      14      12      11      13
+      13      11      14      15      17      18      15      17       7
+      15       5       6      16      15      17      17      19      22
+      17      19      21      17      19      20      17       7       8
+      19      17      18      19      17       7      19      17      15
+      20      19      22      20      19      21      21      19      22
+      24      23      25      27      26      28      30      29      31
+      33      32      34      36      35      37      39      38      40
+      42      41      43      45      44      46      48      47      49
+      51      50      52      54      53      55      57      56      58
+      60      59      61      63      62      64      66      65      67
+      69      68      70      72      71      73      75      74      76
+      78      77      79      81      80      82      84      83      85
+      87      86      88      90      89      91      93      92      94
+      96      95      97      99      98     100     102     101     103
+     105     104     106     108     107     109     111     110     112
+     114     113     115     117     116     118     120     119     121
+     123     122     124     126     125     127     129     128     130
+     132     131     133     135     134     136     138     137     139
+     141     140     142     144     143     145     147     146     148
+     150     149     151     153     152     154     156     155     157
+     159     158     160     162     161     163     165     164     166
+     168     167     169     171     170     172     174     173     175
+     177     176     178     180     179     181     183     182     184
+     186     185     187     189     188     190     192     191     193
+     195     194     196     198     197     199     201     200     202
+     204     203     205     207     206     208     210     209     211
+     213     212     214     216     215     217     219     218     220
+     222     221     223     225     224     226     228     227     229
+     231     230     232     234     233     235     237     236     238
+     240     239     241     243     242     244     246     245     247
+     249     248     250     252     251     253     255     254     256
+     258     257     259     261     260     262     264     263     265
+     267     266     268     270     269     271     273     272     274
+     276     275     277     279     278     280     282     281     283
+     285     284     286     288     287     289     291     290     292
+     294     293     295     297     296     298     300     299     301
+     303     302     304     306     305     307     309     308     310
+     312     311     313     315     314     316     318     317     319
+     321     320     322     324     323     325     327     326     328
+     330     329     331     333     332     334     336     335     337
+     339     338     340     342     341     343     345     344     346
+     348     347     349     351     350     352     354     353     355
+     357     356     358     360     359     361     363     362     364
+     366     365     367     369     368     370     372     371     373
+     375     374     376     378     377     379     381     380     382
+     384     383     385     387     386     388     390     389     391
+     393     392     394     396     395     397     399     398     400
+     402     401     403     405     404     406     408     407     409
+     411     410     412     414     413     415     417     416     418
+     420     419     421     423     422     424     426     425     427
+     429     428     430     432     431     433     435     434     436
+     438     437     439     441     440     442     444     443     445
+     447     446     448     450     449     451     453     452     454
+     456     455     457     459     458     460     462     461     463
+     465     464     466     468     467     469     471     470     472
+     474     473     475     477     476     478     480     479     481
+     483     482     484     486     485     487     489     488     490
+     492     491     493     495     494     496     498     497     499
+     501     500     502     504     503     505     507     506     508
+     510     509     511     513     512     514     516     515     517
+     519     518     520     522     521     523     525     524     526
+     528     527     529     531     530     532     534     533     535
+     537     536     538     540     539     541     543     542     544
+     546     545     547     549     548     550     552     551     553
+     555     554     556     558     557     559     561     560     562
+     564     563     565     567     566     568     570     569     571
+     573     572     574     576     575     577     579     578     580
+     582     581     583     585     584     586     588     587     589
+     591     590     592     594     593     595     597     596     598
+     600     599     601     603     602     604     606     605     607
+     609     608     610     612     611     613     615     614     616
+     618     617     619     621     620     622     624     623     625
+     627     626     628     630     629     631     633     632     634
+     636     635     637     639     638     640     642     641     643
+     645     644     646     648     647     649     651     650     652
+     654     653     655     657     656     658     660     659     661
+     663     662     664     666     665     667     669     668     670
+     672     671     673     675     674     676     678     677     679
+     681     680     682     684     683     685     687     686     688
+     690     689     691     693     692     694     696     695     697
+     699     698     700     702     701     703     705     704     706
+     708     707     709     711     710     712     714     713     715
+     717     716     718     720     719     721     723     722     724
+     726     725     727     729     728     730     732     731     733
+     735     734     736     738     737     739     741     740     742
+     744     743     745     747     746     748     750     749     751
+     753     752     754     756     755     757     759     758     760
+     762     761     763     765     764     766     768     767     769
+     771     770     772     774     773     775     777     776     778
+     780     779     781     783     782     784     786     785     787
+     789     788     790     792     791     793     795     794     796
+     798     797     799     801     800     802     804     803     805
+     807     806     808     810     809     811     813     812     814
+     816     815     817     819     818     820     822     821     823
+     825     824     826     828     827     829     831     830     832
+     834     833     835     837     836     838     840     839     841
+     843     842     844     846     845     847     849     848     850
+     852     851     853     855     854     856     858     857     859
+     861     860     862     864     863     865     867     866     868
+     870     869     871     873     872     874     876     875     877
+     879     878     880     882     881     883     885     884     886
+     888     887     889     891     890     892     894     893     895
+     897     896     898     900     899     901     903     902     904
+     906     905     907     909     908     910     912     911     913
+     915     914     916     918     917     919     921     920     922
+     924     923     925     927     926     928     930     929     931
+     933     932     934     936     935     937     939     938     940
+     942     941     943     945     944     946     948     947     949
+     951     950     952     954     953     955     957     956     958
+     960     959     961     963     962     964     966     965     967
+     969     968     970     972     971     973     975     974     976
+     978     977     979     981     980     982
+
+      41 !NPHI: dihedrals
+       1       5      15      16       1       5      15      17
+       2       1       5      15       2       1       5       6
+       3       1       5      15       3       1       5       6
+       4       1       5      15       4       1       5       6
+       5      15      17      19       5      15      17       7
+       5      15      17      18       6       5      15      16
+       6       5      15      17       7      17      19      20
+       7      17      19      21       7      17      19      22
+       7      17      15      16       7       9      11      12
+       7       9      11      13       7       9      11      14
+       8       7       9      10       8       7       9      11
+       8       7      17      19       8       7      17      15
+       8       7      17      18       9       7      17      19
+       9       7      17      15       9       7      17      18
+      10       9       7      17      10       9      11      12
+      10       9      11      13      10       9      11      14
+      11       9       7      17      15      17      19      20
+      15      17      19      21      15      17      19      22
+      16      15      17      19      16      15      17      18
+      18      17      19      20      18      17      19      21
+      18      17      19      22
+
+       4 !NIMPHI: impropers
+       5       1      15       6       7      17       9       8
+       9       7      11      10      15       5      17      16
+
+       0 !NDON: donors
+
+
+       0 !NACC: acceptors
+
+
+       0 !NNB
+
+       0       0       0       0       0       0       0       0
+       0       0       0       0       0       0       0       0
+       0       0       0       0       0       0       0       0
+       0       0       0       0       0       0       0       0
+       0       0       0       0       0       0       0       0
+       0       0       0       0       0       0       0       0
+       0       0       0       0       0       0       0       0
+       0       0       0       0       0       0       0       0
+       0       0       0       0       0       0       0       0
+       0       0       0       0       0       0       0       0
+       0       0       0       0       0       0       0       0
+       0       0       0       0       0       0       0       0
+       0       0       0       0       0       0       0       0
+       0       0       0       0       0       0       0       0
+       0       0       0       0       0       0       0       0
+       0       0       0       0       0       0       0       0
+       0       0       0       0       0       0       0       0
+       0       0       0       0       0       0       0       0
+       0       0       0       0       0       0       0       0
+       0       0       0       0       0       0       0       0
+       0       0       0       0       0       0       0       0
+       0       0       0       0       0       0       0       0
+       0       0       0       0       0       0       0       0
+       0       0       0       0       0       0       0       0
+       0       0       0       0       0       0       0       0
+       0       0       0       0       0       0       0       0
+       0       0       0       0       0       0       0       0
+       0       0       0       0       0       0       0       0
+       0       0       0       0       0       0       0       0
+       0       0       0       0       0       0       0       0
+       0       0       0       0       0       0       0       0
+       0       0       0       0       0       0       0       0
+       0       0       0       0       0       0       0       0
+       0       0       0       0       0       0       0       0
+       0       0       0       0       0       0       0       0
+       0       0       0       0       0       0       0       0
+       0       0       0       0       0       0       0       0
+       0       0       0       0       0       0       0       0
+       0       0       0       0       0       0       0       0
+       0       0       0       0       0       0       0       0
+       0       0       0       0       0       0       0       0
+       0       0       0       0       0       0       0       0
+       0       0       0       0       0       0       0       0
+       0       0       0       0       0       0       0       0
+       0       0       0       0       0       0       0       0
+       0       0       0       0       0       0       0       0
+       0       0       0       0       0       0       0       0
+       0       0       0       0       0       0       0       0
+       0       0       0       0       0       0       0       0
+       0       0       0       0       0       0       0       0
+       0       0       0       0       0       0       0       0
+       0       0       0       0       0       0       0       0
+       0       0       0       0       0       0       0       0
+       0       0       0       0       0       0       0       0
+       0       0       0       0       0       0       0       0
+       0       0       0       0       0       0       0       0
+       0       0       0       0       0       0       0       0
+       0       0       0       0       0       0       0       0
+       0       0       0       0       0       0       0       0
+       0       0       0       0       0       0       0       0
+       0       0       0       0       0       0       0       0
+       0       0       0       0       0       0       0       0
+       0       0       0       0       0       0       0       0
+       0       0       0       0       0       0       0       0
+       0       0       0       0       0       0       0       0
+       0       0       0       0       0       0       0       0
+       0       0       0       0       0       0       0       0
+       0       0       0       0       0       0       0       0
+       0       0       0       0       0       0       0       0
+       0       0       0       0       0       0       0       0
+       0       0       0       0       0       0       0       0
+       0       0       0       0       0       0       0       0
+       0       0       0       0       0       0       0       0
+       0       0       0       0       0       0       0       0
+       0       0       0       0       0       0       0       0
+       0       0       0       0       0       0       0       0
+       0       0       0       0       0       0       0       0
+       0       0       0       0       0       0       0       0
+       0       0       0       0       0       0       0       0
+       0       0       0       0       0       0       0       0
+       0       0       0       0       0       0       0       0
+       0       0       0       0       0       0       0       0
+       0       0       0       0       0       0       0       0
+       0       0       0       0       0       0       0       0
+       0       0       0       0       0       0       0       0
+       0       0       0       0       0       0       0       0
+       0       0       0       0       0       0       0       0
+       0       0       0       0       0       0       0       0
+       0       0       0       0       0       0       0       0
+       0       0       0       0       0       0       0       0
+       0       0       0       0       0       0       0       0
+       0       0       0       0       0       0       0       0
+       0       0       0       0       0       0       0       0
+       0       0       0       0       0       0       0       0
+       0       0       0       0       0       0       0       0
+       0       0       0       0       0       0       0       0
+       0       0       0       0       0       0       0       0
+       0       0       0       0       0       0       0       0
+       0       0       0       0       0       0       0       0
+       0       0       0       0       0       0       0       0
+       0       0       0       0       0       0       0       0
+       0       0       0       0       0       0       0       0
+       0       0       0       0       0       0       0       0
+       0       0       0       0       0       0       0       0
+       0       0       0       0       0       0       0       0
+       0       0       0       0       0       0       0       0
+       0       0       0       0       0       0       0       0
+       0       0       0       0       0       0       0       0
+       0       0       0       0       0       0       0       0
+       0       0       0       0       0       0       0       0
+       0       0       0       0       0       0       0       0
+       0       0       0       0       0       0       0       0
+       0       0       0       0       0       0       0       0
+       0       0       0       0       0       0       0       0
+       0       0       0       0       0       0       0       0
+       0       0       0       0       0       0       0       0
+       0       0       0       0       0       0       0       0
+       0       0       0       0       0       0       0       0
+       0       0       0       0       0       0       0       0
+       0       0       0       0       0       0       0       0
+       0       0       0       0       0       0       0       0
+       0       0       0       0       0       0       0       0
+       0       0       0       0       0       0
+
+       1       0 !NGRP
+       0       0       0
+

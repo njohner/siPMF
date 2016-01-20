@@ -1,0 +1,103 @@
+# This is a template script for iPMF using namd
+# variables in upper case will be set by iPMF for each window
+
+set   basedir          {BASEDIR}
+set   common           $basedir/../data/common
+set   topdir           $common
+set   colvar_temp_file $basedir/umbrella_init_temp.in
+set   colvarfile       {OUTPUTDIR}/umbrella.in
+
+set   phi          {PHI}
+set   psi          {PSI}
+set   phik         {PHI_K}
+set   psik         {PSI_K}
+set   parent_phi   {PARENT_PHI}
+set   parent_psi   {PARENT_PSI}
+
+set   nstep        {INIT_NSTEP}
+
+structure          $common/ionized.psf
+coordinates        $common/ionized.pdb
+set temp           303.15;
+
+outputName         alanine;        # base name for output from this run
+
+binCoordinates     {RESTARTDIR}/alanine.restart.coor;    # coordinates from last run (binary)
+binVelocities      {RESTARTDIR}/alanine.restart.vel;     # velocities from last run (binary)
+extendedSystem     {RESTARTDIR}/alanine.restart.xsc;     # cell dimensions from last run (binary)
+
+restartfreq        100;               # 500 steps = every 1ps
+dcdfreq            100;
+dcdUnitCell        yes;                 # the file will contain unit cell info in the style of
+xstFreq            100;               # controls how often the extended systen configuration is appended
+outputEnergies     50;                # The number of timesteps between each energy output of NAMD
+outputTiming       50;                # The number of timesteps between each timing output shows
+
+# Force-Field Parameters
+paraTypeCharmm     on;                 # We're using charmm type parameter file(s)
+parameters           $topdir/par_all27_prot_ligands.prm
+#parameters          $topdir/par_all36_prot.prm;
+#parameters          $topdir/par_all36_lipid.prm;
+#parameters          $topdir/toppar_water_ions.str;
+
+# These are specified by CHARMM
+exclude             scaled1-4          # non-bonded exclusion policy to use "none,1-2,1-3,1-4,or scaled1-4"
+1-4scaling          1.0
+switching           on
+
+vdwForceSwitching   yes;               # New option for force-based switching of vdW
+
+cutoff              12.0;              # may use smaller, maybe 10., with PME
+switchdist          10.0;              # cutoff - 2.
+
+pairlistdist        16.0;              # stores the all the pairs within the distance, should be larger than cutoff( + 2.) 
+stepspercycle       20;                # 20 redo pairlists every ten steps
+pairlistsPerCycle    2;                # this means every 20/2=10 steps the pairlist will be updated 
+                          
+# Integrator Parameters
+timestep            2.0;               # fs/step
+rigidBonds          all;               # Bound constraint all bonds involving H are fixed in length
+nonbondedFreq       1;                 # nonbonded forces every step
+fullElectFrequency  1;                 # PME every step
+
+wrapWater           on;                # wrap water to central cell
+wrapAll             on;                # wrap other molecules too
+wrapNearest        off;                # use for non-rectangular cells (wrap to the nearest image)
+
+# PME (for full-system periodic electrostatics)
+PME                yes;
+PMEGridSpacing      1.0
+
+# Constant Pressure Control (variable volume)
+useGroupPressure       yes;            # use a hydrogen-group based pseudo-molecular viral to calcualte pressure and
+                                       # has less fluctuation, is needed for rigid bonds (rigidBonds/SHAKE)
+useFlexibleCell        no;            # yes for anisotropic system like membrane 
+#useConstantRatio       yes;            # keeps the ratio of the unit cell in the x-y plane constant A=B
+
+langevinPiston          on;            # Nose-Hoover Langevin piston pressure control
+langevinPistonTarget  1.01325;         # target pressure in bar 1atm = 1.01325bar 
+langevinPistonPeriod  50.0;            # oscillation period in fs. 
+langevinPistonDecay   25.0;            # oscillation decay time.
+langevinPistonTemp   $temp;            # coupled to heat bath
+
+# Constant Temperature Control
+langevin                on;            # langevin dynamics
+langevinDamping        1.0;            # damping coefficient of 1/ps (keep low)
+langevinTemp         $temp;            # random noise at this level
+langevinHydrogen       off;            # don't couple bath to hydrogens
+
+# collective variables: we open a temporary file that will then get modified
+# using the variables set by iPMF to create the file used for this run
+colvars                  on
+colvarsConfig           $colvarfile
+set infile  [open $colvar_temp_file r]
+set outfile [open $colvarfile w+]
+puts $outfile [subst [read $infile]]
+close $infile
+close $outfile
+
+# run
+run                $nstep; 
+
+
+
