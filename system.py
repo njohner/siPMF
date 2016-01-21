@@ -260,7 +260,7 @@ class System():
       for i in range(nd):pmf[i].append(float(s[i]))
     f.close()
     pmf=npy.array(pmf)
-    self.pmf=PMF(pmf[:-1,:].transpose(),pmf[-1,:])
+    self.pmf=PMF(pmf[:-1,:].transpose(),pmf[-1,:],self.cv_list)
 
   def UpdatePMF(self,environment):
     """
@@ -280,52 +280,16 @@ class System():
       El=[float(self.pmf.interpolator.__call__(tuple(npy.array(window.cv_values)-npy.array(delta_cv)))) for delta_cv in delta_cv_list]
       window.free_energy=min(El)
 
-  def PlotPMF(self,add_arrow=False):
+  def PlotPMF(self):
     """
     Plot the PMF.
     """
-    if self.dimensionality==2:
-      X=self.pmf.points[:,0]
-      Y=self.pmf.points[:,1]
-      Z=self.pmf.values
-      Z=npy.array([min(el,1.5*self.max_E) for el in Z])
-      nb_x=self.cv_list[0].num_bins
-      nb_y=self.cv_list[1].num_bins
-      X=X.reshape([nb_x,nb_y])
-      Y=Y.reshape([nb_x,nb_y])
-      Z=Z.reshape([nb_x,nb_y])
-      plt.figure()
-      plt.contourf(X,Y,Z,20)
-      plt.colorbar()
-      plt.xlabel(self.cv_list[0].name)
-      plt.ylabel(self.cv_list[1].name)
-      if add_arrow:
-        p1=self.cv_list[0].periodicity
-        p2=self.cv_list[1].periodicity
-        if not p1:p1=0
-        if not p2:p2=0
-        for w in self.windows:
-          if w.parent:
-            p=w.parent
-            x=p.cv_values[0]
-            y=p.cv_values[1]
-            dx=w.cv_values[0]-x
-            dy=w.cv_values[1]-y
-            if p1 and dx>p1/2.:dx=dx-p1
-            if p1 and dx<-p1/2.:dx=dx+p1
-            if p2 and dy>p2/2.:dy=dy-p2
-            if p2 and dy<-p2/2.:dy=dy+p2
-            plt.arrow(x,y,dx,dy,length_includes_head=True,head_length=3,head_width=3)
-      plt.savefig(os.path.join(self.pmf_dir,"pmf_{0}.png").format(len(self.windows)))
-      plt.close()
-    elif self.dimensionality==1:
-      plt.figure()
-      plt.plot(self.pmf.points,self.pmf.values)
-      plt.ylim([0,1.5*self.max_E])
-      plt.xlabel(self.cv_list[0].name)
-      plt.ylabel("Free Energy")
-      plt.savefig(os.path.join(self.pmf_dir,"pmf_{0}.png").format(len(self.windows)))
-      plt.close()
+    if self.pmf:
+      filename="pmf_{0}".format(len(self.windows))
+      self.pmf.Plot(self.pmf_dir,filename,max_E=1.5*self.max_E)
+    else:
+      logging.info("PMF has to be initialized before it can be plotted.")
+
 
   def GenerateNewWindows(self,environment):
     """
