@@ -123,7 +123,7 @@ Apart from the MD imput files, the user must provide two job submission files (a
 Starting the software
 ------------------------
 
-Apart from the MD input files and job submission scripts, you will need a python script to setup and launch the calculations.
+Apart from the MD input files and job submission scripts, you will need a python script (*run_pmf.py*) to setup and launch the calculations.
 This script will have to:
 
 - import siPMF
@@ -134,7 +134,12 @@ This script will have to:
 - Create the :doc:`SiPMF <si_pmf>` object
 - Start the calculations with *SiPMF.Run*
 
-The list of arguments that have to be passed to define the various objects, can be found in the corresponding documentation (:doc:`Environment <environment>`, :doc:`Collective Variables <collective_variable>`, :doc:`System <system>`,:doc:`SiPMF <si_pmf>`) pages or in the examples.
+The list of arguments that have to be passed to define the various objects, can be found in the corresponding documentation (:doc:`Environment <environment>`, :doc:`Collective Variables <collective_variable>`, :doc:`System <system>`, :doc:`SiPMF <si_pmf>`) pages or in the examples.
+
+Then to start the calculation simply run the python script. As the process should run in the background, you probably want it to be independent of your terminal. For this you could use the *nohup* command:
+::
+  nohup python run_pmf.py &
+
 
 Installation
 =====================
