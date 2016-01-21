@@ -28,10 +28,10 @@ class Phase():
     :param phase_name:  The name of the phase
     :param phase_type:  Either *Initialization* or *run* phase.
     :param parent_phase: The phase from which this one is restarted.
-    :type window: :class:`Window`
+    :type window: :class:`~window.Window`
     :type phase_name: :class:`str`
     :type phase_type: :class:`str`
-    :type parent_phase: :class:`Phase`
+    :type parent_phase: :class:`~phase.Phase`
     """
     self.window=window
     self.name=phase_name

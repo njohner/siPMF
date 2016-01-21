@@ -33,10 +33,10 @@ class Window():
     :param cv_values: The centers of the quadratic potentials restraining the CVs.
     :param spring_constants: The spring constants of the potentials restraining the CVs
     :param parent: The parent window
-    :type system: :class:`System`
-    :type cv_values: :class:`list`(:class:`float`)
-    :type spring_constants: :class:`list`(:class:`float`)
-    :type parent: :class:`Window`
+    :type system: :class:`~system.System`
+    :type cv_values: :class:`list` (:class:`float`)
+    :type spring_constants: :class:`list` (:class:`float`)
+    :type parent: :class:`~window.Window`
     """
     self.cv_names=[cv.name for cv in system.cv_list]
     self.cv_values=cv_values
@@ -72,7 +72,7 @@ class Window():
     an run phase using as restart the last phase of this window.
 
     :param environment: The environment used to submit the job to the cluster.
-    :type environment: :class:`Environment`
+    :type environment: :class:`~environment.Environment`
     """
     if self.is_new:
       if self.parent:

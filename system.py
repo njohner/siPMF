@@ -55,7 +55,7 @@ class System():
     :param temperature: The temperature at which WHAM is performed.
 
     :type basedir: :class:`str`
-    :type cv_list: :class:`list`(:class:`CollectiveVariable`)
+    :type cv_list: :class:`list` (:class:`~other.CollectiveVariable`)
     :type init_input_fname: :class:`str`
     :type run_input_fname: :class:`str`
     :type init_job_fname: :class:`str`
@@ -112,8 +112,8 @@ class System():
     :param init_restartdir: *basedir/init_restartdir* should point to the directory containing the files 
      from which the simulation of the first phase of this window should be restarted. 
     
-    :type cv_values: :class:`list`(:class:`float`)
-    :type spring_constants: :class:`list`(:class:`float`)
+    :type cv_values: :class:`list` (:class:`float`)
+    :type spring_constants: :class:`list` (:class:`float`)
     :type init_restartdir: :class:`str`
     """
     self.windows.append(Window(self,cv_values,spring_constants))
@@ -126,7 +126,7 @@ class System():
     the list of unfinished jobs and updated windows.
 
     :param environment:  The environment used to check the job status
-    :type environemnt: :class:`Environment`
+    :type environment: :class:`~environment.Environment`
     """
     n_crashed=0
     to_remove=[]
@@ -157,7 +157,7 @@ class System():
     (if not enough data has been collected yet for that window).
 
     :param environment:  The environment used to submit the jobs
-    :type environemnt: :class:`Environment`
+    :type environment: :class:`~environment.Environment`
     """
     for window in self.updated_windows:
       window.UpdateDataCount()
@@ -194,9 +194,9 @@ class System():
     :param spring_constants: Spring constants for the constraining potentials
     :param parent_window: Window from which the new window should be created
 
-    :type cv_values: :class:`list`(:class:`float`)
-    :type spring_constants: :class:`list`(:class:`float`)
-    :type parent_window: :class:`Window`
+    :type cv_values: :class:`list` (:class:`float`)
+    :type spring_constants: :class:`list` (:class:`float`)
+    :type parent_window: :class:`~window.Window`
     """
     self.windows.append(Window(self,cv_values,spring_constants,parent_window))
     self.updated_windows.append(self.windows[-1])
@@ -207,7 +207,7 @@ class System():
     their corresponding CV values and spring constants and then calls WHAM.
 
     :param environment: The environment used to call WHAM
-    :type environment: :class:`Environment`
+    :type environment: :class:`~environment.Environment`
     """
     pmf_cmd=[environment.wham_executable]
     if len(self.cv_list)==1:
@@ -266,7 +266,7 @@ class System():
     and plots the new PMF. Finally, using the PMF, it assigns a free energy value to each window.
 
     :param environment: The environment used to call WHAM
-    :type environment: :class:`Environment`
+    :type environment: :class:`~environment.Environment`
     """
     self.CalculatePMF(environment)
     self.ReadPMFFile()
@@ -297,7 +297,7 @@ class System():
     windows, the one with lowest free energy will be used as parent.
 
     :param environment: The environment used to call WHAM
-    :type environment: :class:`Environment`
+    :type environment: :class:`~environment.Environment`
     """
     self.UpdatePMF(environment)
     current_windows=[tuple(w.cv_values) for w in self.windows]

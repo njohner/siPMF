@@ -24,8 +24,8 @@ class SiPMF():
     """
     :param system: The system that will be studied
     :param environment: The environment
-    :type system: :class:`System`
-    :type environment: :class:`Environment`
+    :type system: :class:`~system.System`
+    :type environment: :class:`~environment.Environment`
     """
     self.system=system
     self.environment=environment

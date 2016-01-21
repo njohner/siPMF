@@ -59,7 +59,7 @@ class PMF():
     :param cv_list: List of the CVs 
     :type points: :class:`numpy.array`
     :type values: :class:`numpy.array`
-    :type cv_list: :class:`list`(:class:`CollectiveVariable`)
+    :type cv_list: :class:`list` (:class:`~other.CollectiveVariable`)
     """
     self.points=points
     self.values=values
@@ -78,6 +78,13 @@ class PMF():
   def Plot(self,outputdir,filename,n_levels=20,max_E=None,windows=None,energy_units=""):
     """
     Plot the PMF.
+
+    :param outputdir: Output directory to which the plot is saved
+    :param filename: name of the file to which the plot is saved (".png" will be added)
+    :param n_levels: for 2D plots, the number of isoenergy curves used in the plot
+    :param max_E: Maximal free energy, everything above will be shown at this level.
+    :param windows: If a list of windows is passed, arrows showing the exploration will be plotted
+    :param energy_units: Units displayed for the energy axis
     """
     if self.dimensionality==2:
       X=self.points[:,0]

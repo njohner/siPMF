@@ -17,7 +17,7 @@ class Job():
   def __init__(self,phase):
     """
     :param phase: The corresponding simulation phase.
-    :type phase:  :class:`Phase`
+    :type phase:  :class:`~phase.Phase`
     """
     self.phase=phase
     self.queue_status="To submit"
@@ -90,7 +90,7 @@ class Job():
     Submit the job to the cluster
 
     :param environment: The environment used to submit the job
-    :type environment: :class:`Environment`
+    :type environment: :class:`~environment.Environment`
     """
     self.jid=environment.qsub(self.phase.outdir,self.path_to_job_file)
     self.status="submitted"
@@ -101,7 +101,7 @@ class Job():
     Check whether the job is still in the queue
 
     :param environment: The environment used to check the job status
-    :type environment: :class:`Environment`
+    :type environment: :class:`~environment.Environment`
     """
     if self.queue_status!="finished":
       self.queue_status=environment.qstat(self.jid)
