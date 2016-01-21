@@ -25,7 +25,7 @@
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="top" title="SiPMF 1.0 documentation" href="index.html" />
     <link rel="next" title="System class" href="system.html" />
-    <link rel="prev" title="PMF class" href="pmf.html" /> 
+    <link rel="prev" title="SiPMF class" href="si_pmf.html" /> 
   </head>
   <body role="document">
     <div class="related" role="navigation" aria-label="related navigation">
@@ -41,7 +41,7 @@
           <a href="system.html" title="System class"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="pmf.html" title="PMF class"
+          <a href="si_pmf.html" title="SiPMF class"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">SiPMF 1.0 documentation</a> &raquo;</li> 
       </ul>
@@ -49,8 +49,8 @@
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
   <h4>Previous topic</h4>
-  <p class="topless"><a href="pmf.html"
-                        title="previous chapter">PMF class</a></p>
+  <p class="topless"><a href="si_pmf.html"
+                        title="previous chapter">SiPMF class</a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="system.html"
                         title="next chapter">System class</a></p>
@@ -82,14 +82,33 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="environment-class">
-<h1>Environment class<a class="headerlink" href="#environment-class" title="Permalink to this headline">¶</a></h1>
-<div class="toctree-wrapper compound">
-</div>
-<span class="target" id="module-environment"></span><dl class="class">
+  <div class="section" id="module-environment">
+<span id="environment-class"></span><h1>Environment class<a class="headerlink" href="#module-environment" title="Permalink to this headline">¶</a></h1>
+<p><em>Code author: Niklaus Johner &lt;<a class="reference external" href="mailto:niklaus&#46;johner&#37;&#52;&#48;a3&#46;epfl&#46;ch">niklaus<span>&#46;</span>johner<span>&#64;</span>a3<span>&#46;</span>epfl<span>&#46;</span>ch</a>&gt;</em></p>
+<p>This file contains the <a class="reference internal" href="#environment.Environment" title="environment.Environment"><code class="xref py py-class docutils literal"><span class="pre">Environment</span></code></a> object which represents the computational environment.</p>
+<dl class="class">
 <dt id="environment.Environment">
 <em class="property">class </em><code class="descname">Environment</code><span class="sig-paren">(</span><em>qsub_command</em>, <em>jid_pos</em>, <em>qstat_command</em>, <em>jid_flag</em>, <em>wham_executable</em><span class="sig-paren">)</span><a class="headerlink" href="#environment.Environment" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="method">
+<dd><p>This class represents the computational environment in which the software is run.
+It defines the functions used to communicate with the queuing system and the path to
+the WHAM executable.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>qsub_command</strong> (<a class="reference external" href="https://docs.python.org/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>) &#8211; Command used to submit a job to the queuing system. On SGE this should be &#8220;qsub&#8221;</li>
+<li><strong>jid_pos</strong> (<a class="reference external" href="https://docs.python.org/library/functions.html#int" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">int</span></code></a>) &#8211; Position of the job ID in the string returned by the <em>qsub_command</em></li>
+<li><strong>qstat_command</strong> (<a class="reference external" href="https://docs.python.org/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>) &#8211; Command used to check the status of a job. On SGE this should be &#8220;qstat&#8221;</li>
+<li><strong>jid_flag</strong> (<a class="reference external" href="https://docs.python.org/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>) &#8211; Flag that should be added to the <em>qstat_command</em> to check the status of a job with 
+a specific job ID. On SGE this should be &#8220;-j&#8221;</li>
+<li><strong>wham_executable</strong> (<a class="reference external" href="https://docs.python.org/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>) &#8211; Path to the wham executable (either the 1D wham or 2D wham, depending on the number of CVs in the system)</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
 <dt id="environment.Environment.DefineQstat">
 <code class="descname">DefineQstat</code><span class="sig-paren">(</span><em>qstat_command</em>, <em>jid_flag</em><span class="sig-paren">)</span><a class="headerlink" href="#environment.Environment.DefineQstat" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -122,7 +141,7 @@
           <a href="system.html" title="System class"
              >next</a> |</li>
         <li class="right" >
-          <a href="pmf.html" title="PMF class"
+          <a href="si_pmf.html" title="SiPMF class"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">SiPMF 1.0 documentation</a> &raquo;</li> 
       </ul>

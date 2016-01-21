@@ -202,7 +202,7 @@ The implementation is meant for use on HPC clusters, with simulations being subm
 </div>
 <div class="section" id="starting-the-software">
 <h3>Starting the software<a class="headerlink" href="#starting-the-software" title="Permalink to this headline">¶</a></h3>
-<p>Apart from the MD input files and job submission scripts, you will need a python script to setup and launch the calculations.
+<p>Apart from the MD input files and job submission scripts, you will need a python script (<em>run_pmf.py</em>) to setup and launch the calculations.
 This script will have to:</p>
 <ul class="simple">
 <li>import siPMF</li>
@@ -213,7 +213,11 @@ This script will have to:</p>
 <li>Create the <a class="reference internal" href="si_pmf.html"><em>SiPMF</em></a> object</li>
 <li>Start the calculations with <em>SiPMF.Run</em></li>
 </ul>
-<p>The list of arguments that have to be passed to define the various objects, can be found in the corresponding documentation (<a class="reference internal" href="environment.html"><em>Environment</em></a>, <a class="reference internal" href="collective_variable.html"><em>Collective Variables</em></a>, <a class="reference internal" href="system.html"><em>System</em></a>,:doc:<cite>SiPMF &lt;si_pmf&gt;</cite>) pages or in the examples.</p>
+<p>The list of arguments that have to be passed to define the various objects, can be found in the corresponding documentation (<a class="reference internal" href="environment.html"><em>Environment</em></a>, <a class="reference internal" href="collective_variable.html"><em>Collective Variables</em></a>, <a class="reference internal" href="system.html"><em>System</em></a>, <a class="reference internal" href="si_pmf.html"><em>SiPMF</em></a>) pages or in the examples.</p>
+<p>Then to start the calculation simply run the python script. As the process should run in the background, you probably want it to be independent of your terminal. For this you could use the <em>nohup</em> command:</p>
+<div class="highlight-python"><div class="highlight"><pre>nohup python run_pmf.py &amp;
+</pre></div>
+</div>
 </div>
 </div>
 <div class="section" id="installation">

@@ -25,7 +25,7 @@
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="top" title="SiPMF 1.0 documentation" href="index.html" />
     <link rel="next" title="PMF class" href="pmf.html" />
-    <link rel="prev" title="PMF class" href="pmf.html" /> 
+    <link rel="prev" title="Job class" href="job.html" /> 
   </head>
   <body role="document">
     <div class="related" role="navigation" aria-label="related navigation">
@@ -41,7 +41,7 @@
           <a href="pmf.html" title="PMF class"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="pmf.html" title="PMF class"
+          <a href="job.html" title="Job class"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">SiPMF 1.0 documentation</a> &raquo;</li> 
       </ul>
@@ -49,8 +49,8 @@
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
   <h4>Previous topic</h4>
-  <p class="topless"><a href="pmf.html"
-                        title="previous chapter">PMF class</a></p>
+  <p class="topless"><a href="job.html"
+                        title="previous chapter">Job class</a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="pmf.html"
                         title="next chapter">PMF class</a></p>
@@ -82,14 +82,36 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="collectivevariable-class">
-<h1>CollectiveVariable class<a class="headerlink" href="#collectivevariable-class" title="Permalink to this headline">¶</a></h1>
-<div class="toctree-wrapper compound">
-</div>
-<span class="target" id="module-other"></span><dl class="class">
+  <div class="section" id="module-other">
+<span id="collectivevariable-class"></span><h1>CollectiveVariable class<a class="headerlink" href="#module-other" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
 <dt id="other.CollectiveVariable">
-<em class="property">class </em><code class="descname">CollectiveVariable</code><span class="sig-paren">(</span><em>cv_name</em>, <em>min_value</em>, <em>max_value</em>, <em>step_size</em>, <em>num_bins</em>, <em>periodicity=None</em><span class="sig-paren">)</span><a class="headerlink" href="#other.CollectiveVariable" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<em class="property">class </em><code class="descname">CollectiveVariable</code><span class="sig-paren">(</span><em>cv_name</em>, <em>min_value</em>, <em>max_value</em>, <em>step_size</em>, <em>num_bins</em>, <em>periodicity=None</em>, <em>units=''</em><span class="sig-paren">)</span><a class="headerlink" href="#other.CollectiveVariable" title="Permalink to this definition">¶</a></dt>
+<dd><p>This class represents a collective variable (CV or reaction coordinate).
+The name of the CV will give rise to the corresponding fields that are replaced
+in the MD input files. The minimal and maximal values determine the range in which
+the windows can be generated. The number of bins are used for the calculation of the PMF.
+The periodicity of the collective variables is used both for generating new windows and for the
+calculation of the PMF. The step size defines the distance between two neighboring windows.
+Finally the units are just used in the labels of the plots of the PMF.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>cv_name</strong> (<a class="reference external" href="https://docs.python.org/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>) &#8211; The name of the CV</li>
+<li><strong>min_value</strong> (<a class="reference external" href="https://docs.python.org/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) &#8211; The minimal value of the CV</li>
+<li><strong>max_value</strong> (<a class="reference external" href="https://docs.python.org/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) &#8211; The maximal value of the CV</li>
+<li><strong>step_size</strong> (<a class="reference external" href="https://docs.python.org/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) &#8211; The size of the step for this CV</li>
+<li><strong>num_bins</strong> (<a class="reference external" href="https://docs.python.org/library/functions.html#int" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">int</span></code></a>) &#8211; number of bins</li>
+<li><strong>periodicity</strong> (<a class="reference external" href="https://docs.python.org/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) &#8211; periodicity of the CV</li>
+<li><strong>units</strong> (<a class="reference external" href="https://docs.python.org/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>) &#8211; the units of the CV</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 </div>
 
@@ -112,7 +134,7 @@
           <a href="pmf.html" title="PMF class"
              >next</a> |</li>
         <li class="right" >
-          <a href="pmf.html" title="PMF class"
+          <a href="job.html" title="Job class"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">SiPMF 1.0 documentation</a> &raquo;</li> 
       </ul>

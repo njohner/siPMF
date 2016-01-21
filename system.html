@@ -25,7 +25,7 @@
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="top" title="SiPMF 1.0 documentation" href="index.html" />
     <link rel="next" title="Window class" href="window.html" />
-    <link rel="prev" title="PMF class" href="pmf.html" /> 
+    <link rel="prev" title="Environment class" href="environment.html" /> 
   </head>
   <body role="document">
     <div class="related" role="navigation" aria-label="related navigation">
@@ -41,7 +41,7 @@
           <a href="window.html" title="Window class"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="pmf.html" title="PMF class"
+          <a href="environment.html" title="Environment class"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">SiPMF 1.0 documentation</a> &raquo;</li> 
       </ul>
@@ -49,8 +49,8 @@
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
   <h4>Previous topic</h4>
-  <p class="topless"><a href="pmf.html"
-                        title="previous chapter">PMF class</a></p>
+  <p class="topless"><a href="environment.html"
+                        title="previous chapter">Environment class</a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="window.html"
                         title="next chapter">Window class</a></p>
@@ -82,11 +82,9 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="system-class">
-<h1>System class<a class="headerlink" href="#system-class" title="Permalink to this headline">¶</a></h1>
-<div class="toctree-wrapper compound">
-</div>
-<span class="target" id="module-system"></span><p><em>Code author: Niklaus Johner &lt;<a class="reference external" href="mailto:niklaus&#46;johner&#37;&#52;&#48;a3&#46;epfl&#46;ch">niklaus<span>&#46;</span>johner<span>&#64;</span>a3<span>&#46;</span>epfl<span>&#46;</span>ch</a>&gt;</em></p>
+  <div class="section" id="module-system">
+<span id="system-class"></span><h1>System class<a class="headerlink" href="#module-system" title="Permalink to this headline">¶</a></h1>
+<p><em>Code author: Niklaus Johner &lt;<a class="reference external" href="mailto:niklaus&#46;johner&#37;&#52;&#48;a3&#46;epfl&#46;ch">niklaus<span>&#46;</span>johner<span>&#64;</span>a3<span>&#46;</span>epfl<span>&#46;</span>ch</a>&gt;</em></p>
 <p>This module contains the <a class="reference internal" href="#system.System" title="system.System"><code class="xref py py-class docutils literal"><span class="pre">System</span></code></a> object as well as a function to Load a <a class="reference internal" href="#system.System" title="system.System"><code class="xref py py-class docutils literal"><span class="pre">System</span></code></a>
 from a file.</p>
 <dl class="function">
@@ -111,6 +109,30 @@ by umbrella sampling (<a class="reference internal" href="#system.System" title=
 have one <code class="xref py py-class docutils literal"><span class="pre">Job</span></code>). The corresponding simulations will be carried out in a corresponding hierarchy of directories.
 The <a class="reference internal" href="#system.System" title="system.System"><code class="xref py py-class docutils literal"><span class="pre">System</span></code></a> contains all the information about the current status
 of the simulations and is therefore the only object needed to restart a SiPMF calculation.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>basedir</strong> (<a class="reference external" href="https://docs.python.org/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>) &#8211; The root directory in which the PMF calculation will be performed. Windows and
+phases will correspond to subdirectories of <em>basedir</em>.</li>
+<li><strong>cv_list</strong> (<code class="xref py py-class docutils literal"><span class="pre">list`(:class:`CollectiveVariable</span></code>)) &#8211; List of the collective variables (CV) used in the umbrella sampling</li>
+<li><strong>init_input_fname</strong> (<a class="reference external" href="https://docs.python.org/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>) &#8211; <em>basedir/init_input_fname</em> is the MD input file used for initializing new windows.</li>
+<li><strong>run_input_fname</strong> (<a class="reference external" href="https://docs.python.org/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>) &#8211; <em>basedir/run_input_fname</em> is the MD input file used to sample a window.</li>
+<li><strong>init_job_fname</strong> (<a class="reference external" href="https://docs.python.org/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>) &#8211; <em>basedir/init_job_fname</em> is the job file used to submit initialization runs to the cluster</li>
+<li><strong>run_job_fname</strong> (<a class="reference external" href="https://docs.python.org/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>) &#8211; <em>basedir/run_job_fname</em> is the job file used to submit sampling runs to the cluster</li>
+<li><strong>data_filename</strong> (<a class="reference external" href="https://docs.python.org/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>) &#8211; is the name of the file containing the values of the CVs. One such file should be generated
+for each sampling phase of every window by the corresponding job and be found in the corresponding directory.</li>
+<li><strong>init_nstep</strong> (<a class="reference external" href="https://docs.python.org/library/functions.html#int" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">int</span></code></a>) &#8211; The number of steps for initialization phases</li>
+<li><strong>run_nstep</strong> (<a class="reference external" href="https://docs.python.org/library/functions.html#int" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">int</span></code></a>) &#8211; The number of steps for sampling phases</li>
+<li><strong>n_data</strong> (<a class="reference external" href="https://docs.python.org/library/functions.html#int" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">int</span></code></a>) &#8211; The number of data wanted for each window.</li>
+<li><strong>max_E</strong> (<a class="reference external" href="https://docs.python.org/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) &#8211; The free energy threshold to decide whether to extend the simulation to neighboring windows or not.</li>
+<li><strong>temperature</strong> (<a class="reference external" href="https://docs.python.org/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) &#8211; The temperature at which WHAM is performed.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
 <dl class="method">
 <dt id="system.System.AddWindow">
 <code class="descname">AddWindow</code><span class="sig-paren">(</span><em>cv_values</em>, <em>spring_constants</em>, <em>parent_window=None</em><span class="sig-paren">)</span><a class="headerlink" href="#system.System.AddWindow" title="Permalink to this definition">¶</a></dt>
@@ -289,7 +311,7 @@ the list of unfinished jobs and updated windows.</p>
           <a href="window.html" title="Window class"
              >next</a> |</li>
         <li class="right" >
-          <a href="pmf.html" title="PMF class"
+          <a href="environment.html" title="Environment class"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">SiPMF 1.0 documentation</a> &raquo;</li> 
       </ul>

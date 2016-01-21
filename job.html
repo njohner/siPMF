@@ -25,7 +25,7 @@
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="top" title="SiPMF 1.0 documentation" href="index.html" />
     <link rel="next" title="CollectiveVariable class" href="collective_variable.html" />
-    <link rel="prev" title="PMF class" href="pmf.html" /> 
+    <link rel="prev" title="Phase class" href="phase.html" /> 
   </head>
   <body role="document">
     <div class="related" role="navigation" aria-label="related navigation">
@@ -41,7 +41,7 @@
           <a href="collective_variable.html" title="CollectiveVariable class"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="pmf.html" title="PMF class"
+          <a href="phase.html" title="Phase class"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">SiPMF 1.0 documentation</a> &raquo;</li> 
       </ul>
@@ -49,8 +49,8 @@
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
   <h4>Previous topic</h4>
-  <p class="topless"><a href="pmf.html"
-                        title="previous chapter">PMF class</a></p>
+  <p class="topless"><a href="phase.html"
+                        title="previous chapter">Phase class</a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="collective_variable.html"
                         title="next chapter">CollectiveVariable class</a></p>
@@ -82,11 +82,9 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="job-class">
-<h1>Job class<a class="headerlink" href="#job-class" title="Permalink to this headline">¶</a></h1>
-<div class="toctree-wrapper compound">
-</div>
-<span class="target" id="module-job"></span><p><em>Code author: Niklaus Johner &lt;<a class="reference external" href="mailto:niklaus&#46;johner&#37;&#52;&#48;a3&#46;epfl&#46;ch">niklaus<span>&#46;</span>johner<span>&#64;</span>a3<span>&#46;</span>epfl<span>&#46;</span>ch</a>&gt;</em></p>
+  <div class="section" id="module-job">
+<span id="job-class"></span><h1>Job class<a class="headerlink" href="#module-job" title="Permalink to this headline">¶</a></h1>
+<p><em>Code author: Niklaus Johner &lt;<a class="reference external" href="mailto:niklaus&#46;johner&#37;&#52;&#48;a3&#46;epfl&#46;ch">niklaus<span>&#46;</span>johner<span>&#64;</span>a3<span>&#46;</span>epfl<span>&#46;</span>ch</a>&gt;</em></p>
 <p>This file contains the <a class="reference internal" href="#job.Job" title="job.Job"><code class="xref py py-class docutils literal"><span class="pre">Job</span></code></a> object which represents a job on a cluster.</p>
 <dl class="class">
 <dt id="job.Job">
@@ -94,6 +92,14 @@
 <dd><p>This class is the bottom of the hierarchical structure used in SiPMF. There is one <a class="reference internal" href="#job.Job" title="job.Job"><code class="xref py py-class docutils literal"><span class="pre">Job</span></code></a>
 object for every <code class="xref py py-class docutils literal"><span class="pre">Phase</span></code> of every <code class="xref py py-class docutils literal"><span class="pre">Window</span></code>. This object is used to submit a job
 to the cluster and check its status</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>phase</strong> (<code class="xref py py-class docutils literal"><span class="pre">Phase</span></code>) &#8211; The corresponding simulation phase.</td>
+</tr>
+</tbody>
+</table>
 <dl class="method">
 <dt id="job.Job.GenerateInputFile">
 <code class="descname">GenerateInputFile</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#job.Job.GenerateInputFile" title="Permalink to this definition">¶</a></dt>
@@ -110,17 +116,23 @@ and for a run phase {RUN_NSTEP} is replaced by system.run_nstep.</p>
 <dl class="method">
 <dt id="job.Job.GetInitInputReplacementDict">
 <code class="descname">GetInitInputReplacementDict</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#job.Job.GetInitInputReplacementDict" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>This function returns a dictionary containing the fields that will be replaced only in the
+initialization MD input files.</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="job.Job.GetInputReplacementDict">
 <code class="descname">GetInputReplacementDict</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#job.Job.GetInputReplacementDict" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>This function returns a dictionary containing the fields that will be replaced both in the run and in the
+initialization MD input files.</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="job.Job.GetRunInputReplacementDict">
 <code class="descname">GetRunInputReplacementDict</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#job.Job.GetRunInputReplacementDict" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>This function returns a dictionary containing the fields that will be replaced only in the
+run MD input files.</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="job.Job.Submit">
@@ -173,7 +185,7 @@ and for a run phase {RUN_NSTEP} is replaced by system.run_nstep.</p>
           <a href="collective_variable.html" title="CollectiveVariable class"
              >next</a> |</li>
         <li class="right" >
-          <a href="pmf.html" title="PMF class"
+          <a href="phase.html" title="Phase class"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">SiPMF 1.0 documentation</a> &raquo;</li> 
       </ul>

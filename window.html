@@ -25,7 +25,7 @@
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="top" title="SiPMF 1.0 documentation" href="index.html" />
     <link rel="next" title="Phase class" href="phase.html" />
-    <link rel="prev" title="PMF class" href="pmf.html" /> 
+    <link rel="prev" title="System class" href="system.html" /> 
   </head>
   <body role="document">
     <div class="related" role="navigation" aria-label="related navigation">
@@ -41,7 +41,7 @@
           <a href="phase.html" title="Phase class"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="pmf.html" title="PMF class"
+          <a href="system.html" title="System class"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">SiPMF 1.0 documentation</a> &raquo;</li> 
       </ul>
@@ -49,8 +49,8 @@
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
   <h4>Previous topic</h4>
-  <p class="topless"><a href="pmf.html"
-                        title="previous chapter">PMF class</a></p>
+  <p class="topless"><a href="system.html"
+                        title="previous chapter">System class</a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="phase.html"
                         title="next chapter">Phase class</a></p>
@@ -82,22 +82,61 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="window-class">
-<h1>Window class<a class="headerlink" href="#window-class" title="Permalink to this headline">¶</a></h1>
-<div class="toctree-wrapper compound">
-</div>
-<span class="target" id="module-window"></span><dl class="class">
+  <div class="section" id="module-window">
+<span id="window-class"></span><h1>Window class<a class="headerlink" href="#module-window" title="Permalink to this headline">¶</a></h1>
+<p><em>Code author: Niklaus Johner &lt;<a class="reference external" href="mailto:niklaus&#46;johner&#37;&#52;&#48;a3&#46;epfl&#46;ch">niklaus<span>&#46;</span>johner<span>&#64;</span>a3<span>&#46;</span>epfl<span>&#46;</span>ch</a>&gt;</em></p>
+<p>This file contains the <a class="reference internal" href="#window.Window" title="window.Window"><code class="xref py py-class docutils literal"><span class="pre">Window</span></code></a> object which represents a simulation window.</p>
+<dl class="class">
 <dt id="window.Window">
 <em class="property">class </em><code class="descname">Window</code><span class="sig-paren">(</span><em>system</em>, <em>cv_values</em>, <em>spring_constants</em>, <em>parent=None</em><span class="sig-paren">)</span><a class="headerlink" href="#window.Window" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="method">
+<dd><p>This class is second in the hierarchical structure used in SiPMF. The <code class="xref py py-class docutils literal"><span class="pre">System</span></code> contains 
+several (usually many) class:<cite>Window</cite> which correspond to the <code class="xref py py-class docutils literal"><span class="pre">System</span></code> restrained to a small
+region of the CV space using a quadratic restraining potential. The restraining potential has to
+be of the form <strong>1/2 spring_constant(x-cv_value)</strong>. Notice the 1/2 in the definition used here, whereas some
+MD codes do not have this factor. <strong>Carefully check that the potential defined here matches
+the potential defined in the MD code you are using!</strong></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>system</strong> (<code class="xref py py-class docutils literal"><span class="pre">System</span></code>) &#8211; The system to which the window belongs</li>
+<li><strong>cv_values</strong> (<code class="xref py py-class docutils literal"><span class="pre">list`(:class:`float</span></code>)) &#8211; The centers of the quadratic potentials restraining the CVs.</li>
+<li><strong>spring_constants</strong> (<code class="xref py py-class docutils literal"><span class="pre">list`(:class:`float</span></code>)) &#8211; The spring constants of the potentials restraining the CVs</li>
+<li><strong>parent</strong> (<a class="reference internal" href="#window.Window" title="window.Window"><code class="xref py py-class docutils literal"><span class="pre">Window</span></code></a>) &#8211; The parent window</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
 <dt id="window.Window.SubmitNextPhase">
 <code class="descname">SubmitNextPhase</code><span class="sig-paren">(</span><em>environment</em><span class="sig-paren">)</span><a class="headerlink" href="#window.Window.SubmitNextPhase" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Automatically creates the appropriate next <code class="xref py py-class docutils literal"><span class="pre">Phase</span></code> and corresponding <code class="xref py py-class docutils literal"><span class="pre">Job</span></code> and
+submits it to the cluster. What the appropriate next phase is, is determined as follows:</p>
+<ul class="simple">
+<li>If the window does not have a parent and does not contain any phase yet, the new phase will be</li>
+</ul>
+<p>a run phase using as restart the <em>System.init_restartdir</em>
+- If the window has a parent phase does not contain any phase yet, the new phase will be 
+an initialization phase using as restart the last phase of the parent phase.
+- If the window already contains one or several phases, the new phase will be 
+an run phase using as restart the last phase of this window.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>environment</strong> (<code class="xref py py-class docutils literal"><span class="pre">Environment</span></code>) &#8211; The environment used to submit the job to the cluster.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="method">
 <dt id="window.Window.UpdateDataCount">
 <code class="descname">UpdateDataCount</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#window.Window.UpdateDataCount" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Update the total number of data accumulated for this window (sum over the data in each phase of the window).</p>
+</dd></dl>
 
 </dd></dl>
 
@@ -122,7 +161,7 @@
           <a href="phase.html" title="Phase class"
              >next</a> |</li>
         <li class="right" >
-          <a href="pmf.html" title="PMF class"
+          <a href="system.html" title="System class"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">SiPMF 1.0 documentation</a> &raquo;</li> 
       </ul>

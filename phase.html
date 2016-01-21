@@ -25,7 +25,7 @@
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="top" title="SiPMF 1.0 documentation" href="index.html" />
     <link rel="next" title="Job class" href="job.html" />
-    <link rel="prev" title="PMF class" href="pmf.html" /> 
+    <link rel="prev" title="Window class" href="window.html" /> 
   </head>
   <body role="document">
     <div class="related" role="navigation" aria-label="related navigation">
@@ -41,7 +41,7 @@
           <a href="job.html" title="Job class"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="pmf.html" title="PMF class"
+          <a href="window.html" title="Window class"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">SiPMF 1.0 documentation</a> &raquo;</li> 
       </ul>
@@ -49,8 +49,8 @@
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
   <h4>Previous topic</h4>
-  <p class="topless"><a href="pmf.html"
-                        title="previous chapter">PMF class</a></p>
+  <p class="topless"><a href="window.html"
+                        title="previous chapter">Window class</a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="job.html"
                         title="next chapter">Job class</a></p>
@@ -82,27 +82,47 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="phase-class">
-<h1>Phase class<a class="headerlink" href="#phase-class" title="Permalink to this headline">¶</a></h1>
-<div class="toctree-wrapper compound">
-</div>
-<span class="target" id="module-phase"></span><dl class="class">
+  <div class="section" id="module-phase">
+<span id="phase-class"></span><h1>Phase class<a class="headerlink" href="#module-phase" title="Permalink to this headline">¶</a></h1>
+<p><em>Code author: Niklaus Johner &lt;<a class="reference external" href="mailto:niklaus&#46;johner&#37;&#52;&#48;a3&#46;epfl&#46;ch">niklaus<span>&#46;</span>johner<span>&#64;</span>a3<span>&#46;</span>epfl<span>&#46;</span>ch</a>&gt;</em></p>
+<p>This file contains the <a class="reference internal" href="#phase.Phase" title="phase.Phase"><code class="xref py py-class docutils literal"><span class="pre">Phase</span></code></a> object which represents a simulation phase.</p>
+<dl class="class">
 <dt id="phase.Phase">
 <em class="property">class </em><code class="descname">Phase</code><span class="sig-paren">(</span><em>window</em>, <em>phase_name</em>, <em>phase_type</em>, <em>parent_phase=None</em><span class="sig-paren">)</span><a class="headerlink" href="#phase.Phase" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="method">
+<dd><p>This class is at the bottom of the hierarchical structure used in SiPMF. Every class:<cite>Window</cite>
+can have several <a class="reference internal" href="#phase.Phase" title="phase.Phase"><code class="xref py py-class docutils literal"><span class="pre">Phase</span></code></a> corresponding to successive simulations.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>window</strong> (<code class="xref py py-class docutils literal"><span class="pre">Window</span></code>) &#8211; The window to which the phase belongs</li>
+<li><strong>phase_name</strong> (<a class="reference external" href="https://docs.python.org/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>) &#8211; The name of the phase</li>
+<li><strong>phase_type</strong> (<a class="reference external" href="https://docs.python.org/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>) &#8211; Either <em>Initialization</em> or <em>run</em> phase.</li>
+<li><strong>parent_phase</strong> (<a class="reference internal" href="#phase.Phase" title="phase.Phase"><code class="xref py py-class docutils literal"><span class="pre">Phase</span></code></a>) &#8211; The phase from which this one is restarted.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
 <dt id="phase.Phase.GetDataCount">
 <code class="descname">GetDataCount</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#phase.Phase.GetDataCount" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Get the number of data points accumulated for this phase (number of lines in its <em>datafile</em>).</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="phase.Phase.Initialize">
 <code class="descname">Initialize</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#phase.Phase.Initialize" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Initialize the phase by creating its output directory, and setting up the simulation <code class="xref py py-class docutils literal"><span class="pre">Job</span></code>, i.e.
+preparing the MD input file.</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="phase.Phase.UpdateDataCount">
 <code class="descname">UpdateDataCount</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#phase.Phase.UpdateDataCount" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Count how much data has been accumulated in this phase (number of lines in its <em>datafile</em>).</p>
+</dd></dl>
 
 </dd></dl>
 
@@ -127,7 +147,7 @@
           <a href="job.html" title="Job class"
              >next</a> |</li>
         <li class="right" >
-          <a href="pmf.html" title="PMF class"
+          <a href="window.html" title="Window class"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">SiPMF 1.0 documentation</a> &raquo;</li> 
       </ul>
