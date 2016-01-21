@@ -1,3 +1,8 @@
+"""
+.. codeauthor:: Niklaus Johner <niklaus.johner@a3.epfl.ch>
+
+This module contains the :class:`siPMF` class
+"""
 import time,logging,os
 from environment import Environment
 from system import System
@@ -7,14 +12,45 @@ from job import Job
 from other import PMF,CollectiveVariable
 
 class SiPMF():
+  """
+  The :class:`siPMF` class defines the process that will supervise the whole calculation of
+  the free energy landscape. It will survey the status of the jobs, submit new jobs, create 
+  new windows and so on.
+  """
   def __repr__(self):
     return "SiPMF({0},{1})".format(self.system,self.environment)
 
   def __init__(self,system,environment):
+    """
+    :param system: The system that will be studied
+    :param environment: The environment
+    :type system: :class:`System`
+    :type environment: :class:`Environment`
+    """
     self.system=system
     self.environment=environment
 
   def Run(self,max_time,max_jobs,sleep_length):
+    """
+    Run the process to explore the free energy landscape. The process is an infinite loop in which
+    it will sleep for some time, then when it wakes up it checks the status of the jobs in the queue.
+    If some jobs have finished, it will submit new phases for the corresponding windows if necessary
+    (i.e not enough data accumulated yet). When all the windows have been properly sampled, and no more 
+    jobs are running, it will create new windows and start sampling those.
+    The process either stops when it cannot create any new windows or when it has run for more than a preset
+    time or if it has submitted more jobs than a preset maximal number of jobs. For any of these stopping
+    conditions, the process will keep on running until there are no jobs left in the queue, then it will
+    update the PMF once more, save its state and stop.
+    When running it saves its state everytime it has changed. It also recalculates and plots the PMF
+    every time it generates new windows.
+
+    :param max_time: Maximal time (in seconds) the process will run for
+    :param max_jobs: Maximal number of jobs the process will submit
+    :param sleep_length: time (in seconds) the process will sleep between two cycles.
+    :type max_time: :class:`int`
+    :type max_jobs: :class:`int`
+    :type sleep_length: :class:`int`
+    """
     njobs=0
     n_running_jobs=0
     n_finished_jobs=0

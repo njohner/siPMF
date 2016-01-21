@@ -39,8 +39,6 @@ class System():
 
   def __init__(self,basedir,cv_list,init_input_fname,run_input_fname,init_job_fname,run_job_fname,data_filename,init_nstep,run_nstep,n_data,max_E,temperature,check_fnames):
     """
-    Creates a new :class:`System` instance.
-
     :param basedir: The root directory in which the PMF calculation will be performed. Windows and
      phases will correspond to subdirectories of *basedir*.
     :param cv_list: List of the collective variables (CV) used in the umbrella sampling
@@ -286,7 +284,7 @@ class System():
     """
     if self.pmf:
       filename="pmf_{0}".format(len(self.windows))
-      self.pmf.Plot(self.pmf_dir,filename,max_E=1.5*self.max_E)
+      self.pmf.Plot(self.pmf_dir,filename,max_E=1.5*self.max_E,windows=self.windows)
     else:
       logging.info("PMF has to be initialized before it can be plotted.")
 
