@@ -16,8 +16,6 @@ class Job():
 
   def __init__(self,phase):
     """
-    Creates a new :class:`Job` instance.
-
     :param phase: The corresponding simulation phase.
     :type phase:  :class:`Phase`
     """
@@ -59,6 +57,10 @@ class Job():
     outf.close()
 
   def GetInputReplacementDict(self):
+    """
+    This function returns a dictionary containing the fields that will be replaced both in the run and in the
+    initialization MD input files.
+    """
     to_replace={"{BASEDIR}":self.phase.window.system.basedir,"{RESTARTDIR}":self.phase.restartdir}#,"_RESTARTNAME":self.phase.restartname}
     to_replace.update({"{OUTPUTDIR}":self.phase.outdir})#,"_OUTPUTNAME":self.outname})
     for cvn,cvv in zip(self.phase.window.cv_names,self.phase.window.cv_values):to_replace["{"+cvn+"}"]=cvv
@@ -66,12 +68,20 @@ class Job():
     return to_replace
 
   def GetInitInputReplacementDict(self):
+    """
+    This function returns a dictionary containing the fields that will be replaced only in the
+    initialization MD input files.
+    """
     to_replace={"{INIT_NSTEP}":self.phase.window.system.init_nstep}
     for cvn,cvv in zip(self.phase.window.parent.cv_names,self.phase.window.parent.cv_values):to_replace["{PARENT_"+cvn+"}"]=cvv
     for cvn,cvk in zip(self.phase.window.parent.cv_names,self.phase.window.parent.spring_constants):to_replace["{PARENT_"+cvn+"_K}"]=cvk
     return to_replace
 
   def GetRunInputReplacementDict(self):
+    """
+    This function returns a dictionary containing the fields that will be replaced only in the
+    run MD input files.
+    """
     to_replace={"{RUN_NSTEP}":self.phase.window.system.run_nstep}
     return to_replace
 
