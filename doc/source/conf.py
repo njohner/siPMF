@@ -107,6 +107,8 @@ pygments_style = 'sphinx'
 # If true, `todo` and `todoList` produce output, else they produce nothing.
 todo_include_todos = False
 
+# Concatenate the class docstring with the __init__ docstring.
+autoclass_content = 'both'
 
 # -- Options for HTML output ----------------------------------------------
 
