@@ -111,15 +111,19 @@ class PMF():
         for w in windows:
           if w.parent:
             p=w.parent
-            x=p.cv_values[0]
-            y=p.cv_values[1]
-            dx=w.cv_values[0]-x
-            dy=w.cv_values[1]-y
-            if p1 and dx>p1/2.:dx=dx-p1
-            if p1 and dx<-p1/2.:dx=dx+p1
-            if p2 and dy>p2/2.:dy=dy-p2
-            if p2 and dy<-p2/2.:dy=dy+p2
-            plt.arrow(x,y,dx,dy,length_includes_head=True,head_length=3,head_width=3)
+            x=w.cv_values[0]
+            y=w.cv_values[1]
+            xp=p.cv_values[0]
+            yp=p.cv_values[1]
+            if p1 and x-xp>p1/2.:
+              xp+=p1
+            if p1 and x-xp<-p1/2.:
+              xp-=p1
+            if p2 and y-yp>p2/2.:
+              yp+=p2
+            if p2 and y-yp<-p2/2.:
+              yp-=p2
+            plt.annotate("",xy=(x,y),xytext=(xp,yp),arrowprops=dict(facecolor="k",width=0.5,frac=0.2,headwidth=4),annotation_clip=False)
       plt.savefig(os.path.join(outputdir,filename+".png"))
       plt.close()
     elif self.dimensionality==1:
