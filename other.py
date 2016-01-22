@@ -20,7 +20,7 @@ class CollectiveVariable():
   Finally the units are just used in the labels of the plots of the PMF.
   """
   def __repr__(self):
-    return "CollectiveVariable({0},{1},{2},{3},{4},{5})".format(self.name,self.min_value,self.max_value,self.step_size,self.num_bins,self.periodicity)
+    return "CollectiveVariable({0},{1},{2},{3},{4},{5})".format(self.name,self.min_value,self.max_value,self.step_size,self.num_bins,self.periodicity,self.units)
 
   def __init__(self,cv_name,min_value,max_value,step_size,num_bins,periodicity=None,units=""):
     """
@@ -42,12 +42,24 @@ class CollectiveVariable():
     self.name=cv_name
     self.min_value=min_value
     self.max_value=max_value
-    self.num_bins=num_bins
     self.step_size=step_size
+    self.num_bins=num_bins
     self.bin_size=(self.max_value-self.min_value)/float(num_bins)
     self.periodicity=periodicity
     self.units=units
-  
+    #We extend the cv for the calculation of the PMF by step_size, so that windows
+    #in the edge still have their free energy calculated properly
+    if not self.periodicity:
+      self.num_pads=0
+      self.wham_min_value=self.min_value-step_size
+      self.wham_max_value=self.max_value+step_size
+      self.wham_num_bins=num_bins+2*int(step_size/self.bin_size)
+    else:
+      self.num_pads=int(step_size/self.bin_size)
+      self.wham_min_value=self.min_value
+      self.wham_max_value=self.max_value
+      self.wham_num_bins=num_bins
+
 class PMF():
   def __repr__(self):
     return "PMF({0},{1})".format(self.points,self.values)
@@ -91,8 +103,9 @@ class PMF():
       Y=self.points[:,1]
       Z=self.values
       if max_E:Z=npy.array([min(el,max_E) for el in Z])
-      nb_x=self.cv_list[0].num_bins
-      nb_y=self.cv_list[1].num_bins
+      num_pads=max([self.cv_list[0].num_pads,self.cv_list[1].num_pads])
+      nb_x=self.cv_list[0].wham_num_bins+2*num_pads
+      nb_y=self.cv_list[1].wham_num_bins+2*num_pads
       X=X.reshape([nb_x,nb_y])
       Y=Y.reshape([nb_x,nb_y])
       Z=Z.reshape([nb_x,nb_y])

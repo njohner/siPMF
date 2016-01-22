@@ -212,19 +212,20 @@ class System():
     pmf_cmd=[environment.wham_executable]
     if len(self.cv_list)==1:
       cv=cv_list[0]
-      if not cv.periodicity:pmf_cmd.extend([cv.min_value,cv.max_value,cv.num_bins])
-      else:pmf_cmd.extend(["P"+str(cv.periodicity),cv.min_value,cv.max_value,cv.num_bins])
+      if not cv.periodicity:pmf_cmd.extend([cv.wham_min_value,cv.wham_max_value,cv.wham_num_bins])
+      else:pmf_cmd.extend(["P"+str(cv.periodicity),cv.wham_min_value,cv.wham_max_value,cv.wham_num_bins])
     elif len(self.cv_list)==2:
       for x,cv in zip(["Px=","Py="],self.cv_list):
         if not cv.periodicity:p=x+str(0)
         else:p=x+str(cv.periodicity)
-        pmf_cmd.extend([p,cv.min_value,cv.max_value,cv.num_bins])
+        pmf_cmd.extend([p,cv.wham_min_value,cv.wham_max_value,cv.wham_num_bins])
     else:
       logging.error("Can only work with one or two collective variables")
       raise ValueError("Can only work with one or two collective variables")
     pmf_cmd.append(0.01)#tolerance
     pmf_cmd.append(self.temperature)
-    pmf_cmd.append(0)#Number of pads for periodic variables
+    num_pads=max([cv.num_pads for cv in self.cv_list])
+    pmf_cmd.append(num_pads)#Number of pads for periodic variables
     f=open(self.path_to_pmf_input,"w")
     for window in self.windows:
       for phase in window.phases:
@@ -276,7 +277,7 @@ class System():
     delta_cv_list=list(itertools.product(*steps))
     for window in self.windows:
       El=[float(self.pmf.interpolator.__call__(tuple(npy.array(window.cv_values)-npy.array(delta_cv)))) for delta_cv in delta_cv_list]
-      window.free_energy=min(El)
+      window.free_energy=min([el for el in El if not npy.isnan(el)])
 
   def PlotPMF(self):
     """
