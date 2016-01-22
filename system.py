@@ -312,7 +312,7 @@ class System():
         for i,(cv_val,cv) in enumerate(zip(new_cv_vals,self.cv_list)):
           if not cv.periodicity:continue
           if cv_val>cv.max_value:new_cv_vals[i]=cv_val-cv.periodicity
-          elif cv_val<cv.min_value:new_cv_vals[i]=cv_val+cv.periodicity
+          elif cv_val<=cv.min_value:new_cv_vals[i]=cv_val+cv.periodicity
         new_cv_vals=tuple(new_cv_vals)
         if new_cv_vals in current_windows:continue
         if any([cv_val>cv.max_value for cv_val,cv in zip(new_cv_vals,self.cv_list)]):continue
