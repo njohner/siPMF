@@ -201,6 +201,18 @@ class System():
     self.windows.append(Window(self,cv_values,spring_constants,parent_window))
     self.updated_windows.append(self.windows[-1])
 
+  def FindWindow(self,cv_values):
+    """
+    Find window with given values of the cvs
+
+    :param cv_values: Values of the collective variables for the window
+    :type cv_values: :class:`list` (:class:`float`)
+    """
+    for w in self.windows:
+      if w.cv_values==cv_values:return w
+    else:
+      return
+
   def CalculatePMF(self,environment):
     """
     Calculate the PMF. The function generates the meta file listing all the data files and
@@ -209,6 +221,7 @@ class System():
     :param environment: The environment used to call WHAM
     :type environment: :class:`~environment.Environment`
     """
+
     pmf_cmd=[environment.wham_executable]
     if len(self.cv_list)==1:
       cv=cv_list[0]
@@ -240,7 +253,9 @@ class System():
     if len(self.cv_list)==2:pmf_cmd.append(1)#Use automatic masking
     pmf_cmd=[str(el) for el in pmf_cmd]
     print "".join(subprocess.list2cmdline(pmf_cmd))
+    t0=time.time()
     subprocess.call(pmf_cmd)
+    logging.info("WHAM finished in {0}s".format(time.time()-t0))
 
   def ReadPMFFile(self):
     """
@@ -269,6 +284,7 @@ class System():
     :param environment: The environment used to call WHAM
     :type environment: :class:`~environment.Environment`
     """
+    logging.info("Updating PMF")
     self.CalculatePMF(environment)
     self.ReadPMFFile()
     self.PlotPMF()
@@ -278,6 +294,19 @@ class System():
     for window in self.windows:
       El=[float(self.pmf.interpolator.__call__(tuple(npy.array(window.cv_values)-npy.array(delta_cv)))) for delta_cv in delta_cv_list]
       window.free_energy=min([el for el in El if not npy.isnan(el)])
+
+  def ShiftWindowFreeEnergies(self,min_val=0):
+    """
+    Shift the free energies of the windows such that the window with the lowest free
+    energy has a free energy of min_val.
+    
+    :param min_val: the free energy assigned to the window with lowest free energy
+    :type min_val: :class:`float`
+    """
+    fes=[w.free_energy for w in self.windows]
+    shift=min_val-min(fes)
+    for w in self.windows:
+      w.free_energy+=shift
 
   def PlotPMF(self):
     """
@@ -301,6 +330,7 @@ class System():
     :type environment: :class:`~environment.Environment`
     """
     self.UpdatePMF(environment)
+    self.ShiftWindowFreeEnergies()
     current_windows=[tuple(w.cv_values) for w in self.windows]
     steps=[[-cv.step_size,0,cv.step_size] for cv in self.cv_list]
     delta_cv_list=list(itertools.product(*steps))
@@ -325,3 +355,5 @@ class System():
     for cv_values in new_windows:
       self.AddWindow(cv_values,new_windows[cv_values].spring_constants,new_windows[cv_values])
     return len(new_windows)
+
+
