@@ -3,7 +3,7 @@
 
 This file contains the :class:`CollectiveVariable` and the :class:`PMF` class.
 """
-import os
+import os,time
 import scipy.interpolate
 from scipy.interpolate import NearestNDInterpolator
 import matplotlib.pyplot as plt
