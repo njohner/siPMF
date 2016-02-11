@@ -186,6 +186,18 @@ class System():
     """
     return os.path.join(self.basedir,self.run_input_fname)
 
+  def GetPathToInitJobFile(self):
+    """
+    Get the path to the job submission file for initialization phases
+    """
+    return os.path.join(self.basedir,self.init_job_fname)
+
+  def GetPathToRunJobFile(self):
+    """
+    Get the path to the job submission file for run phases
+    """
+    return os.path.join(self.basedir,self.run_job_fname)
+
   def AddWindow(self,cv_values,spring_constants,parent_window=None):
     """
     Add a new window to the system

@@ -23,8 +23,58 @@ class Job():
     self.queue_status="To submit"
     self.success=None
     self.GenerateInputFile()
-    if self.phase.type=="initialization":self.path_to_job_file=os.path.join(self.phase.window.system.basedir,self.phase.window.system.init_job_fname)
-    elif self.phase.type=="run":self.path_to_job_file=os.path.join(self.phase.window.system.basedir,self.phase.window.system.run_job_fname)
+    self.GenerateJobFile()
+
+  def GenerateJobFile(self):
+    """
+    Generate the Job submission file. This function reads the template job file (either the *initialization job file*
+    or the *run job file*) and replaces several fields by their corresponding values, notably
+    {BASEDIR}, {RESTARTDIR}, {OUTPUTDIR}, {WINDOW}, {PHASE} and {INPUTFILE}. For the initialization job submission file we also replace fields for the parent window, namely
+    {PARENT_WINDOW} and {PARENT_PHASE}.
+    """
+    to_replace=self.GetJobReplacementDict()
+    if self.phase.type=="initialization":
+      f=open(self.phase.window.system.GetPathToInitJobFile(),"r")
+      to_replace.update(self.GetInitJobReplacementDict())
+      self.path_to_job_file=os.path.join(self.phase.outdir,self.phase.window.system.init_job_fname)
+    elif self.phase.type=="run":
+      f=open(self.phase.window.system.GetPathToRunJobFile(),"r")
+      to_replace.update(self.GetRunJobReplacementDict())
+      self.path_to_job_file=os.path.join(self.phase.outdir,self.phase.window.system.run_job_fname)
+    f_data=f.readlines()
+    f.close()
+    f_data_new=[]
+    for line in f_data:
+      for key in to_replace:line=line.replace(key,str(to_replace[key]))
+      f_data_new.append(line)
+    outf=open(self.path_to_job_file,"w")
+    outf.write("".join(f_data_new))
+    outf.close()
+
+  def GetJobReplacementDict(self):
+    """
+    This function returns a dictionary containing the fields that will be replaced both in the run and in the
+    initialization Job submission files.
+    """
+    to_replace={"{BASEDIR}":self.phase.window.system.basedir,"{RESTARTDIR}":self.phase.restartdir,"{OUTPUTDIR}":self.phase.outdir}
+    to_replace.update({"{WINDOW}":self.phase.window.name,"{PHASE}":self.phase.name,"{INPUTFILE}":self.path_to_input_file})
+    return to_replace
+
+  def GetInitJobReplacementDict(self):
+    """
+    This function returns a dictionary containing the fields that will be replaced only in the
+    initialization Job submission files.
+    """
+    to_replace={"{PARENT_WINDOW}":self.phase.window.parent.name,"{PARENT_PHASE}":self.phase.parent_phase.name}
+    return to_replace
+
+  def GetRunJobReplacementDict(self):
+    """
+    This function returns a dictionary containing the fields that will be replaced only in the
+    run Job submission files.
+    """
+    to_replace={}
+    return to_replace
   
   def GenerateInputFile(self):
     """
@@ -41,18 +91,18 @@ class Job():
     if self.phase.type=="initialization":
       f=open(self.phase.window.system.GetPathToInitInputFile(),"r")
       to_replace.update(self.GetInitInputReplacementDict())
-      self.path_to_job_file=os.path.join(self.phase.outdir,self.phase.window.system.init_input_fname)
+      self.path_to_input_file=os.path.join(self.phase.outdir,self.phase.window.system.init_input_fname)
     elif self.phase.type=="run":
       f=open(self.phase.window.system.GetPathToRunInputFile(),"r")
       to_replace.update(self.GetRunInputReplacementDict())
-      self.path_to_job_file=os.path.join(self.phase.outdir,self.phase.window.system.run_input_fname)
+      self.path_to_input_file=os.path.join(self.phase.outdir,self.phase.window.system.run_input_fname)
     f_data=f.readlines()
     f.close()
     f_data_new=[]
     for line in f_data:
       for key in to_replace:line=line.replace(key,str(to_replace[key]))
       f_data_new.append(line)
-    outf=open(self.path_to_job_file,"w")
+    outf=open(self.path_to_input_file,"w")
     outf.write("".join(f_data_new))
     outf.close()
 
