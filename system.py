@@ -322,6 +322,7 @@ class System():
     shift=min_val-min(fes)
     for w in self.windows:
       w.free_energy+=shift
+    return shift
 
   def PlotPMF(self):
     """
@@ -350,7 +351,7 @@ class System():
     :type environment: :class:`~environment.Environment`
     """
     self.UpdatePMF(environment)
-    self.ShiftWindowFreeEnergies()
+    fe_shift=self.ShiftWindowFreeEnergies()
     current_windows=[tuple(w.cv_values) for w in self.windows]
     steps=[[-cv.step_size,0,cv.step_size] for cv in self.cv_list]
     delta_cv_list=list(itertools.product(*steps))
@@ -386,8 +387,8 @@ class System():
       #Add the new windows
       n_new_windows=0
       for cv_values in new_windows:
-        if new_windows[cv_values]["free_energy"]<max_free_energy:
-          self.AddWindow(cv_values,new_windows[cv_values].spring_constants,new_windows[cv_values])
+        if new_windows[cv_values]["free_energy"]+fe_shift<max_free_energy:
+          self.AddWindow(cv_values,new_windows[cv_values]["parent"].spring_constants,new_windows[cv_values]["parent"])
           n_new_windows+=1
       if n_new_windows>=1:return n_new_windows,max_free_energy
     return n_new_windows,max_free_energy
