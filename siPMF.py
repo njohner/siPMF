@@ -85,10 +85,10 @@ class SiPMF():
       #So we generate new windows
       if n_running_jobs==0:
         logging.info("No more jobs in the queue, checking whether to generate new windows")
-        n_new_windows=self.system.GenerateNewWindows(self.environment)
+        n_new_windows,fe_threshold=self.system.GenerateNewWindows(self.environment)
         if n_new_windows!=0:
           save_flag=True
-          logging.info("Generate {0} new windows. Total of {1} windows".format(n_new_windows,len(self.system.windows)))
+          logging.info("Generate {0} new windows with free energy threshold={1}. Total of {2} windows".format(n_new_windows,fe_threshold,len(self.system.windows)))
         if n_new_windows!=0 and submit_flag:
           nj=self.system.SubmitNewJobs(self.environment)
           njobs+=nj

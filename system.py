@@ -35,9 +35,9 @@ class System():
   of the simulations and is therefore the only object needed to restart a SiPMF calculation.
   """
   def __repr__(self):
-    return "System({0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11})".format(self.basedir,self.cv_list,self.init_input_fname,self.run_input_fname,self.init_job_fname,self.run_job_fname,self.data_filename,self.init_nstep,self.run_nstep,self.n_data,self.max_E,self.temperature)
+    return "System({0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12})".format(self.basedir,self.cv_list,self.init_input_fname,self.run_input_fname,self.init_job_fname,self.run_job_fname,self.data_filename,self.init_nstep,self.run_nstep,self.n_data,self.max_E1,self.max_E2,self.temperature)
 
-  def __init__(self,basedir,cv_list,init_input_fname,run_input_fname,init_job_fname,run_job_fname,data_filename,init_nstep,run_nstep,n_data,max_E,temperature,check_fnames):
+  def __init__(self,basedir,cv_list,init_input_fname,run_input_fname,init_job_fname,run_job_fname,data_filename,init_nstep,run_nstep,n_data,max_E1,max_E2,temperature,check_fnames):
     """
     :param basedir: The root directory in which the PMF calculation will be performed. Windows and
      phases will correspond to subdirectories of *basedir*.
@@ -51,7 +51,8 @@ class System():
     :param init_nstep: The number of steps for initialization phases
     :param run_nstep: The number of steps for sampling phases
     :param n_data: The number of data wanted for each window.
-    :param max_E: The free energy threshold to decide whether to extend the simulation to neighboring windows or not.
+    :param max_E1: Lower boundary of free energy threshold to decide whether to extend the simulation to neighboring windows or not.
+    :param max_E2: Upper boundary of free energy threshold to decide whether to extend the simulation to neighboring windows or not.
     :param temperature: The temperature at which WHAM is performed.
 
     :type basedir: :class:`str`
@@ -64,7 +65,8 @@ class System():
     :type init_nstep: :class:`int`
     :type run_nstep: :class:`int`
     :type n_data: :class:`int`
-    :type max_E: :class:`float`
+    :type max_E1: :class:`float`
+    :type max_E2: :class:`float`
     :type temperature: :class:`float`
     """
     self.basedir=basedir
@@ -74,7 +76,8 @@ class System():
     subprocess.call(["mkdir",self.simu_dir])
     self.temperature=temperature
     self.check_fnames=check_fnames
-    self.max_E=max_E
+    self.max_E1=max_E1
+    self.max_E2=max_E2
     self.cv_list=cv_list
     self.init_input_fname=init_input_fname
     self.run_input_fname=run_input_fname
@@ -326,16 +329,21 @@ class System():
     """
     if self.pmf:
       filename="pmf_{0}".format(len(self.windows))
-      self.pmf.Plot(self.pmf_dir,filename,max_E=1.5*self.max_E,windows=self.windows)
+      self.pmf.Plot(self.pmf_dir,filename,max_E=1.2*self.max_E2,windows=self.windows)
     else:
       logging.info("PMF has to be initialized before it can be plotted.")
 
 
   def GenerateNewWindows(self,environment):
     """
-    Generates new windows around windows with free energy lower than *max_E* of the system.
+    Generates new windows expected to have low free energy from windows with low free energy themselves.
     The function first updates the PMF (*UpdatePMF*) and then goes through all the windows
-    in the system to decide where to generate new ones. If a new window can be generated from several
+    in the system to find potential new windows to generate. Specifically it will start with a maximal
+    free energy threshold of *max_E1*, go through all the windows and for those with free energy below
+    the current threshold, it will look at all potential neighbor windows. It estimates the free
+    of each potential new window and if it is below the free energy threshold, it adds that window to the system.
+    If no new window was generated, it increases the threshold in 5 steps up to *max_E2*, each time repeating
+    the procedure described above. If a new window can be generated from several
     windows, the one with lowest free energy will be used as parent.
 
     :param environment: The environment used to call WHAM
@@ -347,25 +355,41 @@ class System():
     steps=[[-cv.step_size,0,cv.step_size] for cv in self.cv_list]
     delta_cv_list=list(itertools.product(*steps))
     delta_cv_list.remove((0,0))
-    new_windows={}
-    for window in self.windows:
-      if window.free_energy>self.max_E:continue
-      for step in delta_cv_list:
-        new_cv_vals=[el1+el2 for el1,el2 in zip(window.cv_values,step)]
-        for i,(cv_val,cv) in enumerate(zip(new_cv_vals,self.cv_list)):
-          if not cv.periodicity:continue
-          if cv_val>cv.max_value:new_cv_vals[i]=cv_val-cv.periodicity
-          elif cv_val<=cv.min_value:new_cv_vals[i]=cv_val+cv.periodicity
-        new_cv_vals=tuple(new_cv_vals)
-        if new_cv_vals in current_windows:continue
-        if any([cv_val>cv.max_value for cv_val,cv in zip(new_cv_vals,self.cv_list)]):continue
-        if any([cv_val<cv.min_value for cv_val,cv in zip(new_cv_vals,self.cv_list)]):continue
-        if not new_cv_vals in new_windows:new_windows.update({new_cv_vals:window})
-        else:
-          if window.free_energy<new_windows[new_cv_vals].free_energy:
-            new_windows[new_cv_vals]=window
-    for cv_values in new_windows:
-      self.AddWindow(cv_values,new_windows[cv_values].spring_constants,new_windows[cv_values])
-    return len(new_windows)
+    fe_step=self.max_E2-self.max_E1
+    for max_free_energy in npy.arange(self.max_E1,self.max_E2+fe_step/2.,fe_step):
+      new_windows={}
+      for window in self.windows:
+        if window.free_energy>max_free_energy:continue
+        for step in delta_cv_list:
+          new_cv_vals=[el1+el2 for el1,el2 in zip(window.cv_values,step)]
+          for i,(cv_val,cv) in enumerate(zip(new_cv_vals,self.cv_list)):
+            if not cv.periodicity:continue
+            if cv_val>cv.max_value:new_cv_vals[i]=cv_val-cv.periodicity
+            elif cv_val<=cv.min_value:new_cv_vals[i]=cv_val+cv.periodicity
+          new_cv_vals=tuple(new_cv_vals)
+          if new_cv_vals in current_windows:continue
+          if any([cv_val>cv.max_value for cv_val,cv in zip(new_cv_vals,self.cv_list)]):continue
+          if any([cv_val<cv.min_value for cv_val,cv in zip(new_cv_vals,self.cv_list)]):continue
+          if not new_cv_vals in new_windows:
+            new_windows[new_cv_vals]={}
+            new_windows[new_cv_vals]["parent"]=window
+          else:
+            if window.free_energy<new_windows[new_cv_vals]["parent"].free_energy:
+              new_windows[new_cv_vals]["parent"]=window
+      #Estimate what the free energy in that window could be
+      steps2=[npy.arange(-cv.step_size/2.,cv.step_size/2.,cv.bin_size) for cv in self.cv_list]
+      delta_cv_list=list(itertools.product(*steps))
+      for cv_values in new_windows:
+        El=[float(self.pmf.interpolator.__call__(tuple(npy.array(cv_values)-npy.array(delta_cv)))) for delta_cv in delta_cv_list]
+        try:new_windows[cv_values]["free_energy"]=min([el for el in El if not npy.isnan(el)])
+        except:new_windows[cv_values]["free_energy"]=npy.nan
+      #Add the new windows
+      n_new_windows=0
+      for cv_values in new_windows:
+        if new_windows[cv_values]["free_energy"]<max_free_energy:
+          self.AddWindow(cv_values,new_windows[cv_values].spring_constants,new_windows[cv_values])
+          n_new_windows+=1
+      if n_new_windows>=1:return n_new_windows,max_free_energy
+    return n_new_windows,max_free_energy
 
 
