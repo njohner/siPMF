@@ -356,7 +356,7 @@ class System():
     steps=[[-cv.step_size,0,cv.step_size] for cv in self.cv_list]
     delta_cv_list=list(itertools.product(*steps))
     delta_cv_list.remove((0,0))
-    fe_step=self.max_E2-self.max_E1
+    fe_step=(self.max_E2-self.max_E1)/5.
     for max_free_energy in npy.arange(self.max_E1,self.max_E2+fe_step/2.,fe_step):
       new_windows={}
       for window in self.windows:
