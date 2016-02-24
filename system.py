@@ -37,7 +37,7 @@ class System():
   def __repr__(self):
     return "System({0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12})".format(self.basedir,self.cv_list,self.init_input_fname,self.run_input_fname,self.init_job_fname,self.run_job_fname,self.data_filename,self.init_nstep,self.run_nstep,self.n_data,self.max_E1,self.max_E2,self.temperature)
 
-  def __init__(self,basedir,cv_list,init_input_fname,run_input_fname,init_job_fname,run_job_fname,data_filename,init_nstep,run_nstep,n_data,max_E1,max_E2,temperature,check_fnames):
+  def __init__(self,basedir,cv_list,init_input_fname,run_input_fname,init_job_fname,run_job_fname,data_filename,init_nstep,run_nstep,n_data,max_E1,max_E2,temperature,check_fnames=[],target_cv_vals=[]):
     """
     :param basedir: The root directory in which the PMF calculation will be performed. Windows and
      phases will correspond to subdirectories of *basedir*.
@@ -54,6 +54,8 @@ class System():
     :param max_E1: Lower boundary of free energy threshold to decide whether to extend the simulation to neighboring windows or not.
     :param max_E2: Upper boundary of free energy threshold to decide whether to extend the simulation to neighboring windows or not.
     :param temperature: The temperature at which WHAM is performed.
+    :param check_fnames: Filenames that file be checked to exist to determine whether a phase has finished properly 
+    :param target_cv_vals: Target values of the CVs. Once the system has reached these values it will only use max_E1 as energy threshold to generate new windows.
 
     :type basedir: :class:`str`
     :type cv_list: :class:`list` (:class:`~other.CollectiveVariable`)
@@ -68,6 +70,8 @@ class System():
     :type max_E1: :class:`float`
     :type max_E2: :class:`float`
     :type temperature: :class:`float`
+    :type check_fnames: :class:`list` (:class:`str`)
+    :type target_cv_vals: :class:`list` (:class:`tuple` (:class:`float` ) )
     """
     self.basedir=basedir
     self.pmf_dir=os.path.join(basedir,"PMF")
@@ -94,6 +98,8 @@ class System():
     self.path_to_pmf_input=os.path.join(self.pmf_dir,"pmf_input.txt")
     self.path_to_pmf_output=os.path.join(self.pmf_dir,"pmf.txt")
     self.pmf=None
+    self.target_cv_vals=target_cv_vals
+    self.reached_target=False
 
   def Save(self,filename):
     """
@@ -356,7 +362,8 @@ class System():
     steps=[[-cv.step_size,0,cv.step_size] for cv in self.cv_list]
     delta_cv_list=list(itertools.product(*steps))
     delta_cv_list.remove((0,0))
-    fe_step=(self.max_E2-self.max_E1)/5.
+    if not self.reached_target:fe_step=(self.max_E2-self.max_E1)/5.
+    else:fe_step=1.0
     for max_free_energy in npy.arange(self.max_E1,self.max_E2+fe_step/2.,fe_step):
       new_windows={}
       for window in self.windows:
@@ -390,6 +397,10 @@ class System():
         if new_windows[cv_values]["free_energy"]+fe_shift<max_free_energy:
           self.AddWindow(cv_values,new_windows[cv_values]["parent"].spring_constants,new_windows[cv_values]["parent"])
           n_new_windows+=1
+          if cv_values in self.target_cv_vals:
+            self.reached_target=True
+            self.max_E2=self.max_E1
+            logging.info("Reached target CV value: cv={0}. Setting max_E2=max_E1".format(cv_values))
       if n_new_windows>=1:return n_new_windows,max_free_energy
     return n_new_windows,max_free_energy
 
