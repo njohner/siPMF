@@ -58,6 +58,9 @@ class Window():
       logging.error("Problem creating output directory {0}.".format(self.subdir))
       raise IOError("Problem creating output directory {0}.".format(self.subdir))
     self.last_phase_n_crashed=0
+    self.path_to_datafile=os.path.join(self.subdir,"data.txt")
+    self.datafile_n_data_tot=0
+    self.datafile_n_data_skipped=0
 
   def SubmitNextPhase(self,environment):
     """
@@ -101,4 +104,26 @@ class Window():
     for phase in self.phases:
       phase.UpdateDataCount()
       self.n_data+=phase.GetDataCount()
-  
+
+  def UpdateDataFile(self,n_skip=0,n_tot=-1,new_only=True):
+    """
+    Updates the window's datafile. It takes the data from all the run phases and
+    writes it into its own datafile, skipping the first n_skip data points
+    and adding a maximum of n_tot data points.
+    *n_tot=-1* means there is no maximal number of data points.
+
+    :param n_skip: The number of data points to skip.
+    :param n_tot: The total number of data points used to calculate the PMF.
+    :param new_only: Only add the data from phases that have not yet been added to the data files.
+    :type n_skip: :class:`int`
+    :type n_tot: :class:`int`
+    :type new_only: :class:`bool`
+    """
+    if not new_only:
+      self.datafile_n_data_tot=0
+      self.datafile_n_data_skipped=0
+      if os.path.isfile(self.path_to_datafile):
+        subprocess.call(["rm",self.path_to_datafile])
+    for phase in self.phases:
+      phase.AddDataToWindow(n_skip,n_tot,new_only)
+

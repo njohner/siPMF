@@ -80,3 +80,39 @@ class Phase():
     Get the number of data points accumulated for this phase (number of lines in its *datafile*).
     """
     return self.n_data
+
+  def AddDataToWindow(self,n_skip=0,n_tot=-1,new_only=True):
+    """
+    Add the data of this phase to the data file of the window.
+    *n_tot=-1* means there is no maximal number of data points added.
+
+    :param n_skip: The number of data points to skip.
+    :param n_tot: The total number of data points used to calculate the PMF.
+    :param new_only: Only add the data from phases that have not yet been added to the data files.
+    :type n_skip: :class:`int`
+    :type n_tot: :class:`int`
+    :type new_only: :class:`bool`
+    """
+    if self.type=="initialization":
+      return 
+    elif not os.path.isfile(self.path_to_datafile):
+      return
+    elif new_only and self.data_added_to_window==True:
+      return
+    f_out=open(self.window.path_to_datafile,"a")
+    f_in=open(self.path_to_datafile,"r")
+    for line in f_in:
+      if line.startswith("#"):continue
+      elif self.window.datafile_n_data_skipped<n_skip:
+        self.window.datafile_n_data_skipped+=1
+      elif n_tot>0 and self.window.datafile_n_data_tot>=n_tot:break
+      else:
+        f_out.write(line)
+        self.window.datafile_n_data_tot+=1
+    f_in.close()
+    f_out.close()
+    self.data_added_to_window=True
+    return
+
+
+

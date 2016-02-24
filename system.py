@@ -234,6 +234,23 @@ class System():
     else:
       return
 
+  def UpdateDataFiles(self,n_skip=0,n_tot=-1,new_only=True):
+    """
+    Updates the datafiles of all windows. For each *window*, it takes the data 
+    from all the run phases and writes it into a datafile, skipping the first n_skip data points
+    and adding a maximum of n_tot data points for each window.
+    *n_tot=-1* means there is no maximal number of data points.
+    
+    :param n_skip: The number of data points to skip.
+    :param n_tot: The total number of data points used to calculate the PMF.
+    :param new_only: Only add the data from phases that have not yet been added to the data files.
+    :type n_skip: :class:`int`
+    :type n_tot: :class:`int`
+    :type new_only: :class:`bool`
+    """
+    for window in self.windows:
+      window.UpdateDataFile(n_skip,n_tot,new_only)
+
   def CalculatePMF(self,environment):
     """
     Calculate the PMF. The function generates the meta file listing all the data files and
@@ -262,12 +279,11 @@ class System():
     pmf_cmd.append(num_pads)#Number of pads for periodic variables
     f=open(self.path_to_pmf_input,"w")
     for window in self.windows:
-      for phase in window.phases:
-        if phase.type=="initialization":continue
-        l=[phase.path_to_datafile]
-        l.extend(phase.window.cv_values)
-        l.extend(phase.window.spring_constants)
-        f.write(" ".join([str(el) for el in l])+"\n")
+      if not os.path.isfile(window.path_to_datafile):continue
+      l=[window.path_to_datafile]
+      l.extend(window.cv_values)
+      l.extend(window.spring_constants)
+      f.write(" ".join([str(el) for el in l])+"\n")
     f.close()
     pmf_cmd.append(self.path_to_pmf_input)
     pmf_cmd.append(self.path_to_pmf_output)
@@ -297,7 +313,7 @@ class System():
     pmf=npy.array(pmf)
     self.pmf=PMF(pmf[:-1,:].transpose(),pmf[-1,:],self.cv_list)
 
-  def UpdatePMF(self,environment):
+  def UpdatePMF(self,environment,n_skip=0,n_tot=-1,new_only=True):
     """
     Calculates the PMF (*CalculatePMF*), then reads the ouput PMF file (*ReadPMFFile*)
     and plots the new PMF. Finally, using the PMF, it assigns a free energy value to each window.
@@ -306,6 +322,7 @@ class System():
     :type environment: :class:`~environment.Environment`
     """
     logging.info("Updating PMF")
+    self.UpdateDataFiles(n_skip,n_tot,new_only)
     self.CalculatePMF(environment)
     self.ReadPMFFile()
     self.PlotPMF()
