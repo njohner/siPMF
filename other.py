@@ -87,7 +87,7 @@ class PMF():
     """
     return self.interpolator(point)
 
-  def Plot(self,outputdir,filename,n_levels=20,max_E=None,windows=None,energy_units=""):
+  def Plot(self,outputdir,filename,n_levels=None,max_E=None,windows=None,energy_units=""):
     """
     Plot the PMF.
 
@@ -98,6 +98,7 @@ class PMF():
     :param windows: If a list of windows is passed, arrows showing the exploration will be plotted
     :param energy_units: Units displayed for the energy axis
     """
+    if not n_levels:n_levels=int(max_E)
     if self.dimensionality==2:
       X=self.points[:,0]
       Y=self.points[:,1]
@@ -112,6 +113,7 @@ class PMF():
       plt.figure()
       plt.contourf(X,Y,Z,n_levels)
       plt.colorbar(label=energy_units)
+      plt.contour(X,Y,Z,n_levels,colors="k")
       if self.cv_list[0].units:plt.xlabel("{0} [{1}]".format(self.cv_list[0].name,self.cv_list[0].units))
       else:plt.xlabel("{0}".format(self.cv_list[0].name))
       if self.cv_list[1].units:plt.ylabel("{0} [{1}]".format(self.cv_list[1].name,self.cv_list[1].units))
