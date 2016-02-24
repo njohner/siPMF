@@ -47,7 +47,8 @@ class Phase():
     self.outdir=os.path.join(self.window.subdir,self.name)
     self.path_to_datafile=os.path.join(self.outdir,self.window.system.data_filename)
     #self.outname=self.name
-
+    self.data_added_to_window=False
+    
   def Initialize(self):
     """
     Initialize the phase by creating its output directory, and setting up the simulation :class:`Job`, i.e.

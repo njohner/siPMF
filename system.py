@@ -78,6 +78,8 @@ class System():
     subprocess.call(["mkdir",self.pmf_dir])
     self.simu_dir=os.path.join(basedir,"windows")
     subprocess.call(["mkdir",self.simu_dir])
+    self.hist_dir=os.path.join(basedir,"Histogram")
+    subprocess.call(["mkdir",self.hist_dir])
     self.temperature=temperature
     self.check_fnames=check_fnames
     self.max_E1=max_E1
@@ -313,7 +315,7 @@ class System():
     pmf=npy.array(pmf)
     self.pmf=PMF(pmf[:-1,:].transpose(),pmf[-1,:],self.cv_list)
 
-  def UpdatePMF(self,environment,n_skip=0,n_tot=-1,new_only=True):
+  def UpdatePMF(self,environment,n_skip=0,n_tot=-1,new_only=True,fname_extension=""):
     """
     Calculates the PMF (*CalculatePMF*), then reads the ouput PMF file (*ReadPMFFile*)
     and plots the new PMF. Finally, using the PMF, it assigns a free energy value to each window.
@@ -325,7 +327,7 @@ class System():
     self.UpdateDataFiles(n_skip,n_tot,new_only)
     self.CalculatePMF(environment)
     self.ReadPMFFile()
-    self.PlotPMF()
+    self.PlotPMF(fname_extension)
     #Windows get assigned the minimal free energy
     steps=[npy.arange(-cv.step_size/2.,cv.step_size/2.,cv.bin_size) for cv in self.cv_list]
     delta_cv_list=list(itertools.product(*steps))
@@ -347,12 +349,12 @@ class System():
       w.free_energy+=shift
     return shift
 
-  def PlotPMF(self):
+  def PlotPMF(self,fname_extension=""):
     """
     Plot the PMF.
     """
     if self.pmf:
-      filename="pmf_{0}".format(len(self.windows))
+      filename="pmf_{0}{1}".format(len(self.windows),fname_extension)
       self.pmf.Plot(self.pmf_dir,filename,max_E=1.2*self.max_E2,windows=self.windows)
     else:
       logging.info("PMF has to be initialized before it can be plotted.")
@@ -374,6 +376,7 @@ class System():
     :type environment: :class:`~environment.Environment`
     """
     self.UpdatePMF(environment)
+    self.PlotHistogram()
     fe_shift=self.ShiftWindowFreeEnergies()
     current_windows=[tuple(w.cv_values) for w in self.windows]
     steps=[[-cv.step_size,0,cv.step_size] for cv in self.cv_list]
@@ -421,4 +424,70 @@ class System():
       if n_new_windows>=1:return n_new_windows,max_free_energy
     return n_new_windows,max_free_energy
 
+  def CalculatePMFConvergence(self,environment,n_skip_list,n_tot_list,max_E):
+    """
+    This function generates a set of PMFs from subsets of the whole data,
+    defined by *n_skip_list* and *n_tot_list* and calculates their convergence.
+    The last PMF of the set is used as reference. Only points of the PMF with
+    an energy below *max_E* are used in the calculation.
 
+    :param n_skip_list: List of the number of data points to skip.
+    :param n_tot_list: List of the total number of data points used to calculate the PMF.
+    :param max_E: maximal energy of considered points.
+    :type n_skip_list: :class:`list` (:class:`int`)
+    :type n_tot_list: :class:`list` (:class:`int`)
+    :type max_E: :class:`float`
+    """
+    #Calculate the PMFs
+    pmf_list=[]
+    for n_skip,n_data in zip(n_skip_list,n_tot_list):
+      self.UpdatePMF(environment,n_skip,n_data,new_only=False,fname_extension="_skip{0}_tot{1}".format(n_skip,n_data))
+      pmf_list.append(self.pmf.values)
+    #Find common mask
+    ref_pmf=pmf_list[-1]
+    m=ref_pmf<max_E
+    print npy.sum(m)
+    for pmf in pmf_list[:-1]:
+      m=m*(pmf<max_E)
+      print npy.sum(m)
+    #Now we normalize all pmfs
+    for pmf in pmf_list:
+      pmf-=npy.average(pmf[m])
+    #Now we calculate the convergence
+    ref_pmf=pmf_list[-1][m]
+    res_list=[]
+    for pmf in pmf_list[:-1]:
+      d=pmf[m]-ref_pmf
+      res_list.append(npy.sqrt(npy.sum(d*d)/d.size))
+    return res_list
+
+  def PlotHistogram(self,fname_extension=""):
+    """
+    Plots the histogram of the accumulated data.
+    """
+    data=[[] for i in range(self.dimensionality)]
+    for window in self.windows:
+      if not os.path.isfile(window.path_to_datafile):continue
+      f=open(window.path_to_datafile,"r")
+      for l in f:
+        s=l.split()
+        for i in range(self.dimensionality):data[i].append(float(s[i+1]))
+    filename="histogram_{0}{1}".format(len(self.windows),fname_extension)
+    plt.figure()
+    if self.dimensionality==2:
+      bins=[self.cv_list[0].num_bins,self.cv_list[1].num_bins]
+      hist_range=[(self.cv_list[0].min_value,self.cv_list[0].max_value),(self.cv_list[1].min_value,self.cv_list[1].max_value)]
+      plt.hist2d(data[0],data[1],range=hist_range,bins=bins)
+      if self.cv_list[0].units:plt.xlabel("{0} [{1}]".format(self.cv_list[0].name,self.cv_list[0].units))
+      else:plt.xlabel("{0}".format(self.cv_list[0].name))
+      if self.cv_list[1].units:plt.ylabel("{0} [{1}]".format(self.cv_list[1].name,self.cv_list[1].units))
+      else:plt.ylabel("{0}".format(self.cv_list[1].name))
+      plt.colorbar()
+    elif self.dimensionality==1:
+      bins=self.cv_list[0].num_bins
+      plt.hist(data[0],bins=bins)
+      if self.cv_list[0].units:plt.xlabel("{0} [{1}]".format(self.cv_list[0].name,self.cv_list[0].units))
+      else:plt.xlabel("{0}".format(self.cv_list[0].name))
+      plt.ylabel("Count")
+    plt.savefig(os.path.join(self.hist_dir,filename))
+    plt.close()
