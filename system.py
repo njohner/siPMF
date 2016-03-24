@@ -84,6 +84,7 @@ class System():
     self.check_fnames=check_fnames
     self.max_E1=max_E1
     self.max_E2=max_E2
+    self.max_E_plot=1.2*max_E2
     self.cv_list=cv_list
     self.init_input_fname=init_input_fname
     self.run_input_fname=run_input_fname
@@ -355,7 +356,7 @@ class System():
     """
     if self.pmf:
       filename="pmf_{0}{1}".format(len(self.windows),fname_extension)
-      self.pmf.Plot(self.pmf_dir,filename,max_E=1.2*self.max_E2,windows=self.windows)
+      self.pmf.Plot(self.pmf_dir,filename,max_E=self.max_E_plot,windows=self.windows)
     else:
       logging.info("PMF has to be initialized before it can be plotted.")
 
