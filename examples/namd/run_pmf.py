@@ -35,10 +35,12 @@ data_filename="alanine.colvars.traj"
 init_nstep=1000
 run_nstep=5000
 n_data=run_nstep/15
-max_E=4.0
+max_E1=1.0
+max_E2=6.0
 temperature=303
 check_fnames=["alanine.restart.coor","alanine.restart.vel","alanine.restart.xsc"]
-alanine_system=System(basedir,cv_list,init_input_fname,run_input_fname,init_job_fname,run_job_fname,data_filename,init_nstep,run_nstep,n_data,max_E,temperature,check_fnames)
+target_cv_vals=[(105,130)]
+alanine_system=System(basedir,cv_list,init_input_fname,run_input_fname,init_job_fname,run_job_fname,data_filename,init_nstep,run_nstep,n_data,max_E1,max_E2,temperature,check_fnames,target_cv_vals)
 
 #Initialize the system, i.e. generate the starting window.
 cv_values=[90,90]
