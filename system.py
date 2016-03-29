@@ -492,3 +492,21 @@ class System():
       plt.ylabel("Count")
     plt.savefig(os.path.join(self.hist_dir,filename))
     plt.close()
+
+  def SetNewBaseDir(self,basedir):
+    self.basedir=basedir
+    self.pmf_dir=os.path.join(basedir,"PMF")
+    self.simu_dir=os.path.join(basedir,"windows")
+    self.hist_dir=os.path.join(basedir,"Histogram")
+    self.path_to_pmf_input=os.path.join(self.pmf_dir,"pmf_input.txt")
+    self.path_to_pmf_output=os.path.join(self.pmf_dir,"pmf.txt")
+    for window in self.windows:
+      window.subdir=os.path.join(self.simu_dir,w.name)
+      window.path_to_datafile=os.path.join(window.subdir,"data.txt")
+      for phase in window.phases:
+        phase.outdir=os.path.join(window.subdir,phase.name)
+        phase.path_to_datafile=os.path.join(phase.outdir,self.data_filename)
+        #We do not update jobs as this is not useful
+    return
+
+
