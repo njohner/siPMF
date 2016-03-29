@@ -501,7 +501,7 @@ class System():
     self.path_to_pmf_input=os.path.join(self.pmf_dir,"pmf_input.txt")
     self.path_to_pmf_output=os.path.join(self.pmf_dir,"pmf.txt")
     for window in self.windows:
-      window.subdir=os.path.join(self.simu_dir,w.name)
+      window.subdir=os.path.join(self.simu_dir,window.name)
       window.path_to_datafile=os.path.join(window.subdir,"data.txt")
       for phase in window.phases:
         phase.outdir=os.path.join(window.subdir,phase.name)
