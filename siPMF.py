@@ -29,6 +29,16 @@ class SiPMF():
     """
     self.system=system
     self.environment=environment
+    #We add all windows to the list of updated windows, to make sure
+    #they will get checked to see whether a new phase should be generated
+    #or not for each window. This allows to add sampling by changing system.n_data
+    to_skip=[]
+    for job in self.system.unfinished_jobs:
+      to_skip.append(job.phase.window)
+    for w in self.system.windows:
+      if w in to_skip:continue
+      if w in self.system.updated_windows:continue
+      self.system.updated_windows.append(w)
 
   def Run(self,max_time,max_jobs,sleep_length):
     """
