@@ -40,7 +40,7 @@ class SiPMF():
       if w in self.system.updated_windows:continue
       self.system.updated_windows.append(w)
 
-  def Run(self,max_time,max_jobs,sleep_length):
+  def Run(self,max_time,max_jobs,sleep_length,generate_new_windows=True):
     """
     Run the process to explore the free energy landscape. The process is an infinite loop in which
     it will sleep for some time, then when it wakes up it checks the status of the jobs in the queue.
@@ -94,8 +94,12 @@ class SiPMF():
       #If there are no running jobs, this means all current windows are finished
       #So we generate new windows
       if n_running_jobs==0:
-        logging.info("No more jobs in the queue, checking whether to generate new windows")
-        n_new_windows,fe_threshold=self.system.GenerateNewWindows(self.environment)
+        if generate_new_windows:
+          logging.info("No more jobs in the queue, checking whether to generate new windows")
+          n_new_windows,fe_threshold=self.system.GenerateNewWindows(self.environment)
+        else:
+          logging.info("No more jobs in the queue and no new windows will be generated (generate_new_windows=False)")
+          n_new_windows=0
         if n_new_windows!=0:
           save_flag=True
           logging.info("Generate {0} new windows with free energy threshold={1}. Total of {2} windows".format(n_new_windows,fe_threshold,len(self.system.windows)))
