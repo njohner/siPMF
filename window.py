@@ -127,3 +127,20 @@ class Window():
     for phase in self.phases:
       phase.AddDataToWindow(n_skip,n_tot,new_only)
 
+  def ReadDataFile(self):
+    """
+    Reads the datafile of the window and returns a tuple with
+    the list of times as the first element. The second element in
+    the tuple is a list containing one list of values for each CV.
+    """
+    f=open(self.path_to_datafile,"r")
+    ll=f.readlines()
+    f.close()
+    t=[]
+    cvs=[[] for i in range(self.system.dimensionality)]
+    for l in ll:
+      s=l.split()
+      t.append(float(s[0]))
+      for i in range(self.system.dimensionality):cvs[i].append(float(s[i+1]))
+    return (t,cvs)
+
