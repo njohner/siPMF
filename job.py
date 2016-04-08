@@ -123,7 +123,13 @@ class Job():
     initialization MD input files.
     """
     to_replace={"{INIT_NSTEP}":self.phase.window.system.init_nstep}
-    for cvn,cvv,cvs in zip(self.phase.window.parent.cv_names,self.phase.window.parent.cv_values,self.phase.window.parent.cv_shifts):to_replace["{PARENT_"+cvn+"}"]=cvv+cvs
+    for pcvn,pcvv,pcvs,cvv,cvs,cv in zip(self.phase.window.parent.cv_names,self.phase.window.parent.cv_values,self.phase.window.parent.cv_shifts,self.phase.window.cv_values,self.phase.window.cv_shifts,self.phase.window.system.cv_list):
+      if not cv.periodicity:to_replace["{PARENT_"+pcvn+"}"]=pcvv+pcvs
+      else:
+        #Careful with periodic CVs, not to pull accross the whole range when crossing a boundary
+        if abs(cvv-pcvv)<cv.periodicity/2.0:to_replace["{PARENT_"+pcvn+"}"]=pcvv+pcvs
+        elif cvv-pcvv<-cv.periodicity/2.0:to_replace["{PARENT_"+pcvn+"}"]=pcvv+pcvs-cv.periodicity
+        elif cvv-pcvv>cv.periodicity/2.0:to_replace["{PARENT_"+pcvn+"}"]=pcvv+pcvs+cv.periodicity
     for cvn,cvk in zip(self.phase.window.parent.cv_names,self.phase.window.parent.spring_constants):to_replace["{PARENT_"+cvn+"_K}"]=cvk
     return to_replace
 
