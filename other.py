@@ -70,7 +70,7 @@ class PMF():
   def __repr__(self):
     return "PMF({0},{1})".format(self.points,self.values)
 
-  def __init__(self,points,values,cv_list):
+  def __init__(self,points,values,cv_list,max_E):
     """
     :param points: values of the CVs at which the PMF is found in values.
     :param values: Free energy corresponding to CV values in points
@@ -80,7 +80,7 @@ class PMF():
     :type cv_list: :class:`list` (:class:`~other.CollectiveVariable`)
     """
     self.points=points
-    self.values=values
+    self.values=[el if not el==9999999.0 else max_E for el in values]
     self.cv_list=cv_list
     self.dimensionality=len(self.cv_list)
     self.interpolator=scipy.interpolate.interpnd.LinearNDInterpolator(self.points,self.values)

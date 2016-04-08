@@ -318,7 +318,7 @@ class System():
       for i in range(nd):pmf[i].append(float(s[i]))
     f.close()
     pmf=npy.array(pmf)
-    self.pmf=PMF(pmf[:-1,:].transpose(),pmf[-1,:],self.cv_list)
+    self.pmf=PMF(pmf[:-1,:].transpose(),pmf[-1,:],self.cv_list,1.5*self.max_E2)
 
   def UpdatePMF(self,environment,n_skip=0,n_tot=-1,new_only=True,fname_extension=""):
     """
