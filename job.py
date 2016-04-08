@@ -113,7 +113,7 @@ class Job():
     """
     to_replace={"{BASEDIR}":self.phase.window.system.basedir,"{RESTARTDIR}":self.phase.restartdir}#,"_RESTARTNAME":self.phase.restartname}
     to_replace.update({"{OUTPUTDIR}":self.phase.outdir})#,"_OUTPUTNAME":self.outname})
-    for cvn,cvv in zip(self.phase.window.cv_names,self.phase.window.cv_values):to_replace["{"+cvn+"}"]=cvv
+    for cvn,cvv,cvs in zip(self.phase.window.cv_names,self.phase.window.cv_values,self.phase.window.cv_shifts):to_replace["{"+cvn+"}"]=cvv+cvs
     for cvn,cvk in zip(self.phase.window.cv_names,self.phase.window.spring_constants):to_replace["{"+cvn+"_K}"]=cvk
     return to_replace
 
@@ -123,7 +123,7 @@ class Job():
     initialization MD input files.
     """
     to_replace={"{INIT_NSTEP}":self.phase.window.system.init_nstep}
-    for cvn,cvv in zip(self.phase.window.parent.cv_names,self.phase.window.parent.cv_values):to_replace["{PARENT_"+cvn+"}"]=cvv
+    for cvn,cvv,cvs in zip(self.phase.window.parent.cv_names,self.phase.window.parent.cv_values,self.phase.window.parent.cv_shifts):to_replace["{PARENT_"+cvn+"}"]=cvv+cvs
     for cvn,cvk in zip(self.phase.window.parent.cv_names,self.phase.window.parent.spring_constants):to_replace["{PARENT_"+cvn+"_K}"]=cvk
     return to_replace
 

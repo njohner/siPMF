@@ -27,7 +27,7 @@ class Window():
       return "{0} initialized form {1}".format(self.name,self.parent.name)
     else:return "{0}".format(self.name)
 
-  def __init__(self,system,cv_values,spring_constants,parent=None):
+  def __init__(self,system,cv_values,spring_constants,cv_shifts=None,parent=None):
     """
     :param system: The system to which the window belongs
     :param cv_values: The centers of the quadratic potentials restraining the CVs.
@@ -40,6 +40,8 @@ class Window():
     """
     self.cv_names=[cv.name for cv in system.cv_list]
     self.cv_values=cv_values
+    if not cv_shifts:self.cv_shifts=[0.0 for cvv in self.cv_values]
+    else:self.cv_shifts=cv_shifts
     self.spring_constants=spring_constants
     self.is_new=True
     self.n_data=0
@@ -47,6 +49,7 @@ class Window():
     self.phases=[]
     self.system=system
     self.name="_".join(["".join([cvn,str(cvv)]) for cvn,cvv in zip(self.cv_names,self.cv_values)])
+    self.name+="_"+"_".join(["".join([cvn+"K",str(cvk)]) for cvn,cvk in zip(self.cv_names,self.spring_constants)])
     self.subdir=os.path.join(system.simu_dir,self.name)
     self.parent=parent
     logging.info("New window: {0}".format(self))

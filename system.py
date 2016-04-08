@@ -37,7 +37,7 @@ class System():
   def __repr__(self):
     return "System({0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12})".format(self.basedir,self.cv_list,self.init_input_fname,self.run_input_fname,self.init_job_fname,self.run_job_fname,self.data_filename,self.init_nstep,self.run_nstep,self.n_data,self.max_E1,self.max_E2,self.temperature)
 
-  def __init__(self,basedir,cv_list,init_input_fname,run_input_fname,init_job_fname,run_job_fname,data_filename,init_nstep,run_nstep,n_data,max_E1,max_E2,temperature,check_fnames=[],target_cv_vals=[]):
+  def __init__(self,basedir,cv_list,init_input_fname,run_input_fname,init_job_fname,run_job_fname,data_filename,init_nstep,run_nstep,n_data,max_E1,max_E2,temperature,check_fnames=[],target_cv_vals=[],adapt_spring_constants=True,adapt_window_centers=True):
     """
     :param basedir: The root directory in which the PMF calculation will be performed. Windows and
      phases will correspond to subdirectories of *basedir*.
@@ -56,6 +56,8 @@ class System():
     :param temperature: The temperature at which WHAM is performed.
     :param check_fnames: Filenames that file be checked to exist to determine whether a phase has finished properly 
     :param target_cv_vals: Target values of the CVs. Once the system has reached these values it will only use max_E1 as energy threshold to generate new windows.
+    :param adapt_spring_constants: If spring constants should be automatically adapted for each window.
+    :param adapt_window_centers: If window centers should be automatically adapted for each window.
 
     :type basedir: :class:`str`
     :type cv_list: :class:`list` (:class:`~other.CollectiveVariable`)
@@ -103,7 +105,9 @@ class System():
     self.pmf=None
     self.target_cv_vals=target_cv_vals
     self.reached_target=False
-
+    self.adapt_spring_constants=adapt_spring_constants
+    self.adapt_window_centers=adapt_window_centers
+    
   def Save(self,filename):
     """
     Save the :class:`System` to a file using *pickle*.
@@ -210,7 +214,7 @@ class System():
     """
     return os.path.join(self.basedir,self.run_job_fname)
 
-  def AddWindow(self,cv_values,spring_constants,parent_window=None):
+  def AddWindow(self,cv_values,spring_constants,shifts=None,parent_window=None):
     """
     Add a new window to the system
 
@@ -222,7 +226,7 @@ class System():
     :type spring_constants: :class:`list` (:class:`float`)
     :type parent_window: :class:`~window.Window`
     """
-    self.windows.append(Window(self,cv_values,spring_constants,parent_window))
+    self.windows.append(Window(self,cv_values,spring_constants,shifts,parent_window))
     self.updated_windows.append(self.windows[-1])
 
   def FindWindow(self,cv_values):
@@ -284,7 +288,7 @@ class System():
     for window in self.windows:
       if not os.path.isfile(window.path_to_datafile):continue
       l=[window.path_to_datafile]
-      l.extend(window.cv_values)
+      l.extend([cvv+cvs for cvv,cvs in zip(window.cv_values,window.cv_shifts)])
       l.extend(window.spring_constants)
       f.write(" ".join([str(el) for el in l])+"\n")
     f.close()
@@ -335,7 +339,8 @@ class System():
     for window in self.windows:
       El=[float(self.pmf.interpolator.__call__(tuple(npy.array(window.cv_values)-npy.array(delta_cv)))) for delta_cv in delta_cv_list]
       window.free_energy=min([el for el in El if not npy.isnan(el)])
-
+      window.curvatures=self.pmf.GetCurvatures(npy.array(window.cv_values),npy.array([cv.step_size/2. for cv in self.cv_list]))
+  
   def ShiftWindowFreeEnergies(self,min_val=0):
     """
     Shift the free energies of the windows such that the window with the lowest free
@@ -416,7 +421,36 @@ class System():
       n_new_windows=0
       for cv_values in new_windows:
         if new_windows[cv_values]["free_energy"]+fe_shift<max_free_energy:
-          self.AddWindow(cv_values,new_windows[cv_values]["parent"].spring_constants,new_windows[cv_values]["parent"])
+          parent=new_windows[cv_values]["parent"]
+          if self.adapt_spring_constants:
+            curvatures=parent.curvatures
+            spring_constants=[]
+            for i in range(self.dimensionality):
+              spring_constant=min(max(self.cv_list[i].min_spring_constant,abs(curvatures[i])),self.cv_list[i].max_spring_constant) 
+              spring_constants.append(int(100*spring_constant/self.cv_list[i].min_spring_constant)*self.cv_list[i].min_spring_constant/100)
+            logging.info("cv values for new window {0}, curvatures {1}, spring constants {2}".format(cv_values,curvatures,spring_constants))
+          else:
+            spring_constants=[self.cv_list[i].min_spring_constant for i in range(self.dimensionality)]
+          if self.adapt_window_centers:
+            p=parent.cv_values
+            shifts=[]
+            for i in range(self.dimensionality):
+              step_size=self.cv_list[i].step_size
+              step=npy.zeros(self.dimensionality)
+              step[i]=cv_values[i]-p[i]
+              if self.cv_list[i].periodicity:
+                if step[i]>self.cv_list[i].periodicity/2.0:
+                  step[i]-=self.cv_list[i].periodicity
+                elif step[i]<-self.cv_list[i].periodicity/2.0:
+                  step[i]+=self.cv_list[i].periodicity
+              F=2.0*(self.pmf.GetValue(p+step/2.0)-self.pmf.GetValue(p))/step_size
+              shift=npy.sign(step[i])*F/(2.0*spring_constants[i])
+              shift=npy.sign(shift)*min(self.cv_list[i].max_shift,abs(shift))
+              shifts.append(shift)
+            logging.info("cv values for new window {0}, spring constants {1}, shifts {2}".format(cv_values,spring_constants,shifts))
+          else:
+            shifts=None
+          self.AddWindow(cv_values,spring_constants,shifts,parent)
           n_new_windows+=1
           if cv_values in self.target_cv_vals:
             self.reached_target=True

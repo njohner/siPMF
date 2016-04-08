@@ -22,13 +22,16 @@ class CollectiveVariable():
   def __repr__(self):
     return "CollectiveVariable({0},{1},{2},{3},{4},{5})".format(self.name,self.min_value,self.max_value,self.step_size,self.num_bins,self.periodicity,self.units)
 
-  def __init__(self,cv_name,min_value,max_value,step_size,num_bins,periodicity=None,units=""):
+  def __init__(self,cv_name,min_value,max_value,step_size,num_bins,min_spring_constant,max_spring_constant,max_shift,periodicity=None,units=""):
     """
     :param cv_name: The name of the CV
     :param min_value: The minimal value of the CV
     :param max_value: The maximal value of the CV
     :param step_size: The size of the step for this CV
     :param num_bins: number of bins
+    :param min_spring_constant: Minimal value of the spring constant to be used for this CV.
+    :param max_spring_constant: Maximal value of the spring constant to be used for this CV.
+    :param max_shift: Maximal value for the shift of this CV to compensate for free energy gradient.
     :param periodicity: periodicity of the CV
     :param units: the units of the CV
     :type cv_name: :class:`str`
@@ -42,6 +45,9 @@ class CollectiveVariable():
     self.name=cv_name
     self.min_value=min_value
     self.max_value=max_value
+    self.min_spring_constant=min_spring_constant
+    self.max_spring_constant=max_spring_constant
+    self.max_shift=max_shift
     self.step_size=step_size
     self.num_bins=num_bins
     self.bin_size=(self.max_value-self.min_value)/float(num_bins)
@@ -85,8 +91,27 @@ class PMF():
 
     :param point: values of the CV for which we want the free energy.
     """
-    return self.interpolator(point)
+    return self.interpolator(tuple(point))
 
+  def GetCurvatures(self,point,steps):
+    curvatures=[]
+    for i in range(self.dimensionality):
+      step=npy.zeros(self.dimensionality)
+      step[i]=steps[i]
+      curvatures.append((self.GetValue(point+step)+self.GetValue(point-step)-2*self.GetValue(point))/(steps[i]*steps[i]))
+    return curvatures
+    """
+    curvatures=[self.GetValue(point+steps)+self.GetValue(point-steps)-2*self.GetValue(point)]
+    if self.dimensionality==1:
+      return [self.GetValue(point+steps)+self.GetValue(point-steps)-2*self.GetValue(point)]
+    elif self.dimensionality==2:
+      s1=npy.array([steps[0],0.0])
+      s2=npy.array([0.0,steps[1]])
+      k1=self.GetValue(point-s1)+self.GetValue(point+s1)-2*self.GetValue(point)
+      k2=self.GetValue(point-s2)+self.GetValue(point+s2)-2*self.GetValue(point)
+      return 0.5*(k1+k2)
+    """
+    
   def Plot(self,outputdir,filename,n_levels=None,max_E=None,windows=None,energy_units=""):
     """
     Plot the PMF.
