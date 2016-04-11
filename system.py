@@ -390,7 +390,7 @@ class System():
     current_windows=[tuple(w.cv_values) for w in self.windows]
     steps=[[-cv.step_size,0,cv.step_size] for cv in self.cv_list]
     delta_cv_list=list(itertools.product(*steps))
-    delta_cv_list.remove((0,0))
+    delta_cv_list.remove(tuple([0 for for cv in self.cv_list]))
     if not self.reached_target:fe_step=(self.max_E2-self.max_E1)/5.
     else:fe_step=1.0
     for max_free_energy in npy.arange(self.max_E1,self.max_E2+fe_step/2.,fe_step):
