@@ -511,6 +511,7 @@ class System():
         s=l.split()
         for i in range(self.dimensionality):data[i].append(float(s[i+1]))
     filename="histogram_{0}{1}".format(len(self.windows),fname_extension)
+    hist_range=[(cv.min_value,cv.max_value) for cv in self.cv_list]
     plt.figure()
     if self.dimensionality==2:
       bins=[self.cv_list[0].num_bins,self.cv_list[1].num_bins]
@@ -523,7 +524,7 @@ class System():
       plt.colorbar()
     elif self.dimensionality==1:
       bins=self.cv_list[0].num_bins
-      plt.hist(data[0],bins=bins)
+      plt.hist(data[0],bins=bins,range=hist_range[0])
       if self.cv_list[0].units:plt.xlabel("{0} [{1}]".format(self.cv_list[0].name,self.cv_list[0].units))
       else:plt.xlabel("{0}".format(self.cv_list[0].name))
       plt.ylabel("Count")
