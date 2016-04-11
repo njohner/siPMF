@@ -269,7 +269,7 @@ class System():
 
     pmf_cmd=[environment.wham_executable]
     if len(self.cv_list)==1:
-      cv=cv_list[0]
+      cv=self.cv_list[0]
       if not cv.periodicity:pmf_cmd.extend([cv.wham_min_value,cv.wham_max_value,cv.wham_num_bins])
       else:pmf_cmd.extend(["P"+str(cv.periodicity),cv.wham_min_value,cv.wham_max_value,cv.wham_num_bins])
     elif len(self.cv_list)==2:
@@ -318,7 +318,10 @@ class System():
       for i in range(nd):pmf[i].append(float(s[i]))
     f.close()
     pmf=npy.array(pmf)
-    self.pmf=PMF(pmf[:-1,:].transpose(),pmf[-1,:],self.cv_list,1.5*self.max_E2)
+    if self.dimensionality==1:
+      self.pmf=PMF(pmf[0,:],pmf[1,:],self.cv_list,1.5*self.max_E2)
+    else:
+      self.pmf=PMF(pmf[:-1,:].transpose(),pmf[-1,:],self.cv_list,1.5*self.max_E2)
 
   def UpdatePMF(self,environment,n_skip=0,n_tot=-1,new_only=True,fname_extension=""):
     """

@@ -80,11 +80,13 @@ class PMF():
     :type cv_list: :class:`list` (:class:`~other.CollectiveVariable`)
     """
     self.points=points
-    self.values=[el if not el==9999999.0 else max_E for el in values]
+    self.values=[el if not el in [9999999.0,npy.inf] else max_E for el in values]
     self.cv_list=cv_list
     self.dimensionality=len(self.cv_list)
-    self.interpolator=scipy.interpolate.interpnd.LinearNDInterpolator(self.points,self.values)
+    if self.dimensionality==1:self.interpolator=scipy.interpolate.interp1d(self.points,self.values)
+    else:self.interpolator=scipy.interpolate.interpnd.LinearNDInterpolator(self.points,self.values)
     #self.interpolator=NearestNDInterpolator(self.points,self.values)
+
   def GetValue(self,point):
     """
     Free energy at a certain position on the free energy surface.
@@ -168,7 +170,7 @@ class PMF():
       plt.close()
     elif self.dimensionality==1:
       plt.figure()
-      plt.plot(pmf.points,pmf.values)
+      plt.plot(self.points,self.values)
       if max_E:plt.ylim([0,max_E])
       if self.cv_list[0].units:plt.xlabel("{0} [{1}]".format(self.cv_list[0].name,self.cv_list[0].units))
       else:plt.xlabel("{0}".format(self.cv_list[0].name))
