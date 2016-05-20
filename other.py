@@ -83,7 +83,8 @@ class PMF():
     self.values=[el if not el in [9999999.0,npy.inf] else max_E for el in values]
     self.cv_list=cv_list
     self.dimensionality=len(self.cv_list)
-    if self.dimensionality==1:self.interpolator=scipy.interpolate.interp1d(self.points,self.values)
+    #if self.dimensionality==1:self.interpolator=scipy.interpolate.interp1d(self.points,self.values)
+    if self.dimensionality==1:self.interpolator=scipy.interpolate.InterpolatedUnivariateSpline(self.points,self.values)
     else:self.interpolator=scipy.interpolate.interpnd.LinearNDInterpolator(self.points,self.values)
     #self.interpolator=NearestNDInterpolator(self.points,self.values)
 
@@ -93,7 +94,7 @@ class PMF():
 
     :param point: values of the CV for which we want the free energy.
     """
-    return self.interpolator(tuple(point))
+    return float(self.interpolator(tuple(point)))
 
   def GetCurvatures(self,point,steps):
     curvatures=[]
