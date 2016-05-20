@@ -480,7 +480,7 @@ class System():
     pmf_list=[]
     for n_skip,n_data in zip(n_skip_list,n_tot_list):
       self.UpdatePMF(environment,n_skip,n_data,new_only=False,fname_extension="_skip{0}_tot{1}".format(n_skip,n_data))
-      pmf_list.append(self.pmf.values)
+      pmf_list.append(npy.array(self.pmf.values))
     #Find common mask
     ref_pmf=pmf_list[-1]
     m=ref_pmf<max_E
