@@ -319,9 +319,9 @@ class System():
     f.close()
     pmf=npy.array(pmf)
     if self.dimensionality==1:
-      self.pmf=PMF(pmf[0,:],pmf[1,:],self.cv_list,1.5*self.max_E2)
+      self.pmf=PMF(pmf[0,:],pmf[1,:],self.cv_list,1.25*self.max_E_plot)
     else:
-      self.pmf=PMF(pmf[:-1,:].transpose(),pmf[-1,:],self.cv_list,1.5*self.max_E2)
+      self.pmf=PMF(pmf[:-1,:].transpose(),pmf[-1,:],self.cv_list,1.25*self.max_E_plot)
 
   def UpdatePMF(self,environment,n_skip=0,n_tot=-1,new_only=True,fname_extension=""):
     """
