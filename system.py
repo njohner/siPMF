@@ -229,7 +229,7 @@ class System():
     self.windows.append(Window(self,cv_values,spring_constants,shifts,parent_window))
     self.updated_windows.append(self.windows[-1])
 
-  def FindWindow(self,cv_values):
+  def FindWindow(self,cv_values,spring_constants=None):
     """
     Find window with given values of the cvs
 
@@ -237,9 +237,25 @@ class System():
     :type cv_values: :class:`list` (:class:`float`)
     """
     for w in self.windows:
-      if w.cv_values==cv_values:return w
+      if w.cv_values==cv_values:
+        if not spring_constants:return w
+        elif w.spring_constants==spring_constants:return w
     else:
       return
+
+  def FindWindows(self,cv_values,spring_constants=None):
+    """
+    Find windows with given values of the cvs
+
+    :param cv_values: Values of the collective variables for the window
+    :type cv_values: :class:`list` (:class:`float`)
+    """
+    w_list=[]
+    for w in self.windows:
+      if tuple(w.cv_values)==tuple(cv_values):
+        if not spring_constants:w_list.append(w)
+        elif w.spring_constants==spring_constants:w_list.append(w)
+    return w_list
 
   def UpdateDataFiles(self,n_skip=0,n_tot=-1,new_only=True):
     """
@@ -462,6 +478,47 @@ class System():
       if n_new_windows>=1:return n_new_windows,max_free_energy
     return n_new_windows,max_free_energy
 
+  def CalculateWindowsHistConvergence(self,environment,n_skip_list,n_tot_list,update_data_files=True,pool_windows=False):
+    logging.info("Calculating histogram convergence for each window")
+    if update_data_files:self.UpdateDataFiles(0,-1,False)#Make sure all the data is in the data files.
+    windows_convergence_list=[]
+    if not pool_windows:windows_list=[[w] for w in self.windows]
+    else:
+      cv_values=[]
+      windows_list=[]
+      for w in self.windows:
+        if tuple(w.cv_values) in cv_values:continue
+        else:
+          cv_values.append(tuple(w.cv_values))
+          windows_list.append(self.FindWindows(w.cv_values))
+    print "working with {0} window pools containing {1} windows each".format(len(windows_list),npy.average([len(el) for el in windows_list]))
+    for wl in windows_list:
+      data_list=[]
+      for window in wl:
+        data=[[] for i in range(self.dimensionality)]
+        if not os.path.isfile(window.path_to_datafile):continue
+        f=open(window.path_to_datafile,"r")
+        for l in f:
+          s=l.split()
+          for i in range(self.dimensionality):data[i].append(float(s[i+1]))
+        f.close()
+        data_list.append(data)
+      hist_range=[(cv.min_value,cv.max_value) for cv in self.cv_list]
+      bins=[self.cv_list[0].num_bins,self.cv_list[1].num_bins]
+      hist_list=[]
+      for n_skip,n_tot in zip(n_skip_list,n_tot_list):
+        d=[[] for i in range(self.dimensionality)]
+        for data in data_list:
+          for i,el in enumerate(data):d[i].extend(el[n_skip:n_skip+n_tot])
+        #d=[el[n_skip:n_skip+n_tot] for el in data]
+        nd=float(len(d[0]))
+        hist_list.append(npy.histogramdd(d,range=hist_range,bins=bins)[0]/nd)
+      ref_hist=hist_list[-1]
+      windows_convergence_list.append([0.5*npy.sum(npy.abs(h-ref_hist)) for h in hist_list[:-1]])
+    convergence=[npy.average([c[i] for c in windows_convergence_list]) for i in range(len(windows_convergence_list[0]))]
+    convergence_std=[npy.std([c[i] for c in windows_convergence_list]) for i in range(len(windows_convergence_list[0]))]
+    return windows_convergence_list,convergence,convergence_std
+
   def CalculatePMFConvergence(self,environment,n_skip_list,n_tot_list,max_E):
     """
     This function generates a set of PMFs from subsets of the whole data,
@@ -510,6 +567,7 @@ class System():
       for l in f:
         s=l.split()
         for i in range(self.dimensionality):data[i].append(float(s[i+1]))
+      f.close()
     filename="histogram_{0}{1}".format(len(self.windows),fname_extension)
     hist_range=[(cv.min_value,cv.max_value) for cv in self.cv_list]
     plt.figure()
