@@ -237,9 +237,9 @@ class System():
     :type cv_values: :class:`list` (:class:`float`)
     """
     for w in self.windows:
-      if w.cv_values==cv_values:
+      if tuple(w.cv_values)==tuple(cv_values):
         if not spring_constants:return w
-        elif w.spring_constants==spring_constants:return w
+        elif tuple(w.spring_constants)==tuple(spring_constants):return w
     else:
       return
 
@@ -254,7 +254,7 @@ class System():
     for w in self.windows:
       if tuple(w.cv_values)==tuple(cv_values):
         if not spring_constants:w_list.append(w)
-        elif w.spring_constants==spring_constants:w_list.append(w)
+        elif tuple(w.spring_constants)==tuple(spring_constants):w_list.append(w)
     return w_list
 
   def UpdateDataFiles(self,n_skip=0,n_tot=-1,new_only=True):
