@@ -126,6 +126,7 @@ class PMF():
     :param windows: If a list of windows is passed, arrows showing the exploration will be plotted
     :param energy_units: Units displayed for the energy axis
     """
+    if not max_E:max_E=system.max_E_plot
     if not n_levels:n_levels=int(max_E)
     if self.dimensionality==2:
       X=self.points[:,0]
