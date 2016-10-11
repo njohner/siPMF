@@ -83,6 +83,7 @@ class PMF():
     self.values=[el if not el in [9999999.0,npy.inf] else max_E for el in values]
     self.cv_list=cv_list
     self.dimensionality=len(self.cv_list)
+    self.max_E=max_E
     #if self.dimensionality==1:self.interpolator=scipy.interpolate.interp1d(self.points,self.values)
     if self.dimensionality==1:self.interpolator=scipy.interpolate.InterpolatedUnivariateSpline(self.points,self.values)
     else:self.interpolator=scipy.interpolate.interpnd.LinearNDInterpolator(self.points,self.values)
@@ -126,7 +127,7 @@ class PMF():
     :param windows: If a list of windows is passed, arrows showing the exploration will be plotted
     :param energy_units: Units displayed for the energy axis
     """
-    if not max_E:max_E=system.max_E_plot
+    if not max_E:max_E=self.max_E
     if not n_levels:n_levels=int(max_E)
     if self.dimensionality==2:
       X=self.points[:,0]
