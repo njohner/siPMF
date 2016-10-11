@@ -604,5 +604,82 @@ class System():
         phase.path_to_datafile=os.path.join(phase.outdir,self.data_filename)
         #We do not update jobs as this is not useful
     return
+  """
+  def CalculateDiffusionConstants(self,dt_per_step):
+    import MC_on_pmf
+    if not hasattr(self,"diffusion_dir"):self.diffusion_dir=os.path.join(self.basedir,"diffusion")
+    if not os.path.isdir(self.diffusion_dir):os.system("mkdir -p {0}".format(self.diffusion_dir))
+    for w in self.windows[:2]:
+      data=w.ReadDataFile()
+      t=npy.array(data[0])*dt_per_step
+      for cv,xl in zip(self.cv_list,data[1]):
+        x=npy.array(xl)
+        xm=npy.mean(x)
+        dx=x-xm
+        dx2m=npy.mean(dx*dx)
+        v=[]
+        dx=x[1:]-x[:-1]
+        dt=t[1:]-t[:-1]
+        for dxi,dti in zip(dx,dt):
+          if dti<=0:continue
+          v.append(dxi/dti)
+        v=npy.array(v)
+        v2m=npy.mean(v*v)
+        C=MC_on_pmf.autocorrelation(v)
+        s,Cl=MC_on_pmf.LaplaceTransform(t[:len(C)],C,s_max=30.0,s_step=0.01)
+        Ds=-Cl*dx2m*v2m/(Cl*(s*dx2m+v2m/s)-dx2m)
+        plt.figure()
+        plt.plot(s,Ds)
+        plt.hlines(Ds[500],*plt.xlim(),linestyle="--")
+        outname="Ds_cv_{0}_{1}.png".format("_".join([str(el) for el in w.cv_values]),cv.name)
+        plt.savefig(os.path.join(self.diffusion_dir,outname))
+        plt.close()
+  """
+  def CalculateDiffusionConstants(self,dt_per_step,masses):
+    import MC_on_pmf
+    if not hasattr(self,"diffusion_dir"):self.diffusion_dir=os.path.join(self.basedir,"diffusion")
+    if not os.path.isdir(self.diffusion_dir):os.system("mkdir -p {0}".format(self.diffusion_dir))
+    for w in self.windows:
+      w.diffusion_constants=[]
+      data=w.ReadDataFile()
+      t=npy.array(data[0])*dt_per_step
+      for cv,xl,m,cv_val,cv_K in zip(self.cv_list,data[1],masses,w.cv_values,w.spring_constants):
+        def fun2(t,D,a,b):
+          return _fun(t,cv_K,m,self.temperature,D,a,b)
+        x=npy.array(xl)
+        #x=x-cv_val
+        x=x-npy.mean(x)
+        Cx=MC_on_pmf.autocorrelation(x)*npy.mean(x*x)
+        t=t-t[0]
+        #n=3*npy.argmin(Cx)
+        #print n,len(t),len(Cx)
+        n=100
+        p,c=curve_fit(fun2,t[:n],Cx[:n],[1.0,0.0,1.0])
+        plt.figure()
+        plt.plot(t[:n],Cx[:n])
+        plt.plot(t[:n],fun2(t,*p)[:n],'--',color='r')
+        outname="Ds_cv_{0}_{1}.png".format("_".join([str(el) for el in w.cv_values]),cv.name)
+        plt.savefig(os.path.join(self.diffusion_dir,outname))
+        plt.close()
+        D=p[0] #D is in A^2/ps
+        w.diffusion_constants.append(D)
 
+from scipy.optimize import curve_fit
+def _fun(t,K,m,T,D,a,b):
+  """
+  t is the time in ps
+  k is the spring constant in kcal/mol/A^2
+  m is the mass in amu
+  T is the temperature in K
+  D is the diffusion constant in A^2/ps
+  """
+  D=1e-8*D
+  t=1e-12*t #time in s
+  kB=1.38e-23 #J/K
+  m=1.66e-27*m #mass in kg
+  K=0.69477*K #spring constant in J/m^2
+  A=kB*T/(2*m*D)
+  w1=npy.sqrt(K/m-A**2.0)
+  Cx=b*(kB*T)/K*npy.exp(-A*t)*(npy.cos(w1*t)+A/w1*npy.sin(w1*t))+a
+  return 1e20*Cx
 
