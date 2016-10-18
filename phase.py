@@ -73,7 +73,7 @@ class Phase():
       if not os.path.isfile(self.path_to_datafile):self.n_data=0
       else:
         f=open(self.path_to_datafile,"r")
-        self.n_data=len([1 for line in f if not line.startswith("#")])
+        self.n_data=len([1 for line in f if not (line.startswith("#") or line.startswith("*"))])
         f.close()
 
   def GetDataCount(self):
@@ -103,7 +103,7 @@ class Phase():
     f_out=open(self.window.path_to_datafile,"a")
     f_in=open(self.path_to_datafile,"r")
     for line in f_in:
-      if line.startswith("#"):continue
+      if line.startswith("#") or line.startswith("*"):continue
       elif self.window.datafile_n_data_skipped<n_skip:
         self.window.datafile_n_data_skipped+=1
       elif n_tot>0 and self.window.datafile_n_data_tot>=n_tot:break
