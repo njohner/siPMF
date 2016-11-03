@@ -22,7 +22,7 @@ class CollectiveVariable():
   def __repr__(self):
     return "CollectiveVariable({0},{1},{2},{3},{4},{5})".format(self.name,self.min_value,self.max_value,self.step_size,self.num_bins,self.periodicity,self.units)
 
-  def __init__(self,cv_name,min_value,max_value,step_size,num_bins,min_spring_constant,max_spring_constant,max_shift,periodicity=None,units=""):
+  def __init__(self,cv_name,min_value,max_value,step_size,num_bins,min_spring_constant,max_spring_constant=None,max_shift=None,periodicity=None,units=""):
     """
     :param cv_name: The name of the CV
     :param min_value: The minimal value of the CV
@@ -46,8 +46,10 @@ class CollectiveVariable():
     self.min_value=min_value
     self.max_value=max_value
     self.min_spring_constant=min_spring_constant
-    self.max_spring_constant=max_spring_constant
-    self.max_shift=max_shift
+    if max_spring_constant:self.max_spring_constant=max_spring_constant
+    else:self.max_spring_constant=min_spring_constant
+    if max_shift:self.max_shift=max_shift
+    else: self.max_shift=0.0
     self.step_size=step_size
     self.num_bins=num_bins
     self.bin_size=(self.max_value-self.min_value)/float(num_bins)
