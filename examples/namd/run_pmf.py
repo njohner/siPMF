@@ -21,9 +21,10 @@ max_value=180
 step_size=15
 num_bins=72
 periodicity=360
-cv1=CollectiveVariable(name,min_value,max_value,step_size,num_bins,periodicity)
+spring_constant=0.05
+cv1=CollectiveVariable(name,min_value,max_value,step_size,num_bins,spring_constant,periodicity=periodicity)
 name="PSI"
-cv2=CollectiveVariable(name,min_value,max_value,step_size,num_bins,periodicity)
+cv2=CollectiveVariable(name,min_value,max_value,step_size,num_bins,spring_constant,periodicity=periodicity)
 
 #Now we define the system
 cv_list=[cv1,cv2]
