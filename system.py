@@ -274,7 +274,7 @@ class System():
     for window in self.windows:
       window.UpdateDataFile(n_skip,n_tot,new_only)
 
-  def CalculatePMF(self,environment):
+  def CalculatePMF(self,environment,wham_tolerance=0.001):
     """
     Calculate the PMF. The function generates the meta file listing all the data files and
     their corresponding CV values and spring constants and then calls WHAM.
@@ -296,7 +296,7 @@ class System():
     else:
       logging.error("Can only work with one or two collective variables")
       raise ValueError("Can only work with one or two collective variables")
-    pmf_cmd.append(0.01)#tolerance
+    pmf_cmd.append(wham_tolerance)#tolerance
     pmf_cmd.append(self.temperature)
     num_pads=max([cv.num_pads for cv in self.cv_list])
     pmf_cmd.append(num_pads)#Number of pads for periodic variables
@@ -339,7 +339,7 @@ class System():
     else:
       self.pmf=PMF(pmf[:-1,:].transpose(),pmf[-1,:],self.cv_list,1.25*self.max_E_plot)
 
-  def UpdatePMF(self,environment,n_skip=0,n_tot=-1,new_only=True,fname_extension=""):
+  def UpdatePMF(self,environment,n_skip=0,n_tot=-1,new_only=True,fname_extension="",wham_tolerance=0.001):
     """
     Calculates the PMF (*CalculatePMF*), then reads the ouput PMF file (*ReadPMFFile*)
     and plots the new PMF. Finally, using the PMF, it assigns a free energy value to each window.
@@ -349,7 +349,7 @@ class System():
     """
     logging.info("Updating PMF")
     self.UpdateDataFiles(n_skip,n_tot,new_only)
-    self.CalculatePMF(environment)
+    self.CalculatePMF(environment,wham_tolerance=wham_tolerance)
     self.ReadPMFFile()
     self.PlotPMF(fname_extension)
     #Windows get assigned the minimal free energy
@@ -635,11 +635,12 @@ class System():
         plt.savefig(os.path.join(self.diffusion_dir,outname))
         plt.close()
   """
-  def CalculateDiffusionConstants(self,dt_per_step,masses):
+  def CalculateDiffusionConstants(self,dt_per_step,masses,new_only=False):
     import MC_on_pmf
     if not hasattr(self,"diffusion_dir"):self.diffusion_dir=os.path.join(self.basedir,"diffusion")
     if not os.path.isdir(self.diffusion_dir):os.system("mkdir -p {0}".format(self.diffusion_dir))
     for w in self.windows:
+      if new_only==True and hasattr(w,"diffusion_constants"):continue
       w.diffusion_constants=[]
       data=w.ReadDataFile()
       t=npy.array(data[0])*dt_per_step
