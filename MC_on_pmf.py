@@ -263,7 +263,7 @@ def PlotTrajOnPMF(system,traj,outputdir,filename,skip=100,n_levels=None,max_E=No
       else:plt.xlabel("{0}".format(system.pmf.cv_list[0].name))
       if system.pmf.cv_list[1].units:plt.ylabel("{0} [{1}]".format(system.pmf.cv_list[1].name,system.pmf.cv_list[1].units))
       else:plt.ylabel("{0}".format(system.pmf.cv_list[1].name))
-      plt.plot([el[0] for el in traj[::skip]],[el[1] for el in traj[::skip]],color="m")
+      plt.plot([el.cv_values[0] for el in traj[::skip]],[el.cv_values[1] for el in traj[::skip]],color="m")
       plt.savefig(os.path.join(outputdir,filename+".png"))
       plt.close()
     elif system.pmf.dimensionality==1:
