@@ -74,6 +74,10 @@ def PlotWindowAverage(system,res_dict,title=None,outname=None):
     plt.colorbar()
     plt.xlabel("{0} [{1}]".format(system.cv_list[0].name,system.cv_list[0].units))
     plt.ylabel("{0} [{1}]".format(system.cv_list[1].name,system.cv_list[1].units))
+    cv=system.cv_list[0]
+    plt.xlim(cv.wham_min_value,cv.wham_max_value)
+    cv=system.cv_list[1]
+    plt.ylim(cv.wham_min_value,cv.wham_max_value)
   if title:plt.title(title)
   if outname:plt.savefig(outname)
   return f
