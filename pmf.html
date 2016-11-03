@@ -79,7 +79,7 @@
 <span id="pmf-class"></span><h1>PMF class<a class="headerlink" href="#module-other" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
 <dt id="other.PMF">
-<em class="property">class </em><code class="descname">PMF</code><span class="sig-paren">(</span><em>points</em>, <em>values</em>, <em>cv_list</em><span class="sig-paren">)</span><a class="headerlink" href="#other.PMF" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descname">PMF</code><span class="sig-paren">(</span><em>points</em>, <em>values</em>, <em>cv_list</em>, <em>max_E</em><span class="sig-paren">)</span><a class="headerlink" href="#other.PMF" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -87,12 +87,17 @@
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
 <li><strong>points</strong> (<code class="xref py py-class docutils literal"><span class="pre">numpy.array</span></code>) &#8211; values of the CVs at which the PMF is found in values.</li>
 <li><strong>values</strong> (<code class="xref py py-class docutils literal"><span class="pre">numpy.array</span></code>) &#8211; Free energy corresponding to CV values in points</li>
-<li><strong>cv_list</strong> (<code class="xref py py-class docutils literal"><span class="pre">list`(:class:`CollectiveVariable</span></code>)) &#8211; List of the CVs</li>
+<li><strong>cv_list</strong> (<a class="reference external" href="https://docs.python.org/library/functions.html#list" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">list</span></code></a> (<a class="reference internal" href="collective_variable.html#other.CollectiveVariable" title="other.CollectiveVariable"><code class="xref py py-class docutils literal"><span class="pre">CollectiveVariable</span></code></a>)) &#8211; List of the CVs</li>
 </ul>
 </td>
 </tr>
 </tbody>
 </table>
+<dl class="method">
+<dt id="other.PMF.GetCurvatures">
+<code class="descname">GetCurvatures</code><span class="sig-paren">(</span><em>point</em>, <em>steps</em><span class="sig-paren">)</span><a class="headerlink" href="#other.PMF.GetCurvatures" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 <dl class="method">
 <dt id="other.PMF.GetValue">
 <code class="descname">GetValue</code><span class="sig-paren">(</span><em>point</em><span class="sig-paren">)</span><a class="headerlink" href="#other.PMF.GetValue" title="Permalink to this definition">¶</a></dt>
@@ -109,8 +114,24 @@
 
 <dl class="method">
 <dt id="other.PMF.Plot">
-<code class="descname">Plot</code><span class="sig-paren">(</span><em>outputdir</em>, <em>filename</em>, <em>n_levels=20</em>, <em>max_E=None</em>, <em>windows=None</em>, <em>energy_units=''</em><span class="sig-paren">)</span><a class="headerlink" href="#other.PMF.Plot" title="Permalink to this definition">¶</a></dt>
+<code class="descname">Plot</code><span class="sig-paren">(</span><em>outputdir</em>, <em>filename</em>, <em>n_levels=None</em>, <em>max_E=None</em>, <em>windows=None</em>, <em>energy_units=''</em><span class="sig-paren">)</span><a class="headerlink" href="#other.PMF.Plot" title="Permalink to this definition">¶</a></dt>
 <dd><p>Plot the PMF.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>outputdir</strong> &#8211; Output directory to which the plot is saved</li>
+<li><strong>filename</strong> &#8211; name of the file to which the plot is saved (&#8221;.png&#8221; will be added)</li>
+<li><strong>n_levels</strong> &#8211; for 2D plots, the number of isoenergy curves used in the plot</li>
+<li><strong>max_E</strong> &#8211; Maximal free energy, everything above will be shown at this level.</li>
+<li><strong>windows</strong> &#8211; If a list of windows is passed, arrows showing the exploration will be plotted</li>
+<li><strong>energy_units</strong> &#8211; Units displayed for the energy axis</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 </dd></dl>

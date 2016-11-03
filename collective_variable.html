@@ -86,7 +86,7 @@
 <span id="collectivevariable-class"></span><h1>CollectiveVariable class<a class="headerlink" href="#module-other" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
 <dt id="other.CollectiveVariable">
-<em class="property">class </em><code class="descname">CollectiveVariable</code><span class="sig-paren">(</span><em>cv_name</em>, <em>min_value</em>, <em>max_value</em>, <em>step_size</em>, <em>num_bins</em>, <em>periodicity=None</em>, <em>units=''</em><span class="sig-paren">)</span><a class="headerlink" href="#other.CollectiveVariable" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descname">CollectiveVariable</code><span class="sig-paren">(</span><em>cv_name</em>, <em>min_value</em>, <em>max_value</em>, <em>step_size</em>, <em>num_bins</em>, <em>min_spring_constant</em>, <em>max_spring_constant=None</em>, <em>max_shift=None</em>, <em>periodicity=None</em>, <em>units=''</em><span class="sig-paren">)</span><a class="headerlink" href="#other.CollectiveVariable" title="Permalink to this definition">¶</a></dt>
 <dd><p>This class represents a collective variable (CV or reaction coordinate).
 The name of the CV will give rise to the corresponding fields that are replaced
 in the MD input files. The minimal and maximal values determine the range in which
@@ -104,6 +104,9 @@ Finally the units are just used in the labels of the plots of the PMF.</p>
 <li><strong>max_value</strong> (<a class="reference external" href="https://docs.python.org/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) &#8211; The maximal value of the CV</li>
 <li><strong>step_size</strong> (<a class="reference external" href="https://docs.python.org/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) &#8211; The size of the step for this CV</li>
 <li><strong>num_bins</strong> (<a class="reference external" href="https://docs.python.org/library/functions.html#int" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">int</span></code></a>) &#8211; number of bins</li>
+<li><strong>min_spring_constant</strong> &#8211; Minimal value of the spring constant to be used for this CV.</li>
+<li><strong>max_spring_constant</strong> &#8211; Maximal value of the spring constant to be used for this CV.</li>
+<li><strong>max_shift</strong> &#8211; Maximal value for the shift of this CV to compensate for free energy gradient.</li>
 <li><strong>periodicity</strong> (<a class="reference external" href="https://docs.python.org/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) &#8211; periodicity of the CV</li>
 <li><strong>units</strong> (<a class="reference external" href="https://docs.python.org/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>) &#8211; the units of the CV</li>
 </ul>

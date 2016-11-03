@@ -88,7 +88,7 @@
 <p>This file contains the <a class="reference internal" href="#window.Window" title="window.Window"><code class="xref py py-class docutils literal"><span class="pre">Window</span></code></a> object which represents a simulation window.</p>
 <dl class="class">
 <dt id="window.Window">
-<em class="property">class </em><code class="descname">Window</code><span class="sig-paren">(</span><em>system</em>, <em>cv_values</em>, <em>spring_constants</em>, <em>parent=None</em><span class="sig-paren">)</span><a class="headerlink" href="#window.Window" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descname">Window</code><span class="sig-paren">(</span><em>system</em>, <em>cv_values</em>, <em>spring_constants</em>, <em>cv_shifts=None</em>, <em>parent=None</em>, <em>window_name=None</em><span class="sig-paren">)</span><a class="headerlink" href="#window.Window" title="Permalink to this definition">¶</a></dt>
 <dd><p>This class is second in the hierarchical structure used in SiPMF. The <code class="xref py py-class docutils literal"><span class="pre">System</span></code> contains 
 several (usually many) class:<cite>Window</cite> which correspond to the <code class="xref py py-class docutils literal"><span class="pre">System</span></code> restrained to a small
 region of the CV space using a quadratic restraining potential. The restraining potential has to
@@ -100,15 +100,33 @@ the potential defined in the MD code you are using!</strong></p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>system</strong> (<code class="xref py py-class docutils literal"><span class="pre">System</span></code>) &#8211; The system to which the window belongs</li>
-<li><strong>cv_values</strong> (<code class="xref py py-class docutils literal"><span class="pre">list`(:class:`float</span></code>)) &#8211; The centers of the quadratic potentials restraining the CVs.</li>
-<li><strong>spring_constants</strong> (<code class="xref py py-class docutils literal"><span class="pre">list`(:class:`float</span></code>)) &#8211; The spring constants of the potentials restraining the CVs</li>
+<li><strong>system</strong> (<a class="reference internal" href="system.html#system.System" title="system.System"><code class="xref py py-class docutils literal"><span class="pre">System</span></code></a>) &#8211; The system to which the window belongs</li>
+<li><strong>cv_values</strong> (<a class="reference external" href="https://docs.python.org/library/functions.html#list" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">list</span></code></a> (<a class="reference external" href="https://docs.python.org/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>)) &#8211; The centers of the quadratic potentials restraining the CVs.</li>
+<li><strong>spring_constants</strong> (<a class="reference external" href="https://docs.python.org/library/functions.html#list" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">list</span></code></a> (<a class="reference external" href="https://docs.python.org/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>)) &#8211; The spring constants of the potentials restraining the CVs</li>
 <li><strong>parent</strong> (<a class="reference internal" href="#window.Window" title="window.Window"><code class="xref py py-class docutils literal"><span class="pre">Window</span></code></a>) &#8211; The parent window</li>
 </ul>
 </td>
 </tr>
 </tbody>
 </table>
+<dl class="method">
+<dt id="window.Window.FindPhase">
+<code class="descname">FindPhase</code><span class="sig-paren">(</span><em>phase_name</em><span class="sig-paren">)</span><a class="headerlink" href="#window.Window.FindPhase" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="window.Window.Initialize">
+<code class="descname">Initialize</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#window.Window.Initialize" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="window.Window.ReadDataFile">
+<code class="descname">ReadDataFile</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#window.Window.ReadDataFile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reads the datafile of the window and returns a tuple with
+the list of times as the first element. The second element in
+the tuple is a list containing one list of values for each CV.</p>
+</dd></dl>
+
 <dl class="method">
 <dt id="window.Window.SubmitNextPhase">
 <code class="descname">SubmitNextPhase</code><span class="sig-paren">(</span><em>environment</em><span class="sig-paren">)</span><a class="headerlink" href="#window.Window.SubmitNextPhase" title="Permalink to this definition">¶</a></dt>
@@ -126,7 +144,7 @@ an run phase using as restart the last phase of this window.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>environment</strong> (<code class="xref py py-class docutils literal"><span class="pre">Environment</span></code>) &#8211; The environment used to submit the job to the cluster.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>environment</strong> (<a class="reference internal" href="environment.html#environment.Environment" title="environment.Environment"><code class="xref py py-class docutils literal"><span class="pre">Environment</span></code></a>) &#8211; The environment used to submit the job to the cluster.</td>
 </tr>
 </tbody>
 </table>
@@ -136,6 +154,28 @@ an run phase using as restart the last phase of this window.</p>
 <dt id="window.Window.UpdateDataCount">
 <code class="descname">UpdateDataCount</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#window.Window.UpdateDataCount" title="Permalink to this definition">¶</a></dt>
 <dd><p>Update the total number of data accumulated for this window (sum over the data in each phase of the window).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="window.Window.UpdateDataFile">
+<code class="descname">UpdateDataFile</code><span class="sig-paren">(</span><em>n_skip=0</em>, <em>n_tot=-1</em>, <em>new_only=True</em><span class="sig-paren">)</span><a class="headerlink" href="#window.Window.UpdateDataFile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Updates the window&#8217;s datafile. It takes the data from all the run phases and
+writes it into its own datafile, skipping the first n_skip data points
+and adding a maximum of n_tot data points.
+<em>n_tot=-1</em> means there is no maximal number of data points.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>n_skip</strong> (<a class="reference external" href="https://docs.python.org/library/functions.html#int" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">int</span></code></a>) &#8211; The number of data points to skip.</li>
+<li><strong>n_tot</strong> (<a class="reference external" href="https://docs.python.org/library/functions.html#int" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">int</span></code></a>) &#8211; The total number of data points used to calculate the PMF.</li>
+<li><strong>new_only</strong> (<a class="reference external" href="https://docs.python.org/library/functions.html#bool" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">bool</span></code></a>) &#8211; Only add the data from phases that have not yet been added to the data files.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 </dd></dl>

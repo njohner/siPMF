@@ -103,7 +103,7 @@ from a file.</p>
 
 <dl class="class">
 <dt id="system.System">
-<em class="property">class </em><code class="descname">System</code><span class="sig-paren">(</span><em>basedir</em>, <em>cv_list</em>, <em>init_input_fname</em>, <em>run_input_fname</em>, <em>init_job_fname</em>, <em>run_job_fname</em>, <em>data_filename</em>, <em>init_nstep</em>, <em>run_nstep</em>, <em>n_data</em>, <em>max_E</em>, <em>temperature</em>, <em>check_fnames</em><span class="sig-paren">)</span><a class="headerlink" href="#system.System" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descname">System</code><span class="sig-paren">(</span><em>basedir</em>, <em>cv_list</em>, <em>init_input_fname</em>, <em>run_input_fname</em>, <em>init_job_fname</em>, <em>run_job_fname</em>, <em>data_filename</em>, <em>init_nstep</em>, <em>run_nstep</em>, <em>n_data</em>, <em>max_E1</em>, <em>max_E2</em>, <em>temperature</em>, <em>check_fnames=[]</em>, <em>target_cv_vals=[]</em>, <em>adapt_spring_constants=True</em>, <em>adapt_window_centers=True</em>, <em>check_free_energy=True</em><span class="sig-paren">)</span><a class="headerlink" href="#system.System" title="Permalink to this definition">¶</a></dt>
 <dd><p>The <a class="reference internal" href="#system.System" title="system.System"><code class="xref py py-class docutils literal"><span class="pre">System</span></code></a> is the top class in the hierarchical description of a PMF calculation
 by umbrella sampling (<a class="reference internal" href="#system.System" title="system.System"><code class="xref py py-class docutils literal"><span class="pre">System</span></code></a> contains <code class="xref py py-class docutils literal"><span class="pre">Window</span></code> comprising several <code class="xref py py-class docutils literal"><span class="pre">Phase</span></code>, which each
 have one <code class="xref py py-class docutils literal"><span class="pre">Job</span></code>). The corresponding simulations will be carried out in a corresponding hierarchy of directories.
@@ -116,7 +116,7 @@ of the simulations and is therefore the only object needed to restart a SiPMF ca
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
 <li><strong>basedir</strong> (<a class="reference external" href="https://docs.python.org/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>) &#8211; The root directory in which the PMF calculation will be performed. Windows and
 phases will correspond to subdirectories of <em>basedir</em>.</li>
-<li><strong>cv_list</strong> (<code class="xref py py-class docutils literal"><span class="pre">list`(:class:`CollectiveVariable</span></code>)) &#8211; List of the collective variables (CV) used in the umbrella sampling</li>
+<li><strong>cv_list</strong> (<a class="reference external" href="https://docs.python.org/library/functions.html#list" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">list</span></code></a> (<a class="reference internal" href="collective_variable.html#other.CollectiveVariable" title="other.CollectiveVariable"><code class="xref py py-class docutils literal"><span class="pre">CollectiveVariable</span></code></a>)) &#8211; List of the collective variables (CV) used in the umbrella sampling</li>
 <li><strong>init_input_fname</strong> (<a class="reference external" href="https://docs.python.org/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>) &#8211; <em>basedir/init_input_fname</em> is the MD input file used for initializing new windows.</li>
 <li><strong>run_input_fname</strong> (<a class="reference external" href="https://docs.python.org/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>) &#8211; <em>basedir/run_input_fname</em> is the MD input file used to sample a window.</li>
 <li><strong>init_job_fname</strong> (<a class="reference external" href="https://docs.python.org/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>) &#8211; <em>basedir/init_job_fname</em> is the job file used to submit initialization runs to the cluster</li>
@@ -126,8 +126,14 @@ for each sampling phase of every window by the corresponding job and be found in
 <li><strong>init_nstep</strong> (<a class="reference external" href="https://docs.python.org/library/functions.html#int" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">int</span></code></a>) &#8211; The number of steps for initialization phases</li>
 <li><strong>run_nstep</strong> (<a class="reference external" href="https://docs.python.org/library/functions.html#int" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">int</span></code></a>) &#8211; The number of steps for sampling phases</li>
 <li><strong>n_data</strong> (<a class="reference external" href="https://docs.python.org/library/functions.html#int" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">int</span></code></a>) &#8211; The number of data wanted for each window.</li>
-<li><strong>max_E</strong> (<a class="reference external" href="https://docs.python.org/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) &#8211; The free energy threshold to decide whether to extend the simulation to neighboring windows or not.</li>
+<li><strong>max_E1</strong> (<a class="reference external" href="https://docs.python.org/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) &#8211; Lower boundary of free energy threshold to decide whether to extend the simulation to neighboring windows or not.</li>
+<li><strong>max_E2</strong> (<a class="reference external" href="https://docs.python.org/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) &#8211; Upper boundary of free energy threshold to decide whether to extend the simulation to neighboring windows or not.</li>
 <li><strong>temperature</strong> (<a class="reference external" href="https://docs.python.org/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) &#8211; The temperature at which WHAM is performed.</li>
+<li><strong>check_fnames</strong> (<a class="reference external" href="https://docs.python.org/library/functions.html#list" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">list</span></code></a> (<a class="reference external" href="https://docs.python.org/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>)) &#8211; Filenames that file be checked to exist to determine whether a phase has finished properly</li>
+<li><strong>target_cv_vals</strong> (<a class="reference external" href="https://docs.python.org/library/functions.html#list" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">list</span></code></a> (<code class="xref py py-class docutils literal"><span class="pre">tuple</span></code> (<a class="reference external" href="https://docs.python.org/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a> ) )) &#8211; Target values of the CVs. Once the system has reached these values it will only use max_E1 as energy threshold to generate new windows.</li>
+<li><strong>adapt_spring_constants</strong> &#8211; If spring constants should be automatically adapted for each window.</li>
+<li><strong>adapt_window_centers</strong> &#8211; If window centers should be automatically adapted for each window.</li>
+<li><strong>check_free_energy</strong> (<a class="reference external" href="https://docs.python.org/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) &#8211; Only generate new windows from windows that have free energy below <em>max_E1</em></li>
 </ul>
 </td>
 </tr>
@@ -135,16 +141,16 @@ for each sampling phase of every window by the corresponding job and be found in
 </table>
 <dl class="method">
 <dt id="system.System.AddWindow">
-<code class="descname">AddWindow</code><span class="sig-paren">(</span><em>cv_values</em>, <em>spring_constants</em>, <em>parent_window=None</em><span class="sig-paren">)</span><a class="headerlink" href="#system.System.AddWindow" title="Permalink to this definition">¶</a></dt>
+<code class="descname">AddWindow</code><span class="sig-paren">(</span><em>cv_values</em>, <em>spring_constants</em>, <em>shifts=None</em>, <em>parent_window=None</em><span class="sig-paren">)</span><a class="headerlink" href="#system.System.AddWindow" title="Permalink to this definition">¶</a></dt>
 <dd><p>Add a new window to the system</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>cv_values</strong> (<code class="xref py py-class docutils literal"><span class="pre">list`(:class:`float</span></code>)) &#8211; Values of the collective variables for this window</li>
-<li><strong>spring_constants</strong> (<code class="xref py py-class docutils literal"><span class="pre">list`(:class:`float</span></code>)) &#8211; Spring constants for the constraining potentials</li>
-<li><strong>parent_window</strong> (<code class="xref py py-class docutils literal"><span class="pre">Window</span></code>) &#8211; Window from which the new window should be created</li>
+<li><strong>cv_values</strong> (<a class="reference external" href="https://docs.python.org/library/functions.html#list" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">list</span></code></a> (<a class="reference external" href="https://docs.python.org/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>)) &#8211; Values of the collective variables for this window</li>
+<li><strong>spring_constants</strong> (<a class="reference external" href="https://docs.python.org/library/functions.html#list" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">list</span></code></a> (<a class="reference external" href="https://docs.python.org/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>)) &#8211; Spring constants for the constraining potentials</li>
+<li><strong>parent_window</strong> (<a class="reference internal" href="window.html#window.Window" title="window.Window"><code class="xref py py-class docutils literal"><span class="pre">Window</span></code></a>) &#8211; Window from which the new window should be created</li>
 </ul>
 </td>
 </tr>
@@ -153,15 +159,80 @@ for each sampling phase of every window by the corresponding job and be found in
 </dd></dl>
 
 <dl class="method">
+<dt id="system.System.CalculateDiffusionConstants">
+<code class="descname">CalculateDiffusionConstants</code><span class="sig-paren">(</span><em>dt_per_step</em>, <em>masses</em>, <em>new_only=False</em><span class="sig-paren">)</span><a class="headerlink" href="#system.System.CalculateDiffusionConstants" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
 <dt id="system.System.CalculatePMF">
-<code class="descname">CalculatePMF</code><span class="sig-paren">(</span><em>environment</em><span class="sig-paren">)</span><a class="headerlink" href="#system.System.CalculatePMF" title="Permalink to this definition">¶</a></dt>
+<code class="descname">CalculatePMF</code><span class="sig-paren">(</span><em>environment</em>, <em>wham_tolerance=0.001</em><span class="sig-paren">)</span><a class="headerlink" href="#system.System.CalculatePMF" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculate the PMF. The function generates the meta file listing all the data files and
 their corresponding CV values and spring constants and then calls WHAM.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>environment</strong> (<code class="xref py py-class docutils literal"><span class="pre">Environment</span></code>) &#8211; The environment used to call WHAM</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>environment</strong> (<a class="reference internal" href="environment.html#environment.Environment" title="environment.Environment"><code class="xref py py-class docutils literal"><span class="pre">Environment</span></code></a>) &#8211; The environment used to call WHAM</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="system.System.CalculatePMFConvergence">
+<code class="descname">CalculatePMFConvergence</code><span class="sig-paren">(</span><em>environment</em>, <em>n_skip_list</em>, <em>n_tot_list</em>, <em>max_E</em><span class="sig-paren">)</span><a class="headerlink" href="#system.System.CalculatePMFConvergence" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function generates a set of PMFs from subsets of the whole data,
+defined by <em>n_skip_list</em> and <em>n_tot_list</em> and calculates their convergence.
+The last PMF of the set is used as reference. Only points of the PMF with
+an energy below <em>max_E</em> are used in the calculation.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>n_skip_list</strong> (<a class="reference external" href="https://docs.python.org/library/functions.html#list" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">list</span></code></a> (<a class="reference external" href="https://docs.python.org/library/functions.html#int" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">int</span></code></a>)) &#8211; List of the number of data points to skip.</li>
+<li><strong>n_tot_list</strong> (<a class="reference external" href="https://docs.python.org/library/functions.html#list" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">list</span></code></a> (<a class="reference external" href="https://docs.python.org/library/functions.html#int" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">int</span></code></a>)) &#8211; List of the total number of data points used to calculate the PMF.</li>
+<li><strong>max_E</strong> (<a class="reference external" href="https://docs.python.org/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) &#8211; maximal energy of considered points.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="system.System.CalculateWindowsHistConvergence">
+<code class="descname">CalculateWindowsHistConvergence</code><span class="sig-paren">(</span><em>environment</em>, <em>n_skip_list</em>, <em>n_tot_list</em>, <em>update_data_files=True</em>, <em>pool_windows=False</em><span class="sig-paren">)</span><a class="headerlink" href="#system.System.CalculateWindowsHistConvergence" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="system.System.FindPhase">
+<code class="descname">FindPhase</code><span class="sig-paren">(</span><em>cv_values</em>, <em>phase_name</em>, <em>spring_constants=None</em><span class="sig-paren">)</span><a class="headerlink" href="#system.System.FindPhase" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="system.System.FindWindow">
+<code class="descname">FindWindow</code><span class="sig-paren">(</span><em>cv_values</em>, <em>spring_constants=None</em><span class="sig-paren">)</span><a class="headerlink" href="#system.System.FindWindow" title="Permalink to this definition">¶</a></dt>
+<dd><p>Find window with given values of the cvs</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>cv_values</strong> (<a class="reference external" href="https://docs.python.org/library/functions.html#list" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">list</span></code></a> (<a class="reference external" href="https://docs.python.org/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>)) &#8211; Values of the collective variables for the window</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="system.System.FindWindows">
+<code class="descname">FindWindows</code><span class="sig-paren">(</span><em>cv_values</em>, <em>spring_constants=None</em><span class="sig-paren">)</span><a class="headerlink" href="#system.System.FindWindows" title="Permalink to this definition">¶</a></dt>
+<dd><p>Find windows with given values of the cvs</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>cv_values</strong> (<a class="reference external" href="https://docs.python.org/library/functions.html#list" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">list</span></code></a> (<a class="reference external" href="https://docs.python.org/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>)) &#8211; Values of the collective variables for the window</td>
 </tr>
 </tbody>
 </table>
@@ -170,15 +241,20 @@ their corresponding CV values and spring constants and then calls WHAM.</p>
 <dl class="method">
 <dt id="system.System.GenerateNewWindows">
 <code class="descname">GenerateNewWindows</code><span class="sig-paren">(</span><em>environment</em><span class="sig-paren">)</span><a class="headerlink" href="#system.System.GenerateNewWindows" title="Permalink to this definition">¶</a></dt>
-<dd><p>Generates new windows around windows with free energy lower than <em>max_E</em> of the system.
+<dd><p>Generates new windows expected to have low free energy from windows with low free energy themselves.
 The function first updates the PMF (<em>UpdatePMF</em>) and then goes through all the windows
-in the system to decide where to generate new ones. If a new window can be generated from several
+in the system to find potential new windows to generate. Specifically it will start with a maximal
+free energy threshold of <em>max_E1</em>, go through all the windows and for those with free energy below
+the current threshold, it will look at all potential neighbor windows. It estimates the free
+of each potential new window and if it is below the free energy threshold, it adds that window to the system.
+If no new window was generated, it increases the threshold in 5 steps up to <em>max_E2</em>, each time repeating
+the procedure described above. If a new window can be generated from several
 windows, the one with lowest free energy will be used as parent.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>environment</strong> (<code class="xref py py-class docutils literal"><span class="pre">Environment</span></code>) &#8211; The environment used to call WHAM</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>environment</strong> (<a class="reference internal" href="environment.html#environment.Environment" title="environment.Environment"><code class="xref py py-class docutils literal"><span class="pre">Environment</span></code></a>) &#8211; The environment used to call WHAM</td>
 </tr>
 </tbody>
 </table>
@@ -191,9 +267,21 @@ windows, the one with lowest free energy will be used as parent.</p>
 </dd></dl>
 
 <dl class="method">
+<dt id="system.System.GetPathToInitJobFile">
+<code class="descname">GetPathToInitJobFile</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#system.System.GetPathToInitJobFile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the path to the job submission file for initialization phases</p>
+</dd></dl>
+
+<dl class="method">
 <dt id="system.System.GetPathToRunInputFile">
 <code class="descname">GetPathToRunInputFile</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#system.System.GetPathToRunInputFile" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the path to the MD input file used to sample windows (run phase)</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="system.System.GetPathToRunJobFile">
+<code class="descname">GetPathToRunJobFile</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#system.System.GetPathToRunJobFile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the path to the job submission file for run phases</p>
 </dd></dl>
 
 <dl class="method">
@@ -205,8 +293,8 @@ windows, the one with lowest free energy will be used as parent.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>cv_values</strong> (<code class="xref py py-class docutils literal"><span class="pre">list`(:class:`float</span></code>)) &#8211; The values to which the collective variables should be restrained for this window.</li>
-<li><strong>spring_constants</strong> (<code class="xref py py-class docutils literal"><span class="pre">list`(:class:`float</span></code>)) &#8211; The spring constants used to restrain the collective variables</li>
+<li><strong>cv_values</strong> (<a class="reference external" href="https://docs.python.org/library/functions.html#list" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">list</span></code></a> (<a class="reference external" href="https://docs.python.org/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>)) &#8211; The values to which the collective variables should be restrained for this window.</li>
+<li><strong>spring_constants</strong> (<a class="reference external" href="https://docs.python.org/library/functions.html#list" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">list</span></code></a> (<a class="reference external" href="https://docs.python.org/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>)) &#8211; The spring constants used to restrain the collective variables</li>
 <li><strong>init_restartdir</strong> (<a class="reference external" href="https://docs.python.org/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>) &#8211; <em>basedir/init_restartdir</em> should point to the directory containing the files 
 from which the simulation of the first phase of this window should be restarted.</li>
 </ul>
@@ -217,8 +305,14 @@ from which the simulation of the first phase of this window should be restarted.
 </dd></dl>
 
 <dl class="method">
+<dt id="system.System.PlotHistogram">
+<code class="descname">PlotHistogram</code><span class="sig-paren">(</span><em>fname_extension=''</em><span class="sig-paren">)</span><a class="headerlink" href="#system.System.PlotHistogram" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plots the histogram of the accumulated data.</p>
+</dd></dl>
+
+<dl class="method">
 <dt id="system.System.PlotPMF">
-<code class="descname">PlotPMF</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#system.System.PlotPMF" title="Permalink to this definition">¶</a></dt>
+<code class="descname">PlotPMF</code><span class="sig-paren">(</span><em>fname_extension=''</em><span class="sig-paren">)</span><a class="headerlink" href="#system.System.PlotPMF" title="Permalink to this definition">¶</a></dt>
 <dd><p>Plot the PMF.</p>
 </dd></dl>
 
@@ -243,6 +337,26 @@ from which the simulation of the first phase of this window should be restarted.
 </dd></dl>
 
 <dl class="method">
+<dt id="system.System.SetNewBaseDir">
+<code class="descname">SetNewBaseDir</code><span class="sig-paren">(</span><em>basedir</em><span class="sig-paren">)</span><a class="headerlink" href="#system.System.SetNewBaseDir" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="system.System.ShiftWindowFreeEnergies">
+<code class="descname">ShiftWindowFreeEnergies</code><span class="sig-paren">(</span><em>min_val=0</em><span class="sig-paren">)</span><a class="headerlink" href="#system.System.ShiftWindowFreeEnergies" title="Permalink to this definition">¶</a></dt>
+<dd><p>Shift the free energies of the windows such that the window with the lowest free
+energy has a free energy of min_val.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>min_val</strong> (<a class="reference external" href="https://docs.python.org/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) &#8211; the free energy assigned to the window with lowest free energy</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
 <dt id="system.System.SubmitNewJobs">
 <code class="descname">SubmitNewJobs</code><span class="sig-paren">(</span><em>environment</em><span class="sig-paren">)</span><a class="headerlink" href="#system.System.SubmitNewJobs" title="Permalink to this definition">¶</a></dt>
 <dd><p>Submit the next series of jobs. This does not create new windows, only go through the
@@ -252,7 +366,35 @@ existing windows and submit the next job (initialization or run) for that window
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>environment</strong> &#8211; The environment used to submit the jobs</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>environment</strong> (<a class="reference internal" href="environment.html#environment.Environment" title="environment.Environment"><code class="xref py py-class docutils literal"><span class="pre">Environment</span></code></a>) &#8211; The environment used to submit the jobs</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="system.System.UpdateDataCounts">
+<code class="descname">UpdateDataCounts</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#system.System.UpdateDataCounts" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update the total number of data accumulated for every window (sum over the data in each phase of the window).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="system.System.UpdateDataFiles">
+<code class="descname">UpdateDataFiles</code><span class="sig-paren">(</span><em>n_skip=0</em>, <em>n_tot=-1</em>, <em>new_only=True</em><span class="sig-paren">)</span><a class="headerlink" href="#system.System.UpdateDataFiles" title="Permalink to this definition">¶</a></dt>
+<dd><p>Updates the datafiles of all windows. For each <em>window</em>, it takes the data 
+from all the run phases and writes it into a datafile, skipping the first n_skip data points
+and adding a maximum of n_tot data points for each window.
+<em>n_tot=-1</em> means there is no maximal number of data points.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>n_skip</strong> (<a class="reference external" href="https://docs.python.org/library/functions.html#int" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">int</span></code></a>) &#8211; The number of data points to skip.</li>
+<li><strong>n_tot</strong> (<a class="reference external" href="https://docs.python.org/library/functions.html#int" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">int</span></code></a>) &#8211; The total number of data points used to calculate the PMF.</li>
+<li><strong>new_only</strong> (<a class="reference external" href="https://docs.python.org/library/functions.html#bool" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">bool</span></code></a>) &#8211; Only add the data from phases that have not yet been added to the data files.</li>
+</ul>
+</td>
 </tr>
 </tbody>
 </table>
@@ -260,14 +402,14 @@ existing windows and submit the next job (initialization or run) for that window
 
 <dl class="method">
 <dt id="system.System.UpdatePMF">
-<code class="descname">UpdatePMF</code><span class="sig-paren">(</span><em>environment</em><span class="sig-paren">)</span><a class="headerlink" href="#system.System.UpdatePMF" title="Permalink to this definition">¶</a></dt>
+<code class="descname">UpdatePMF</code><span class="sig-paren">(</span><em>environment</em>, <em>n_skip=0</em>, <em>n_tot=-1</em>, <em>new_only=True</em>, <em>fname_extension=''</em>, <em>wham_tolerance=0.001</em><span class="sig-paren">)</span><a class="headerlink" href="#system.System.UpdatePMF" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculates the PMF (<em>CalculatePMF</em>), then reads the ouput PMF file (<em>ReadPMFFile</em>)
 and plots the new PMF. Finally, using the PMF, it assigns a free energy value to each window.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>environment</strong> (<code class="xref py py-class docutils literal"><span class="pre">Environment</span></code>) &#8211; The environment used to call WHAM</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>environment</strong> (<a class="reference internal" href="environment.html#environment.Environment" title="environment.Environment"><code class="xref py py-class docutils literal"><span class="pre">Environment</span></code></a>) &#8211; The environment used to call WHAM</td>
 </tr>
 </tbody>
 </table>
@@ -282,7 +424,7 @@ the list of unfinished jobs and updated windows.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>environment</strong> &#8211; The environment used to check the job status</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>environment</strong> (<a class="reference internal" href="environment.html#environment.Environment" title="environment.Environment"><code class="xref py py-class docutils literal"><span class="pre">Environment</span></code></a>) &#8211; The environment used to check the job status</td>
 </tr>
 </tbody>
 </table>

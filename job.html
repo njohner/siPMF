@@ -96,7 +96,7 @@ to the cluster and check its status</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>phase</strong> (<code class="xref py py-class docutils literal"><span class="pre">Phase</span></code>) &#8211; The corresponding simulation phase.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>phase</strong> (<a class="reference internal" href="phase.html#phase.Phase" title="phase.Phase"><code class="xref py py-class docutils literal"><span class="pre">Phase</span></code></a>) &#8211; The corresponding simulation phase.</td>
 </tr>
 </tbody>
 </table>
@@ -114,10 +114,26 @@ and for a run phase {RUN_NSTEP} is replaced by system.run_nstep.</p>
 </dd></dl>
 
 <dl class="method">
+<dt id="job.Job.GenerateJobFile">
+<code class="descname">GenerateJobFile</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#job.Job.GenerateJobFile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate the Job submission file. This function reads the template job file (either the <em>initialization job file</em>
+or the <em>run job file</em>) and replaces several fields by their corresponding values, notably
+{BASEDIR}, {RESTARTDIR}, {OUTPUTDIR}, {WINDOW}, {PHASE} and {INPUTFILE}. For the initialization job submission file we also replace fields for the parent window, namely
+{PARENT_WINDOW} and {PARENT_PHASE}.</p>
+</dd></dl>
+
+<dl class="method">
 <dt id="job.Job.GetInitInputReplacementDict">
 <code class="descname">GetInitInputReplacementDict</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#job.Job.GetInitInputReplacementDict" title="Permalink to this definition">¶</a></dt>
 <dd><p>This function returns a dictionary containing the fields that will be replaced only in the
 initialization MD input files.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="job.Job.GetInitJobReplacementDict">
+<code class="descname">GetInitJobReplacementDict</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#job.Job.GetInitJobReplacementDict" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function returns a dictionary containing the fields that will be replaced only in the
+initialization Job submission files.</p>
 </dd></dl>
 
 <dl class="method">
@@ -128,10 +144,24 @@ initialization MD input files.</p>
 </dd></dl>
 
 <dl class="method">
+<dt id="job.Job.GetJobReplacementDict">
+<code class="descname">GetJobReplacementDict</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#job.Job.GetJobReplacementDict" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function returns a dictionary containing the fields that will be replaced both in the run and in the
+initialization Job submission files.</p>
+</dd></dl>
+
+<dl class="method">
 <dt id="job.Job.GetRunInputReplacementDict">
 <code class="descname">GetRunInputReplacementDict</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#job.Job.GetRunInputReplacementDict" title="Permalink to this definition">¶</a></dt>
 <dd><p>This function returns a dictionary containing the fields that will be replaced only in the
 run MD input files.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="job.Job.GetRunJobReplacementDict">
+<code class="descname">GetRunJobReplacementDict</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#job.Job.GetRunJobReplacementDict" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function returns a dictionary containing the fields that will be replaced only in the
+run Job submission files.</p>
 </dd></dl>
 
 <dl class="method">
@@ -142,7 +172,7 @@ run MD input files.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>environment</strong> (<code class="xref py py-class docutils literal"><span class="pre">Environment</span></code>) &#8211; The environment used to submit the job</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>environment</strong> (<a class="reference internal" href="environment.html#environment.Environment" title="environment.Environment"><code class="xref py py-class docutils literal"><span class="pre">Environment</span></code></a>) &#8211; The environment used to submit the job</td>
 </tr>
 </tbody>
 </table>
@@ -156,7 +186,7 @@ run MD input files.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>environment</strong> (<code class="xref py py-class docutils literal"><span class="pre">Environment</span></code>) &#8211; The environment used to check the job status</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>environment</strong> (<a class="reference internal" href="environment.html#environment.Environment" title="environment.Environment"><code class="xref py py-class docutils literal"><span class="pre">Environment</span></code></a>) &#8211; The environment used to check the job status</td>
 </tr>
 </tbody>
 </table>

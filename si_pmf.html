@@ -97,8 +97,8 @@ new windows and so on.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>system</strong> (<code class="xref py py-class docutils literal"><span class="pre">System</span></code>) &#8211; The system that will be studied</li>
-<li><strong>environment</strong> (<code class="xref py py-class docutils literal"><span class="pre">Environment</span></code>) &#8211; The environment</li>
+<li><strong>system</strong> (<a class="reference internal" href="system.html#system.System" title="system.System"><code class="xref py py-class docutils literal"><span class="pre">System</span></code></a>) &#8211; The system that will be studied</li>
+<li><strong>environment</strong> (<a class="reference internal" href="environment.html#environment.Environment" title="environment.Environment"><code class="xref py py-class docutils literal"><span class="pre">Environment</span></code></a>) &#8211; The environment</li>
 </ul>
 </td>
 </tr>
@@ -106,7 +106,7 @@ new windows and so on.</p>
 </table>
 <dl class="method">
 <dt id="siPMF.SiPMF.Run">
-<code class="descname">Run</code><span class="sig-paren">(</span><em>max_time</em>, <em>max_jobs</em>, <em>sleep_length</em><span class="sig-paren">)</span><a class="headerlink" href="#siPMF.SiPMF.Run" title="Permalink to this definition">¶</a></dt>
+<code class="descname">Run</code><span class="sig-paren">(</span><em>max_time</em>, <em>max_jobs</em>, <em>sleep_length</em>, <em>generate_new_windows=True</em><span class="sig-paren">)</span><a class="headerlink" href="#siPMF.SiPMF.Run" title="Permalink to this definition">¶</a></dt>
 <dd><p>Run the process to explore the free energy landscape. The process is an infinite loop in which
 it will sleep for some time, then when it wakes up it checks the status of the jobs in the queue.
 If some jobs have finished, it will submit new phases for the corresponding windows if necessary

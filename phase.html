@@ -96,7 +96,7 @@ can have several <a class="reference internal" href="#phase.Phase" title="phase.
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>window</strong> (<code class="xref py py-class docutils literal"><span class="pre">Window</span></code>) &#8211; The window to which the phase belongs</li>
+<li><strong>window</strong> (<a class="reference internal" href="window.html#window.Window" title="window.Window"><code class="xref py py-class docutils literal"><span class="pre">Window</span></code></a>) &#8211; The window to which the phase belongs</li>
 <li><strong>phase_name</strong> (<a class="reference external" href="https://docs.python.org/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>) &#8211; The name of the phase</li>
 <li><strong>phase_type</strong> (<a class="reference external" href="https://docs.python.org/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>) &#8211; Either <em>Initialization</em> or <em>run</em> phase.</li>
 <li><strong>parent_phase</strong> (<a class="reference internal" href="#phase.Phase" title="phase.Phase"><code class="xref py py-class docutils literal"><span class="pre">Phase</span></code></a>) &#8211; The phase from which this one is restarted.</li>
@@ -105,6 +105,26 @@ can have several <a class="reference internal" href="#phase.Phase" title="phase.
 </tr>
 </tbody>
 </table>
+<dl class="method">
+<dt id="phase.Phase.AddDataToWindow">
+<code class="descname">AddDataToWindow</code><span class="sig-paren">(</span><em>n_skip=0</em>, <em>n_tot=-1</em>, <em>new_only=True</em><span class="sig-paren">)</span><a class="headerlink" href="#phase.Phase.AddDataToWindow" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add the data of this phase to the data file of the window.
+<em>n_tot=-1</em> means there is no maximal number of data points added.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>n_skip</strong> (<a class="reference external" href="https://docs.python.org/library/functions.html#int" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">int</span></code></a>) &#8211; The number of data points to skip.</li>
+<li><strong>n_tot</strong> (<a class="reference external" href="https://docs.python.org/library/functions.html#int" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">int</span></code></a>) &#8211; The total number of data points used to calculate the PMF.</li>
+<li><strong>new_only</strong> (<a class="reference external" href="https://docs.python.org/library/functions.html#bool" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">bool</span></code></a>) &#8211; Only add the data from phases that have not yet been added to the data files.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
 <dl class="method">
 <dt id="phase.Phase.GetDataCount">
 <code class="descname">GetDataCount</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#phase.Phase.GetDataCount" title="Permalink to this definition">¶</a></dt>
