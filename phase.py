@@ -6,6 +6,7 @@ This file contains the :class:`Phase` object which represents a simulation phase
 import os,subprocess
 from job import Job
 import logging
+import pickle
 
 class Phase():
   """
@@ -63,6 +64,15 @@ class Phase():
       logging.error("Problem creating output directory {0}.".format(self.outdir))
       raise IOError("Problem creating output directory {0}.".format(self.outdir))
     self.job=Job(self)
+
+    if self.type=="initialization":
+      d={"parent cv values":self.parent_phase.window.cv_values}
+      d.update({"parent spring constants":self.parent_phase.window.spring_constants})
+      d.update({"parent phase":self.parent_phase.name})
+      f=open(os.path.join(self.outdir,"info.pkl"),"w")
+      pickle.dump(d,f)
+      f.close()
+
 
   def UpdateDataCount(self):
     """

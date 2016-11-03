@@ -10,9 +10,76 @@ import matplotlib.pyplot as plt
 import itertools
 import pickle
 from window import Window
+from phase import Phase
 from other import *
 
 __all__=('LoadSystem','System')
+
+def RebuildWindowsAndPhasesFromDirectoryTree(system):
+  #First we renew the list of windows
+  windows_dir_list=os.listdir(os.path.join(system.basedir,"windows"))
+  for window_dir in windows_dir_list:
+    cv_values=[]
+    spring_constants=[]
+    for cv in system.cv_list:
+      start=window_dir.find(cv.name)
+      cvv=float(window_dir[start+len(cv.name):].split("_")[0])
+      cv_values.append(cvv)
+      start=window_dir.find(cv.name+"K")
+      k=float(window_dir[start+len(cv.name)+1:].split("_")[0])
+      spring_constants.append(k)
+    system.windows.append(Window(system,cv_values,spring_constants,window_name=window_dir))
+  #Now we set the parent windows for every window
+  for w in system.windows:
+    if not os.path.isfile(os.path.join(w.subdir,"info.pkl")):
+      print "Missing info.pkl file for {0}".format(w.subdir)
+      continue
+    f=open(os.path.join(w.subdir,"info.pkl"),"r")
+    info=pickle.load(f)
+    f.close()
+    if "parent cv values" in info and "parent spring constants" in info:
+      parent_window=system.FindWindow(info["parent cv values"],info["parent spring constants"])
+      w.parent=parent_window
+    if "cv_shifts" in info:
+      self.cv_shifts=info["cv_shifts"]
+  #Now we add the phases to each window
+  for w in system.windows:
+    if os.path.isdir(os.path.join(w.subdir,"initialization")):
+      w.phases.append(Phase(w,"initialization","initialization"))
+    i=1
+    while True:
+      phase_name="phase"+str(i)
+      if os.path.isdir(os.path.join(w.subdir,phase_name)):
+        w.phases.append(Phase(w,phase_name,"run"))
+        i+=1
+      else:
+        break
+  #Now we set the parent phases
+  for w in system.windows: 
+    for p in w.phases:
+      if p.type=="initialization":
+        if not os.path.isfile(os.path.join(p.outdir,"info.pkl")):
+          print "Missing info.pkl file for {0}".format(p.outdir)
+          continue
+        f=open(os.path.join(p.outdir,"info.pkl"),"r")
+        info=pickle.load(f)
+        f.close()
+        cvv=info["parent cv values"]
+        cvk=info["parent spring constants"]
+        parent_pname=info["parent phase"]
+        parent_phase=system.FindPhase(cvv,parent_pname,cvk)
+      else:
+        if p.name=="phase1":parent_pname="initialization"
+        else:
+          i=int(p.name[5:])
+          parent_pname="phase"+str(i-1)
+        parent_phase=w.FindPhase(parent_pname)
+      if not parent_phase:
+        print "No parent phase for {0}".format(p.outdir)
+        continue
+      p.parent_phase=parent_phase
+      p.restartdir=parent_phase.outdir
+  return
 
 def LoadSystem(filename):
   """
@@ -135,7 +202,9 @@ class System():
     :type spring_constants: :class:`list` (:class:`float`)
     :type init_restartdir: :class:`str`
     """
-    self.windows.append(Window(self,cv_values,spring_constants))
+    w=Window(self,cv_values,spring_constants)
+    w.Initialize()
+    self.windows.append(w)
     self.init_restartdir=init_restartdir
     self.updated_windows.append(self.windows[-1])
 
@@ -229,7 +298,9 @@ class System():
     :type spring_constants: :class:`list` (:class:`float`)
     :type parent_window: :class:`~window.Window`
     """
-    self.windows.append(Window(self,cv_values,spring_constants,shifts,parent_window))
+    w=Window(self,cv_values,spring_constants,shifts,parent_window)
+    w.Initialize()
+    self.windows.append(w)
     self.updated_windows.append(self.windows[-1])
 
   def FindWindow(self,cv_values,spring_constants=None):
@@ -259,6 +330,11 @@ class System():
         if not spring_constants:w_list.append(w)
         elif tuple(w.spring_constants)==tuple(spring_constants):w_list.append(w)
     return w_list
+
+  def FindPhase(self,cv_values,phase_name,spring_constants=None):
+    w=self.FindWindow(cv_values,spring_constants)
+    if not w:return None
+    return w.FindPhase(phase_name)
 
   def UpdateDataFiles(self,n_skip=0,n_tot=-1,new_only=True):
     """

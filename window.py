@@ -9,6 +9,7 @@ import scipy.interpolate
 import matplotlib.pyplot as plt
 import itertools
 from phase import Phase
+import pickle
 
 class Window():
   """
@@ -27,7 +28,7 @@ class Window():
       return "{0} initialized form {1}".format(self.name,self.parent.name)
     else:return "{0}".format(self.name)
 
-  def __init__(self,system,cv_values,spring_constants,cv_shifts=None,parent=None):
+  def __init__(self,system,cv_values,spring_constants,cv_shifts=None,parent=None,window_name=None):
     """
     :param system: The system to which the window belongs
     :param cv_values: The centers of the quadratic potentials restraining the CVs.
@@ -48,10 +49,17 @@ class Window():
     self.n_run_phases=0
     self.phases=[]
     self.system=system
-    self.name="_".join(["".join([cvn,str(cvv)]) for cvn,cvv in zip(self.cv_names,self.cv_values)])
-    self.name+="_"+"_".join(["".join([cvn+"K",str(cvk)]) for cvn,cvk in zip(self.cv_names,self.spring_constants)])
+    if not window_name:
+      window_name="_".join(["".join([cvn,str(cvv)]) for cvn,cvv in zip(self.cv_names,self.cv_values)])
+      window_name+="_"+"_".join(["".join([cvn+"K",str(cvk)]) for cvn,cvk in zip(self.cv_names,self.spring_constants)])
+    self.name=window_name
     self.subdir=os.path.join(system.simu_dir,self.name)
     self.parent=parent
+    self.path_to_datafile=os.path.join(self.subdir,"data.txt")
+    self.datafile_n_data_tot=0
+    self.datafile_n_data_skipped=0
+
+  def Initialize(self):
     logging.info("New window: {0}".format(self))
     if os.path.isdir(self.subdir):
       logging.error("Directory already exists, program stops to avoid overwriting {0}.".format(self.subdir))
@@ -61,9 +69,13 @@ class Window():
       logging.error("Problem creating output directory {0}.".format(self.subdir))
       raise IOError("Problem creating output directory {0}.".format(self.subdir))
     self.last_phase_n_crashed=0
-    self.path_to_datafile=os.path.join(self.subdir,"data.txt")
-    self.datafile_n_data_tot=0
-    self.datafile_n_data_skipped=0
+    d={"cv_shifts":self.cv_shifts}
+    if self.parent:
+      d.update({"parent cv values":self.parent.cv_values})
+      d.update({"parent spring constants":self.parent.spring_constants})
+    f=open(os.path.join(self.subdir,"info.pkl"),"w")
+    pickle.dump(d,f)
+    f.close()
 
   def SubmitNextPhase(self,environment):
     """
@@ -147,3 +159,8 @@ class Window():
       for i in range(self.system.dimensionality):cvs[i].append(float(s[i+1]))
     return (t,cvs)
 
+  def FindPhase(self,phase_name):
+    for p in self.phases:
+      if p.name==phase_name:return p
+    return None
+  
