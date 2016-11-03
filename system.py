@@ -353,6 +353,12 @@ class System():
     for window in self.windows:
       window.UpdateDataFile(n_skip,n_tot,new_only)
 
+  def UpdateDataCounts(self):
+    """
+    Update the total number of data accumulated for every window (sum over the data in each phase of the window).
+    """
+    for w in self.windows:w.UpdateDataCount()
+
   def CalculatePMF(self,environment,wham_tolerance=0.001):
     """
     Calculate the PMF. The function generates the meta file listing all the data files and
