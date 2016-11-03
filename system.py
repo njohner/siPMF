@@ -16,6 +16,20 @@ from other import *
 __all__=('LoadSystem','System')
 
 def RebuildWindowsAndPhasesFromDirectoryTree(system):
+  """
+  This function can be used to rebuild the list of windows
+  and phases from the directory tree. It also adds the window
+  parents and phase parents. This is meant to be used only in
+  case something went very wrong and the state file cannot be 
+  used for some reason.
+
+  :param system: The system, which should have been initialized with
+   the same cv_list and such. You also need to manually set the 
+   *system.init_restartdir* before passing the *system* to this function.
+   This is the restart directory of the initial phase of the calculation.
+  :type system: :class:`~system.System`
+
+  """
   #First we renew the list of windows
   windows_dir_list=os.listdir(os.path.join(system.basedir,"windows"))
   for window_dir in windows_dir_list:
