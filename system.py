@@ -37,7 +37,7 @@ class System():
   def __repr__(self):
     return "System({0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12})".format(self.basedir,self.cv_list,self.init_input_fname,self.run_input_fname,self.init_job_fname,self.run_job_fname,self.data_filename,self.init_nstep,self.run_nstep,self.n_data,self.max_E1,self.max_E2,self.temperature)
 
-  def __init__(self,basedir,cv_list,init_input_fname,run_input_fname,init_job_fname,run_job_fname,data_filename,init_nstep,run_nstep,n_data,max_E1,max_E2,temperature,check_fnames=[],target_cv_vals=[],adapt_spring_constants=True,adapt_window_centers=True):
+  def __init__(self,basedir,cv_list,init_input_fname,run_input_fname,init_job_fname,run_job_fname,data_filename,init_nstep,run_nstep,n_data,max_E1,max_E2,temperature,check_fnames=[],target_cv_vals=[],adapt_spring_constants=True,adapt_window_centers=True,check_free_energy=True):
     """
     :param basedir: The root directory in which the PMF calculation will be performed. Windows and
      phases will correspond to subdirectories of *basedir*.
@@ -58,6 +58,7 @@ class System():
     :param target_cv_vals: Target values of the CVs. Once the system has reached these values it will only use max_E1 as energy threshold to generate new windows.
     :param adapt_spring_constants: If spring constants should be automatically adapted for each window.
     :param adapt_window_centers: If window centers should be automatically adapted for each window.
+    :param check_free_energy: Only generate new windows from windows that have free energy below *max_E1*
 
     :type basedir: :class:`str`
     :type cv_list: :class:`list` (:class:`~other.CollectiveVariable`)
@@ -74,6 +75,7 @@ class System():
     :type temperature: :class:`float`
     :type check_fnames: :class:`list` (:class:`str`)
     :type target_cv_vals: :class:`list` (:class:`tuple` (:class:`float` ) )
+    :type check_free_energy: :class:`float`
     """
     self.basedir=basedir
     self.pmf_dir=os.path.join(basedir,"PMF")
@@ -107,7 +109,8 @@ class System():
     self.reached_target=False
     self.adapt_spring_constants=adapt_spring_constants
     self.adapt_window_centers=adapt_window_centers
-    
+    self.check_free_energy=check_free_energy
+
   def Save(self,filename):
     """
     Save the :class:`System` to a file using *pickle*.
@@ -412,7 +415,7 @@ class System():
     for max_free_energy in npy.arange(self.max_E1,self.max_E2+fe_step/2.,fe_step):
       new_windows={}
       for window in self.windows:
-        if window.free_energy>max_free_energy:continue
+        if window.free_energy>max_free_energy and self.check_free_energy:continue
         for step in delta_cv_list:
           new_cv_vals=[el1+el2 for el1,el2 in zip(window.cv_values,step)]
           for i,(cv_val,cv) in enumerate(zip(new_cv_vals,self.cv_list)):
@@ -439,7 +442,7 @@ class System():
       #Add the new windows
       n_new_windows=0
       for cv_values in new_windows:
-        if new_windows[cv_values]["free_energy"]+fe_shift<max_free_energy:
+        if (self.check_free_energy==False) or (new_windows[cv_values]["free_energy"]+fe_shift<max_free_energy):
           parent=new_windows[cv_values]["parent"]
           if self.adapt_spring_constants:
             curvatures=parent.curvatures
