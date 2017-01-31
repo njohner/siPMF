@@ -118,7 +118,7 @@ class System():
   def __repr__(self):
     return "System({0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12})".format(self.basedir,self.cv_list,self.init_input_fname,self.run_input_fname,self.init_job_fname,self.run_job_fname,self.data_filename,self.init_nstep,self.run_nstep,self.n_data,self.max_E1,self.max_E2,self.temperature)
 
-  def __init__(self,basedir,cv_list,init_input_fname,run_input_fname,init_job_fname,run_job_fname,data_filename,init_nstep,run_nstep,n_data,max_E1,max_E2,temperature,check_fnames=[],target_cv_vals=[],adapt_spring_constants=True,adapt_window_centers=True,check_free_energy=True):
+  def __init__(self,basedir,cv_list,init_input_fname,run_input_fname,init_job_fname,run_job_fname,data_filename,init_nstep,run_nstep,n_data,max_E1,max_E2,temperature,check_fnames=[],target_cv_vals=[],adapt_spring_constants=True,adapt_window_centers=True,check_free_energy=True,name=""):
     """
     :param basedir: The root directory in which the PMF calculation will be performed. Windows and
      phases will correspond to subdirectories of *basedir*.
@@ -140,6 +140,7 @@ class System():
     :param adapt_spring_constants: If spring constants should be automatically adapted for each window.
     :param adapt_window_centers: If window centers should be automatically adapted for each window.
     :param check_free_energy: Only generate new windows from windows that have free energy below *max_E1*
+    :param name: Name of the system. This is used for plot titles and such.
 
     :type basedir: :class:`str`
     :type cv_list: :class:`list` (:class:`~other.CollectiveVariable`)
@@ -157,6 +158,7 @@ class System():
     :type check_fnames: :class:`list` (:class:`str`)
     :type target_cv_vals: :class:`list` (:class:`tuple` (:class:`float` ) )
     :type check_free_energy: :class:`float`
+    :type name: :class:`str`
     """
     self.basedir=basedir
     self.pmf_dir=os.path.join(basedir,"PMF")
@@ -191,6 +193,7 @@ class System():
     self.adapt_spring_constants=adapt_spring_constants
     self.adapt_window_centers=adapt_window_centers
     self.check_free_energy=check_free_energy
+    self.name=name
 
   def Save(self,filename):
     """
@@ -479,7 +482,7 @@ class System():
     """
     if self.pmf:
       filename="pmf_{0}{1}".format(len(self.windows),fname_extension)
-      self.pmf.Plot(self.pmf_dir,filename,max_E=self.max_E_plot,windows=self.windows)
+      self.pmf.Plot(self.pmf_dir,filename,max_E=self.max_E_plot,windows=self.windows,title=self.name)
     else:
       logging.info("PMF has to be initialized before it can be plotted.")
 
@@ -685,6 +688,7 @@ class System():
       if self.cv_list[0].units:plt.xlabel("{0} [{1}]".format(self.cv_list[0].name,self.cv_list[0].units))
       else:plt.xlabel("{0}".format(self.cv_list[0].name))
       plt.ylabel("Count")
+    plt.title(self.name)
     plt.savefig(os.path.join(self.hist_dir,filename))
     plt.close()
 

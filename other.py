@@ -8,6 +8,7 @@ import scipy.interpolate
 from scipy.interpolate import NearestNDInterpolator
 import matplotlib.pyplot as plt
 import numpy as npy
+import logging
 
 class CollectiveVariable():
   """
@@ -118,7 +119,7 @@ class PMF():
       return 0.5*(k1+k2)
     """
     
-  def Plot(self,outputdir,filename,n_levels=None,max_E=None,windows=None,energy_units=""):
+  def Plot(self,outputdir,filename,n_levels=None,max_E=None,windows=None,energy_units="",title=""):
     """
     Plot the PMF.
 
@@ -129,6 +130,9 @@ class PMF():
     :param windows: If a list of windows is passed, arrows showing the exploration will be plotted
     :param energy_units: Units displayed for the energy axis
     """
+    if not self.dimensionality in [1,2]:
+      logging.info("can only plot PMF for 1 or 2 dimensional systems")
+      return
     if not max_E:max_E=self.max_E
     if not n_levels:n_levels=int(max_E)
     if self.dimensionality==2:
@@ -171,8 +175,6 @@ class PMF():
             if p2 and y-yp<-p2/2.:
               yp-=p2
             plt.annotate("",xy=(x,y),xytext=(xp,yp),arrowprops=dict(facecolor="k",width=0.5,frac=0.2,headwidth=4),annotation_clip=False)
-      plt.savefig(os.path.join(outputdir,filename+".png"))
-      plt.close()
     elif self.dimensionality==1:
       plt.figure()
       plt.plot(self.points,self.values)
@@ -180,5 +182,6 @@ class PMF():
       if self.cv_list[0].units:plt.xlabel("{0} [{1}]".format(self.cv_list[0].name,self.cv_list[0].units))
       else:plt.xlabel("{0}".format(self.cv_list[0].name))
       plt.ylabel("Free Energy")
-      plt.savefig(os.path.join(outputdir,filename+".png"))
-      plt.close()
+    if title:plt.title(title)
+    plt.savefig(os.path.join(outputdir,filename+".png"))
+    plt.close()
