@@ -1,0 +1,14 @@
+#!/bin/bash
+#$ -N run
+#$ -S /bin/sh
+#$ -cwd
+#Merge the standard out and standard error to one file
+#$ -j y
+#$ -l h_rt=02:00:00
+#$ -pe smp 4
+#$ -l membycore=1G
+
+ml CHARMM/39a1-goolf-1.4.10-mpi
+
+mpirun -np $NSLOTS charmm < run.in > pot_pmf.out
+
