@@ -1,3 +1,5 @@
+import matplotlib
+matplotlib.use("Agg")
 import sys,os
 basedir=os.getcwd()
 sys.path.append(os.path.join(basedir,"../.."))
