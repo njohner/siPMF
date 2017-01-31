@@ -119,7 +119,7 @@ class PMF():
       return 0.5*(k1+k2)
     """
     
-  def Plot(self,outputdir,filename,n_levels=None,max_E=None,windows=None,energy_units="",title=""):
+  def Plot(self,outputdir,filename,n_levels=None,max_E=None,windows=None,energy_units="",title="",xlim=[],ylim=[]):
     """
     Plot the PMF.
 
@@ -175,6 +175,8 @@ class PMF():
             if p2 and y-yp<-p2/2.:
               yp-=p2
             plt.annotate("",xy=(x,y),xytext=(xp,yp),arrowprops=dict(facecolor="k",width=0.5,frac=0.2,headwidth=4),annotation_clip=False)
+      if xlim:plt.xlim(xlim)
+      if ylim:plt.ylim(ylim)
     elif self.dimensionality==1:
       plt.figure()
       plt.plot(self.points,self.values)
@@ -182,6 +184,7 @@ class PMF():
       if self.cv_list[0].units:plt.xlabel("{0} [{1}]".format(self.cv_list[0].name,self.cv_list[0].units))
       else:plt.xlabel("{0}".format(self.cv_list[0].name))
       plt.ylabel("Free Energy")
+      if xlim:plt.xlim(xlim)
     if title:plt.title(title)
     plt.savefig(os.path.join(outputdir,filename+".png"))
     plt.close()

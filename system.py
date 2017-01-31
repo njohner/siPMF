@@ -105,6 +105,7 @@ def LoadSystem(filename):
   f=open(filename+".pkl","r")
   system=pickle.load(f)
   f.close()
+  system.UpdateToNewVersion()
   return system
 
 class System():
@@ -194,6 +195,9 @@ class System():
     self.adapt_window_centers=adapt_window_centers
     self.check_free_energy=check_free_energy
     self.name=name
+
+  def UpdateToNewVersion(self):
+    if not hasattr(self,"name"):self.name=""
 
   def Save(self,filename):
     """
@@ -476,13 +480,14 @@ class System():
       w.free_energy+=shift
     return shift
 
-  def PlotPMF(self,fname_extension=""):
+  def PlotPMF(self,fname_extension="",xlim=[],ylim=[],arrows=True):
     """
     Plot the PMF.
     """
     if self.pmf:
       filename="pmf_{0}{1}".format(len(self.windows),fname_extension)
-      self.pmf.Plot(self.pmf_dir,filename,max_E=self.max_E_plot,windows=self.windows,title=self.name)
+      if arrows:self.pmf.Plot(self.pmf_dir,filename,max_E=self.max_E_plot,windows=self.windows,title=self.name,xlim=xlim,ylim=ylim)
+      else:self.pmf.Plot(self.pmf_dir,filename,max_E=self.max_E_plot,title=self.name,xlim=xlim,ylim=ylim)
     else:
       logging.info("PMF has to be initialized before it can be plotted.")
 
