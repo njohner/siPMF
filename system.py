@@ -13,7 +13,7 @@ from window import Window
 from phase import Phase
 from other import *
 
-__all__=('LoadSystem','System')
+__all__=('LoadSystem','System',"RebuildWindowsAndPhasesFromDirectoryTree")
 
 def RebuildWindowsAndPhasesFromDirectoryTree(system):
   """
