@@ -11,5 +11,4 @@
 
 module load NAMD/2.9_Linux-x86_64-multicore
 
-namd2 +p$NSLOTS initialize.in > test.out
-#namd2 +p$NSLOTS namd_run.in > test.out
+namd2 +p$NSLOTS initialize.in > ala_pmf.out

@@ -2,7 +2,7 @@
 # variables in upper case will be set by iPMF for each window
 
 set   basedir          {BASEDIR}
-set   common           $basedir/../data/common
+set   common           $basedir/common
 set   topdir           $common
 set   colvar_temp_file $basedir/umbrella_run_temp.in
 set   colvarfile       {OUTPUTDIR}/umbrella.in

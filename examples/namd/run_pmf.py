@@ -1,7 +1,10 @@
+import matplotlib
+matplotlib.use("Agg")
 import sys,os,logging
-basedir=os.getcwd()
 sys.path.append(os.path.join(basedir,"../.."))
 from siPMF import *
+
+basedir=os.getcwd()
 
 #Setup the log file. This has to be done before the other objects are created.
 logging.basicConfig(filename=os.path.join(basedir,"siPMF.log"),level=logging.INFO,format='%(asctime)s: %(levelname)s: %(message)s', datefmt='%m/%d/%Y %I:%M %p')
@@ -30,8 +33,8 @@ cv2=CollectiveVariable(name,min_value,max_value,step_size,num_bins,spring_consta
 cv_list=[cv1,cv2]
 init_input_fname="initialize.in"
 run_input_fname="run.in"
-init_job_fname="namd_init.lsf"
-run_job_fname="namd_run.lsf"
+init_job_fname="submit_init.lsf"
+run_job_fname="submit_run.lsf"
 data_filename="alanine.colvars.traj"
 init_nstep=1000
 run_nstep=5000
@@ -46,7 +49,7 @@ alanine_system=System(basedir,cv_list,init_input_fname,run_input_fname,init_job_
 #Initialize the system, i.e. generate the starting window.
 cv_values=[90,90]
 spring_constants=[0.05,0.05]
-init_restartdir=os.path.join(basedir,"../data/equilibration")
+init_restartdir=os.path.join(basedir,"equilibration")
 alanine_system.Initialize(cv_values,spring_constants,init_restartdir)
 
 #Now we create the SiPMF object and start the calculation
