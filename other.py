@@ -3,12 +3,14 @@
 
 This file contains the :class:`CollectiveVariable` and the :class:`PMF` class.
 """
-import os,time
+import os
+import time
 import scipy.interpolate
 from scipy.interpolate import NearestNDInterpolator
 import matplotlib.pyplot as plt
 import numpy as npy
 import logging
+
 
 class CollectiveVariable():
   """
@@ -20,10 +22,11 @@ class CollectiveVariable():
   calculation of the PMF. The step size defines the distance between two neighboring windows.
   Finally the units are just used in the labels of the plots of the PMF.
   """
-  def __repr__(self):
-    return "CollectiveVariable({0},{1},{2},{3},{4},{5})".format(self.name,self.min_value,self.max_value,self.step_size,self.num_bins,self.periodicity,self.units)
 
-  def __init__(self,cv_name,min_value,max_value,step_size,num_bins,min_spring_constant,max_spring_constant=None,max_shift=None,periodicity=None,units=""):
+  def __repr__(self):
+    return "CollectiveVariable({0},{1},{2},{3},{4},{5})".format(self.name, self.min_value, self.max_value, self.step_size, self.num_bins, self.periodicity, self.units)
+
+  def __init__(self, cv_name, min_value, max_value, step_size, num_bins, min_spring_constant, max_spring_constant=None, max_shift=None, periodicity=None, units=""):
     """
     :param cv_name: The name of the CV
     :param min_value: The minimal value of the CV
@@ -43,37 +46,42 @@ class CollectiveVariable():
     :type periodicity: :class:`float`
     :type units: :class:`str`
     """
-    self.name=cv_name
-    self.min_value=min_value
-    self.max_value=max_value
-    self.min_spring_constant=min_spring_constant
-    if max_spring_constant:self.max_spring_constant=max_spring_constant
-    else:self.max_spring_constant=min_spring_constant
-    if max_shift:self.max_shift=max_shift
-    else: self.max_shift=0.0
-    self.step_size=step_size
-    self.num_bins=num_bins
-    self.bin_size=(self.max_value-self.min_value)/float(num_bins)
-    self.periodicity=periodicity
-    self.units=units
-    #We extend the cv for the calculation of the PMF by step_size, so that windows
-    #in the edge still have their free energy calculated properly
-    if not self.periodicity:
-      self.num_pads=0
-      self.wham_min_value=self.min_value-step_size
-      self.wham_max_value=self.max_value+step_size
-      self.wham_num_bins=num_bins+2*int(step_size/self.bin_size)
+    self.name = cv_name
+    self.min_value = min_value
+    self.max_value = max_value
+    self.min_spring_constant = min_spring_constant
+    if max_spring_constant:
+      self.max_spring_constant = max_spring_constant
     else:
-      self.num_pads=int(step_size/self.bin_size)
-      self.wham_min_value=self.min_value
-      self.wham_max_value=self.max_value
-      self.wham_num_bins=num_bins
+      self.max_spring_constant = min_spring_constant
+    if max_shift:
+      self.max_shift = max_shift
+    else:
+      self.max_shift = 0.0
+    self.step_size = step_size
+    self.num_bins = num_bins
+    self.bin_size = (self.max_value - self.min_value) / float(num_bins)
+    self.periodicity = periodicity
+    self.units = units
+    # We extend the cv for the calculation of the PMF by step_size, so that windows
+    # in the edge still have their free energy calculated properly
+    if not self.periodicity:
+      self.num_pads = 0
+      self.wham_min_value = self.min_value - step_size
+      self.wham_max_value = self.max_value + step_size
+      self.wham_num_bins = num_bins + 2 * int(step_size / self.bin_size)
+    else:
+      self.num_pads = int(step_size / self.bin_size)
+      self.wham_min_value = self.min_value
+      self.wham_max_value = self.max_value
+      self.wham_num_bins = num_bins
+
 
 class PMF():
   def __repr__(self):
-    return "PMF({0},{1})".format(self.points,self.values)
+    return "PMF({0},{1})".format(self.points, self.values)
 
-  def __init__(self,points,values,cv_list,max_E):
+  def __init__(self, points, values, cv_list, max_E):
     """
     :param points: values of the CVs at which the PMF is found in values.
     :param values: Free energy corresponding to CV values in points
@@ -82,17 +90,22 @@ class PMF():
     :type values: :class:`numpy.array`
     :type cv_list: :class:`list` (:class:`~other.CollectiveVariable`)
     """
-    self.points=points
-    self.values=[el if not el in [9999999.0,npy.inf] else max_E for el in values]
-    self.cv_list=cv_list
-    self.dimensionality=len(self.cv_list)
-    self.max_E=max_E
+    self.points = points
+    self.values = [el if not el in [
+        9999999.0, npy.inf] else max_E for el in values]
+    self.cv_list = cv_list
+    self.dimensionality = len(self.cv_list)
+    self.max_E = max_E
     #if self.dimensionality==1:self.interpolator=scipy.interpolate.interp1d(self.points,self.values)
-    if self.dimensionality==1:self.interpolator=scipy.interpolate.InterpolatedUnivariateSpline(self.points,self.values)
-    else:self.interpolator=scipy.interpolate.interpnd.LinearNDInterpolator(self.points,self.values)
-    #self.interpolator=NearestNDInterpolator(self.points,self.values)
+    if self.dimensionality == 1:
+      self.interpolator = scipy.interpolate.InterpolatedUnivariateSpline(
+          self.points, self.values)
+    else:
+      self.interpolator = scipy.interpolate.interpnd.LinearNDInterpolator(
+          self.points, self.values)
+    # self.interpolator=NearestNDInterpolator(self.points,self.values)
 
-  def GetValue(self,point):
+  def GetValue(self, point):
     """
     Free energy at a certain position on the free energy surface.
 
@@ -100,12 +113,13 @@ class PMF():
     """
     return float(self.interpolator(tuple(point)))
 
-  def GetCurvatures(self,point,steps):
-    curvatures=[]
+  def GetCurvatures(self, point, steps):
+    curvatures = []
     for i in range(self.dimensionality):
-      step=npy.zeros(self.dimensionality)
-      step[i]=steps[i]
-      curvatures.append((self.GetValue(point+step)+self.GetValue(point-step)-2*self.GetValue(point))/(steps[i]*steps[i]))
+      step = npy.zeros(self.dimensionality)
+      step[i] = steps[i]
+      curvatures.append((self.GetValue(point + step) + self.GetValue(point -
+                                                                     step) - 2 * self.GetValue(point)) / (steps[i] * steps[i]))
     return curvatures
     """
     curvatures=[self.GetValue(point+steps)+self.GetValue(point-steps)-2*self.GetValue(point)]
@@ -118,8 +132,8 @@ class PMF():
       k2=self.GetValue(point-s2)+self.GetValue(point+s2)-2*self.GetValue(point)
       return 0.5*(k1+k2)
     """
-    
-  def Plot(self,outputdir,filename,n_levels=None,max_E=None,windows=None,energy_units="",title="",xlim=[],ylim=[]):
+
+  def Plot(self, outputdir, filename, n_levels=None, max_E=None, windows=None, energy_units="", title="", xlim=[], ylim=[]):
     """
     Plot the PMF.
 
@@ -130,61 +144,81 @@ class PMF():
     :param windows: If a list of windows is passed, arrows showing the exploration will be plotted
     :param energy_units: Units displayed for the energy axis
     """
-    if not self.dimensionality in [1,2]:
+    if not self.dimensionality in [1, 2]:
       logging.info("can only plot PMF for 1 or 2 dimensional systems")
       return
-    if not max_E:max_E=self.max_E
-    if not n_levels:n_levels=int(max_E)
-    if self.dimensionality==2:
-      X=self.points[:,0]
-      Y=self.points[:,1]
-      Z=self.values
-      if max_E:Z=npy.array([min(el,max_E) for el in Z])
-      num_pads=max([self.cv_list[0].num_pads,self.cv_list[1].num_pads])
-      nb_x=self.cv_list[0].wham_num_bins+2*num_pads
-      nb_y=self.cv_list[1].wham_num_bins+2*num_pads
-      X=X.reshape([nb_x,nb_y])
-      Y=Y.reshape([nb_x,nb_y])
-      Z=Z.reshape([nb_x,nb_y])
+    if not max_E:
+      max_E = self.max_E
+    if not n_levels:
+      n_levels = int(max_E)
+    if self.dimensionality == 2:
+      X = self.points[:, 0]
+      Y = self.points[:, 1]
+      Z = self.values
+      if max_E:
+        Z = npy.array([min(el, max_E) for el in Z])
+      num_pads = max([self.cv_list[0].num_pads, self.cv_list[1].num_pads])
+      nb_x = self.cv_list[0].wham_num_bins + 2 * num_pads
+      nb_y = self.cv_list[1].wham_num_bins + 2 * num_pads
+      X = X.reshape([nb_x, nb_y])
+      Y = Y.reshape([nb_x, nb_y])
+      Z = Z.reshape([nb_x, nb_y])
       plt.figure()
-      plt.contourf(X,Y,Z,n_levels)
+      plt.contourf(X, Y, Z, n_levels)
       plt.colorbar(label=energy_units)
-      plt.contour(X,Y,Z,n_levels,colors="k")
-      if self.cv_list[0].units:plt.xlabel("{0} [{1}]".format(self.cv_list[0].name,self.cv_list[0].units))
-      else:plt.xlabel("{0}".format(self.cv_list[0].name))
-      if self.cv_list[1].units:plt.ylabel("{0} [{1}]".format(self.cv_list[1].name,self.cv_list[1].units))
-      else:plt.ylabel("{0}".format(self.cv_list[1].name))
+      plt.contour(X, Y, Z, n_levels, colors="k")
+      if self.cv_list[0].units:
+        plt.xlabel("{0} [{1}]".format(
+            self.cv_list[0].name, self.cv_list[0].units))
+      else:
+        plt.xlabel("{0}".format(self.cv_list[0].name))
+      if self.cv_list[1].units:
+        plt.ylabel("{0} [{1}]".format(
+            self.cv_list[1].name, self.cv_list[1].units))
+      else:
+        plt.ylabel("{0}".format(self.cv_list[1].name))
       if windows:
-        p1=self.cv_list[0].periodicity
-        p2=self.cv_list[1].periodicity
-        if not p1:p1=0
-        if not p2:p2=0
+        p1 = self.cv_list[0].periodicity
+        p2 = self.cv_list[1].periodicity
+        if not p1:
+          p1 = 0
+        if not p2:
+          p2 = 0
         for w in windows:
           if w.parent:
-            p=w.parent
-            x=w.cv_values[0]
-            y=w.cv_values[1]
-            xp=p.cv_values[0]
-            yp=p.cv_values[1]
-            if p1 and x-xp>p1/2.:
-              xp+=p1
-            if p1 and x-xp<-p1/2.:
-              xp-=p1
-            if p2 and y-yp>p2/2.:
-              yp+=p2
-            if p2 and y-yp<-p2/2.:
-              yp-=p2
-            plt.annotate("",xy=(x,y),xytext=(xp,yp),arrowprops=dict(facecolor="k",width=0.5,frac=0.2,headwidth=4),annotation_clip=False)
-      if xlim:plt.xlim(xlim)
-      if ylim:plt.ylim(ylim)
-    elif self.dimensionality==1:
+            p = w.parent
+            x = w.cv_values[0]
+            y = w.cv_values[1]
+            xp = p.cv_values[0]
+            yp = p.cv_values[1]
+            if p1 and x - xp > p1 / 2.:
+              xp += p1
+            if p1 and x - xp < -p1 / 2.:
+              xp -= p1
+            if p2 and y - yp > p2 / 2.:
+              yp += p2
+            if p2 and y - yp < -p2 / 2.:
+              yp -= p2
+            plt.annotate("", xy=(x, y), xytext=(xp, yp), arrowprops=dict(
+                facecolor="k", width=0.5, frac=0.2, headwidth=4), annotation_clip=False)
+      if xlim:
+        plt.xlim(xlim)
+      if ylim:
+        plt.ylim(ylim)
+    elif self.dimensionality == 1:
       plt.figure()
-      plt.plot(self.points,self.values)
-      if max_E:plt.ylim([0,max_E])
-      if self.cv_list[0].units:plt.xlabel("{0} [{1}]".format(self.cv_list[0].name,self.cv_list[0].units))
-      else:plt.xlabel("{0}".format(self.cv_list[0].name))
+      plt.plot(self.points, self.values)
+      if max_E:
+        plt.ylim([0, max_E])
+      if self.cv_list[0].units:
+        plt.xlabel("{0} [{1}]".format(
+            self.cv_list[0].name, self.cv_list[0].units))
+      else:
+        plt.xlabel("{0}".format(self.cv_list[0].name))
       plt.ylabel("Free Energy")
-      if xlim:plt.xlim(xlim)
-    if title:plt.title(title)
-    plt.savefig(os.path.join(outputdir,filename+".png"))
+      if xlim:
+        plt.xlim(xlim)
+    if title:
+      plt.title(title)
+    plt.savefig(os.path.join(outputdir, filename + ".png"))
     plt.close()
