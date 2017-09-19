@@ -220,5 +220,5 @@ class PMF():
         plt.xlim(xlim)
     if title:
       plt.title(title)
-    plt.savefig(os.path.join(outputdir, filename + ".png"))
+    plt.savefig(os.path.join(outputdir, filename))
     plt.close()
