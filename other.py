@@ -133,7 +133,7 @@ class PMF():
       return 0.5*(k1+k2)
     """
 
-  def Plot(self, outputdir, filename, n_levels=None, max_E=None, windows=None, energy_units="", title="", xlim=[], ylim=[]):
+  def Plot(self, outputdir, filename, n_levels=None, max_E=None, windows=None, energy_units="", title="", xlim=None, ylim=None):
     """
     Plot the PMF.
 
