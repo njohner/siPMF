@@ -144,7 +144,7 @@ class System():
     :param n_data: The number of data wanted for each window.
     :param max_E1: Lower boundary of free energy threshold to decide whether to extend the simulation to neighboring windows or not.
     :param max_E2: Upper boundary of free energy threshold to decide whether to extend the simulation to neighboring windows or not.
-    :param temperature: The temperature at which WHAM is performed.
+    :param temperature: The temperature at which WHAM is performed and used to replace the {TEMPERATURE} field in the MD inputs.
     :param check_fnames: Filenames that will be checked to exist to determine whether a phase has finished properly
     :param target_cv_vals: Target values of the CVs. Once the system has reached these values it will only use max_E1 as energy threshold to generate new windows.
     :param adapt_spring_constants: If spring constants should be automatically adapted for each window.

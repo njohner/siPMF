@@ -126,7 +126,8 @@ class Job():
     """
     to_replace = {"{BASEDIR}": self.phase.window.system.basedir,
                   "{RESTARTDIR}": self.phase.restartdir,
-                  "{OUTPUTDIR}": self.phase.outdir}
+                  "{OUTPUTDIR}": self.phase.outdir,
+                  "{TEMPERATURE}": self.phase.window.system.temperature}
     for cvn, cvv, cvs in zip(self.phase.window.cv_names, self.phase.window.cv_values, self.phase.window.cv_shifts):
       to_replace["{" + cvn + "}"] = cvv + cvs
     for cvn, cvk in zip(self.phase.window.cv_names, self.phase.window.spring_constants):
