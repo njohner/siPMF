@@ -119,7 +119,7 @@ class System():
   def __repr__(self):
     return "System({0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12})".format(self.basedir,self.cv_list,self.init_input_fname,self.run_input_fname,self.init_job_fname,self.run_job_fname,self.data_filename,self.init_nstep,self.run_nstep,self.n_data,self.max_E1,self.max_E2,self.temperature)
 
-  def __init__(self,basedir,cv_list,init_input_fname,run_input_fname,init_job_fname,run_job_fname,data_filename,init_nstep,run_nstep,n_data,max_E1,max_E2,temperature,check_fnames=[],target_cv_vals=[],adapt_spring_constants=True,adapt_window_centers=True,check_free_energy=True,name=""):
+  def __init__(self,basedir,cv_list,init_input_fname,run_input_fname,init_job_fname,run_job_fname,data_filename,init_nstep,run_nstep,n_data,max_E1,max_E2,temperature,check_fnames=None,target_cv_vals=None,adapt_spring_constants=True,adapt_window_centers=True,check_free_energy=True,name=""):
     """
     :param basedir: The root directory in which the PMF calculation will be performed. Windows and
      phases will correspond to subdirectories of *basedir*.
@@ -136,7 +136,7 @@ class System():
     :param max_E1: Lower boundary of free energy threshold to decide whether to extend the simulation to neighboring windows or not.
     :param max_E2: Upper boundary of free energy threshold to decide whether to extend the simulation to neighboring windows or not.
     :param temperature: The temperature at which WHAM is performed.
-    :param check_fnames: Filenames that file be checked to exist to determine whether a phase has finished properly 
+    :param check_fnames: Filenames that will be checked to exist to determine whether a phase has finished properly 
     :param target_cv_vals: Target values of the CVs. Once the system has reached these values it will only use max_E1 as energy threshold to generate new windows.
     :param adapt_spring_constants: If spring constants should be automatically adapted for each window.
     :param adapt_window_centers: If window centers should be automatically adapted for each window.
@@ -169,6 +169,7 @@ class System():
     self.hist_dir=os.path.join(basedir,"Histogram")
     subprocess.call(["mkdir",self.hist_dir])
     self.temperature=temperature
+    if not check_fnames:check_fnames=[]
     self.check_fnames=check_fnames
     self.max_E1=max_E1
     self.max_E2=max_E2
@@ -189,6 +190,7 @@ class System():
     self.path_to_pmf_input=os.path.join(self.pmf_dir,"pmf_input.txt")
     self.path_to_pmf_output=os.path.join(self.pmf_dir,"pmf.txt")
     self.pmf=None
+    if not target_cv_vals:target_cv_vals=[]
     self.target_cv_vals=target_cv_vals
     self.reached_target=False
     self.adapt_spring_constants=adapt_spring_constants
