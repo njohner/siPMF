@@ -61,7 +61,7 @@ def RebuildWindowsAndPhasesFromDirectoryTree(system):
           info["parent cv values"], info["parent spring constants"])
       w.parent = parent_window
     if "cv_shifts" in info:
-      self.cv_shifts = info["cv_shifts"]
+      system.cv_shifts = info["cv_shifts"]
   # Now we add the phases to each window
   for w in system.windows:
     if os.path.isdir(os.path.join(w.subdir, "initialization")):
