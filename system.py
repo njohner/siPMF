@@ -128,7 +128,7 @@ class System():
   def __repr__(self):
     return "System({0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12})".format(self.basedir, self.cv_list, self.init_input_fname, self.run_input_fname, self.init_job_fname, self.run_job_fname, self.data_filename, self.init_nstep, self.run_nstep, self.n_data, self.max_E1, self.max_E2, self.temperature)
 
-  def __init__(self, basedir, cv_list, init_input_fname, run_input_fname, init_job_fname, run_job_fname, data_filename, init_nstep, run_nstep, n_data, max_E1, max_E2, temperature, check_fnames=None, target_cv_vals=None, adapt_spring_constants=True, adapt_window_centers=True, check_free_energy=True, name=""):
+  def __init__(self, basedir, cv_list, init_input_fname, run_input_fname, init_job_fname, run_job_fname, data_filename, init_nstep, run_nstep, n_data, max_E1, max_E2, temperature, check_fnames=None, target_cv_vals=None, adapt_spring_constants=False, adapt_window_centers=False, check_free_energy=True, name=""):
     """
     :param basedir: The root directory in which the PMF calculation will be performed. Windows and
      phases will correspond to subdirectories of *basedir*.
