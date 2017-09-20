@@ -5,19 +5,12 @@ This module contains the :class:`siPMF` class
 """
 import time
 import logging
-import os
-from environment import Environment
-from system import System
-from window import Window
-from phase import Phase
-from job import Job
-from other import PMF, CollectiveVariable
 
 
 class SiPMF():
   """
   The :class:`siPMF` class defines the process that will supervise the whole calculation of
-  the free energy landscape. It will survey the status of the jobs, submit new jobs, create 
+  the free energy landscape. It will survey the status of the jobs, submit new jobs, create
   new windows and so on.
   """
 
@@ -51,7 +44,7 @@ class SiPMF():
     Run the process to explore the free energy landscape. The process is an infinite loop in which
     it will sleep for some time, then when it wakes up it checks the status of the jobs in the queue.
     If some jobs have finished, it will submit new phases for the corresponding windows if necessary
-    (i.e not enough data accumulated yet). When all the windows have been properly sampled, and no more 
+    (i.e not enough data accumulated yet). When all the windows have been properly sampled, and no more
     jobs are running, it will create new windows and start sampling those.
     The process either stops when it cannot create any new windows or when it has run for more than a preset
     time or if it has submitted more jobs than a preset maximal number of jobs. For any of these stopping

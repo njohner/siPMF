@@ -13,7 +13,8 @@ import itertools
 import pickle
 from window import Window
 from phase import Phase
-from other import *
+from pmf import PMF
+import time
 
 __all__ = ('LoadSystem', 'System', "RebuildWindowsAndPhasesFromDirectoryTree")
 
@@ -230,8 +231,8 @@ class System():
 
     :param cv_values: The values to which the collective variables should be restrained for this window.
     :param spring_constants: The spring constants used to restrain the collective variables
-    :param init_restartdir: *basedir/init_restartdir* should point to the directory containing the files 
-     from which the simulation of the first phase of this window should be restarted. 
+    :param init_restartdir: *basedir/init_restartdir* should point to the directory containing the files
+     from which the simulation of the first phase of this window should be restarted.
 
     :type cv_values: :class:`list` (:class:`float`)
     :type spring_constants: :class:`list` (:class:`float`)
@@ -245,7 +246,7 @@ class System():
 
   def UpdateUnfinishedJobList(self, environment):
     """
-    Check whether running jobs are still in the queue and update 
+    Check whether running jobs are still in the queue and update
     the list of unfinished jobs and updated windows.
 
     :param environment:  The environment used to check the job status
@@ -382,7 +383,7 @@ class System():
 
   def UpdateDataFiles(self, n_skip=0, n_tot=-1, new_only=True):
     """
-    Updates the datafiles of all windows. For each *window*, it takes the data 
+    Updates the datafiles of all windows. For each *window*, it takes the data
     from all the run phases and writes it into a datafile, skipping the first n_skip data points
     and adding a maximum of n_tot data points for each window.
     *n_tot=-1* means there is no maximal number of data points.
@@ -586,7 +587,7 @@ class System():
             continue
           if any([cv_val < cv.min_value for cv_val, cv in zip(new_cv_vals, self.cv_list)]):
             continue
-          if not new_cv_vals in new_windows:
+          if new_cv_vals not in new_windows:
             new_windows[new_cv_vals] = {}
             new_windows[new_cv_vals]["parent"] = window
           else:
@@ -595,7 +596,7 @@ class System():
       # Estimate what the free energy in that window could be
       steps2 = [npy.arange(-cv.step_size / 2., cv.step_size /
                            2., cv.bin_size) for cv in self.cv_list]
-      delta_cv_list = list(itertools.product(*steps))
+      delta_cv_list = list(itertools.product(*steps2))
       for cv_values in new_windows:
         El = [float(self.pmf.interpolator.__call__(tuple(
             npy.array(cv_values) - npy.array(delta_cv)))) for delta_cv in delta_cv_list]
@@ -607,7 +608,7 @@ class System():
       # Add the new windows
       n_new_windows = 0
       for cv_values in new_windows:
-        if (self.check_free_energy == False) or (new_windows[cv_values]["free_energy"] + fe_shift < max_free_energy):
+        if (self.check_free_energy is False) or (new_windows[cv_values]["free_energy"] + fe_shift < max_free_energy):
           parent = new_windows[cv_values]["parent"]
           if self.adapt_spring_constants:
             curvatures = parent.curvatures
