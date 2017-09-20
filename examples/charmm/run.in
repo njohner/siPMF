@@ -102,7 +102,7 @@ END
 scalar mass stat
 calc Pmass = int ( ?stot  /  50.0 )
 
-set temp = 303.15
+set temp = {TEMPERATURE}
 shake bonh param fast
 
 open read  unit 11 card name "@RESTARTDIR/pot_pmf.rst"

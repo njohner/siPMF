@@ -18,7 +18,7 @@ set   nstep        {INIT_NSTEP}
 
 structure          $common/ionized.psf
 coordinates        $common/ionized.pdb
-set temp           303.15;
+set temp           {TEMPERATURE};
 
 outputName         alanine;        # base name for output from this run
 
