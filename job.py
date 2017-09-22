@@ -63,7 +63,7 @@ class Job():
     """
     to_replace = {"{BASEDIR}": self.phase.window.system.basedir,
                   "{RESTARTDIR}": self.phase.restartdir,
-                  "{OUTPUTDIR}": self.phase.outdir
+                  "{OUTPUTDIR}": self.phase.outdir,
                   "{WINDOW}": self.phase.window.name,
                   "{PHASE}": self.phase.name,
                   "{INPUTFILE}": self.path_to_input_file}
