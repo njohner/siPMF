@@ -3,7 +3,7 @@ matplotlib.use("Agg")
 import sys,os,logging
 
 basedir=os.getcwd()
-sys.path.append(os.path.join(basedir,"../.."))
+sys.path.append(os.path.join(basedir,"../../.."))
 from siPMF import *
 
 
