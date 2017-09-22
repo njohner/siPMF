@@ -86,6 +86,8 @@ class Window():
     if self.parent:
       d.update({"parent cv values": self.parent.cv_values})
       d.update({"parent spring constants": self.parent.spring_constants})
+    else:
+      d.update({"init_restartdir": self.init_restartdir})
     f = open(os.path.join(self.subdir, "info.pkl"), "w")
     pickle.dump(d, f)
     f.close()
@@ -96,7 +98,7 @@ class Window():
     submits it to the cluster. What the appropriate next phase is, is determined as follows:
 
     - If the window does not have a parent and does not contain any phase yet, the new phase will be
-    a run phase using as restart the *System.init_restartdir*
+    a run phase using as restart its *init_restartdir*
     - If the window has a parent phase does not contain any phase yet, the new phase will be
     an initialization phase using as restart the last phase of the parent phase.
     - If the window already contains one or several phases, the new phase will be

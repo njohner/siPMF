@@ -49,7 +49,7 @@ class Phase():
       self.restartdir = parent_phase.outdir
       # self.restartname=parent_phase.outname
     else:
-      self.restartdir = self.window.system.init_restartdir
+      self.restartdir = self.window.init_restartdir
       # self.restartname=self.window.system.init_restartname
     self.outdir = os.path.join(self.window.subdir, self.name)
     self.path_to_datafile = os.path.join(

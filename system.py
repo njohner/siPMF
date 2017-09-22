@@ -28,9 +28,7 @@ def RebuildWindowsAndPhasesFromDirectoryTree(system):
   used for some reason.
 
   :param system: The system, which should have been initialized with
-   the same cv_list and such. You also need to manually set the
-   *system.init_restartdir* before passing the *system* to this function.
-   This is the restart directory of the initial phase of the calculation.
+   the same cv_list and such.
   :type system: :class:`~system.System`
 
   """
@@ -241,7 +239,7 @@ class System():
     w = Window(self, cv_values, spring_constants)
     w.Initialize()
     self.windows.append(w)
-    self.init_restartdir = init_restartdir
+    self.window.init_restartdir = init_restartdir
     self.updated_windows.append(self.windows[-1])
 
   def UpdateUnfinishedJobList(self, environment):
