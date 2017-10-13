@@ -594,10 +594,10 @@ class System():
       # Estimate what the free energy in that window could be
       steps2 = [npy.arange(-cv.step_size / 2., cv.step_size /
                            2., cv.bin_size) for cv in self.cv_list]
-      delta_cv_list = list(itertools.product(*steps2))
+      delta_cv_list2 = list(itertools.product(*steps2))
       for cv_values in new_windows:
         El = [float(self.pmf.interpolator.__call__(tuple(
-            npy.array(cv_values) - npy.array(delta_cv)))) for delta_cv in delta_cv_list]
+            npy.array(cv_values) - npy.array(delta_cv)))) for delta_cv in delta_cv_list2]
         try:
           new_windows[cv_values]["free_energy"] = min(
               [el for el in El if not npy.isnan(el)])
